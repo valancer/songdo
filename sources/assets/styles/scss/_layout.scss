@@ -1,0 +1,97 @@
+
+html { box-sizing: border-box; height: 101%; }
+body { overflow-x: hidden; overflow-y: auto;
+	&:before { content: ''; display: block; pointer-events: none; position: fixed; top: 30px; right: 30px; bottom: 30px; left: 30px; z-index: z("modaless"); border: 7px solid #fff; }
+}
+
+
+
+/* memus */
+.menus { display: block; position: fixed; top: 37px; right: 30px; bottom: 37px; z-index: z("modaless") + 1; width: 50px; background-color: #fff;
+	.title-area { display: block; position: fixed; top: 60px; left: 60px;
+		.sondgo { display: block; text-indent: -9999px; @include sprite($s-title-songdo); }
+	}
+
+	
+	$button-size : 24px;
+	$transition: .3s;
+
+	@mixin line { display: inline-block; height: 3px; width: 24px; background-color: #000; transition: $transition; }
+	.btn-toggle-menu { display: block; position: absolute; top: 10px; right: 7px; padding: 8px 6px 12px 6px; transition: .3s; cursor: pointer; user-select: none; border-radius: $button-size/7; background-color: #0f0;
+		&:hover { opacity: 1; }
+
+		&:active { transition: 0; background-color: rgba(0,0,0,.1); }
+
+		.lines { @include line; position: relative; 
+			&:before, &:after { content: ''; position: absolute; left: 0; transform-origin: $button-size/14 center;
+				@include line;
+			}
+			&:before { top: $button-size/3; }
+			&:after { top: -$button-size/3; }
+		}
+
+		&.is-selected {
+			.lines { background-color: transparent;
+				&:before, &:after {
+					top: 0; width: $button-size; transform-origin: 50% 50%;
+				}
+
+				&:before { transform: rotate3d(0,0,1,45deg); }
+				&:after { transform: rotate3d(0,0,1,-45deg); }
+			}
+		}
+	}
+
+	.open-menus { display: block; box-sizing: border-box; overflow: hidden; padding: 0 26px; height: 100%;
+		.logo { display: block; margin: 58px auto 0 auto; text-indent: -9999px; @include sprite($s-logo01); }
+
+		.list-menus { margin-top: 38px;
+			> li { padding: 15px 0;
+				a { display: block; position: relative; margin: 0 auto; text-indent: -9999px;
+					&:hover {
+						&:before { content: ''; display: block; position: absolute; bottom: -8px; right: -4px; left: -4px; height: 3px; background-color: #000; }
+					}
+
+					&.btn-home { @include sprite($s-btn-nav01);
+						&:hover { @include sprite($s-btn-nav01-selected); }
+					}
+					&.btn-location { @include sprite($s-btn-nav02);
+						&:hover { @include sprite($s-btn-nav02-selected); }
+					}
+					&.btn-floor { @include sprite($s-btn-nav03);
+						&:hover { @include sprite($s-btn-nav03-selected); }
+					}
+					&.btn-membership { @include sprite($s-btn-nav04);
+						&:hover { @include sprite($s-btn-nav04-selected); }
+					}
+					&.btn-coupon { @include sprite($s-btn-nav05);
+						&:hover { @include sprite($s-btn-nav05-selected); }
+					}
+				}
+			}
+
+			&.is-hover {
+				a {
+					&.btn-home { @include sprite($s-btn-nav01-disabled); }
+					&.btn-location { @include sprite($s-btn-nav02-disabled); }
+					&.btn-floor { @include sprite($s-btn-nav03-disabled); }
+					&.btn-membership { @include sprite($s-btn-nav04-disabled); }
+					&.btn-coupon { @include sprite($s-btn-nav05-disabled); }
+				}
+			}
+		}
+
+
+		.banners {
+			a { display: block; margin-top: 20px; height: 135px; width: 183px; background-color: #0f0; }
+		}
+	}
+	
+	.list-indicators { display: block; position: absolute; top: 50%; left: 50%; margin-top: -179px; margin-left: -2px; width: 4px;
+		> li { margin: 3px 0; height: 24px; width: 4px; background-color: #9a9a9a;
+			&.long { height: 70px; }
+
+			> span { display: none; }
+		}
+	}	
+}

@@ -1,0 +1,15 @@
+
+
+/* scene */
+.scene { display: block; box-sizing: border-box; padding: 37px; height: 100vh; 
+
+}
+
+
+/* section1 - home */
+.scene.home { background: #2a2847 url('/assets/images/scene_home/bg_last.png') center center no-repeat; background-size: cover;
+
+}
+
+/* section2 - home */
+.scene.home-motion { background-color: #0f0; }

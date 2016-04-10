@@ -1,0 +1,1365 @@
+jQuery(document).ready(function($){
+
+    Pace.start();
+
+    var nbImg = $("#wrapper img").length;
+    var nbImgLoaded = 0;
+
+    $("#wrapper img").one("load",function() {
+        nbImgLoaded ++;
+    });
+    $('#wrapper img').one("error", function(){
+        nbImgLoaded ++;     
+    });
+    $("#wrapper img").each(function() {
+        //Cache fix for browsers that don't trigger .load()
+        if(this.complete) $(this).trigger('load');
+    });
+
+    
+    
+    function pathPrepare ($el) {
+        var lineLength = $el[0].getTotalLength();
+        $el.css("stroke-dasharray", lineLength);
+        $el.css("stroke-dashoffset", lineLength);
+        hideThis($el);
+    }
+
+    $('#logoLoading path').each(function(){
+        pathPrepare($(this));
+
+    });
+
+
+    var colorArr =["#ffe09c", "#cde4b0", "#e98e7d", "#6d969c" ];
+    var inc = 0;
+    var progressTotalFloorOld=0;
+    var interLoading;
+    if($('body').hasClass('pace-running')){
+
+        $('#logoLoading').css('opacity', 1);
+
+        interLoading = setInterval(function(){
+            
+            var temp = $('.pace-progress').attr('data-progress-text');
+            progressPace = parseFloat(temp)/10;
+            progressImg = 0;
+
+            progressImg = nbImgLoaded/nbImg*100;
+            // progressTotal = (progressPace+progressImg);
+            progressTotal = progressImg;
+            progressTotalFloor = Math.floor(progressTotal);
+
+            $('#percent h1').html(progressTotalFloor + '%');
+            if(progressTotalFloorOld != progressTotalFloor){
+                inc ++;
+                if(inc==4) inc = 0;
+                //$('#percent h1').css('color', colorArr[inc]);
+                TweenMax.to('#percent h1', 0.5,{css:{color:colorArr[inc]}})
+                progressTotalFloorOld = progressTotalFloor;
+            }
+
+
+            
+            if(progressTotal==100){
+                
+                clearInterval(interLoading);
+                
+                var timelineLogo = new TimelineMax()
+
+                .add([
+
+                    TweenMax.to('#loading', 0.5,{delay:0.5,opacity:0}),
+                    
+                    ])
+                .add([
+                    TweenMax.staggerTo('#logoLoading path', 1, {delay:0.5,onStart:showThis, onStartParams:['#logoLoading path'],strokeDashoffset: 0 , ease:Power1.easeInOut}, 0.5),
+                    TweenMax.to('.titleunder',1,{startAt:{y:10},y:0,delay:1,opacity:1}),
+                    ])
+                .add([
+                    TweenMax.fromTo($('.point1'), 0.5,{opacity:0, x:7, y:-10},{opacity:1, x:0, y:0, ease:Power1.easeOut, delay:-0.4}),
+                    ])
+                .add([
+                    TweenMax.fromTo($('.point2'), 0.5,{opacity:0, x:10, y:-10},{opacity:1, x:0, y:0, ease:Power1.easeOut, delay:-0.3}),
+                    ])
+                .add([
+                    TweenMax.to('.blackscreen2', 1,{opacity:0, ease:Power1.easeOut, delay:0.3, onComplete:removeThis, onCompleteParams:['.blackscreen2'], delay:0.5}),
+                    ])
+                .add([
+                    TweenMax.fromTo('.arrow', 1,{opacity:0}, {opacity:1, delay:1}),
+                    TweenMax.to('.arrow img', 0.5, {y:10, yoyo:true, repeat:-1, ease:Power3.easeIn}),
+                    ]);
+            }
+        }, 100);
+}
+
+
+
+var imageReady= false;
+var plugginReady = false;
+
+var menuArray =[];
+var currentMenu; 
+
+function svgUpdate(div){
+    if($(document).find(div).css('stroke-dashoffset')==$(document).find(div).css('stroke-dasharray')){
+        $(document).find(div).css('opacity',0);
+    }else{
+        $(document).find(div).css('opacity',1);
+    }
+
+}
+
+function hideThis(div){
+    $(document).find(div).css('visibility', 'hidden');
+}
+function showThis(div){
+    $(document).find(div).css('visibility', 'visible');
+}
+
+function stopTween(div){
+    TweenMax.killTweensOf(div);
+}
+
+function removeThis(e){
+
+    $(e).remove();
+}
+function stopParallax(){
+    homeScene.parallax('disable');
+}
+
+
+
+
+
+
+$('#tracesvg path').each(function(){
+    pathPrepare($(this));
+});
+
+$('#saladesvg path').each(function(){
+    pathPrepare($(this));
+});
+
+$('#surlepoucesvg path').each(function(){
+    pathPrepare($(this));
+});
+
+$('#nosplatssvg path').each(function(){
+    pathPrepare($(this));
+});
+
+$('#sushisvg path').each(function(){
+    pathPrepare($(this));
+});
+
+$('#nosgourmandisessvg path').each(function(){
+    pathPrepare($(this));
+});
+
+$('#cocktailssvg path').each(function(){
+    pathPrepare($(this));
+});
+
+$('#teatimesvg path').each(function(){
+    pathPrepare($(this));
+});
+
+
+
+
+
+
+
+var controller;
+var homeScene;
+var sceneFirst;
+var clicked = false; 
+
+
+var viewSize = $('.section1').height();
+var section = [0,viewSize*2,viewSize*3,viewSize*3,4400,viewSize,viewSize*2,viewSize,viewSize];
+
+
+
+var sizeFromTop = 0;
+var sectionScroll = [];
+for(i=0;i<=8;i++){
+    sizeFromTop += section[i];
+    sectionScroll[i]=sizeFromTop;
+}
+$(window).bind('resize', function(){
+    showArrow();
+    viewSize = $('.section1').height();
+    section = [0,viewSize*2,viewSize*3,viewSize*3,4400,viewSize,viewSize*2,viewSize,viewSize];
+    sizeFromTop = 0;
+    for(i=0;i<=8;i++){
+        sizeFromTop += section[i];
+        sectionScroll[i]=sizeFromTop;
+
+    }
+    controller.update(true);
+    map.panTo(mapLatLng);
+    homeScene.parallax('updateLayers');
+});
+
+
+    //$(window).trigger('resize').trigger('scroll');
+
+    var stopScroll ;
+
+    var map;
+    var mugsLatLng = new google.maps.LatLng(43.424158905339546,6.766588389873505);
+    var mapLatLng = new google.maps.LatLng(43.423960851683007,6.766588389873505);
+
+    function initMap(){
+
+        
+
+        var mapOptions = {
+            zoom: 17,
+            center : mapLatLng,
+            styles: [
+            {
+                "featureType": "all",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "hue": "#00c6ff"
+                }
+                ]
+            },
+            {
+                "featureType": "all",
+                "elementType": "geometry.fill",
+                "stylers": [
+                {
+                    "hue": "#ff0000"
+                },
+                {
+                    "saturation": "-100"
+                }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "visibility": "off"
+                }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "saturation": -100
+                },
+                {
+                    "hue": "#ffffff"
+                }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry.fill",
+                "stylers": [
+                {
+                    "visibility": "on"
+                }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                {
+                    "hue": "#ff0000"
+                }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.icon",
+                "stylers": [
+                {
+                    "lightness": "20"
+                }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "color": "#ffffff"
+                }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                {
+                    "color": "#d0d0d0"
+                }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                {
+                    "lightness": "-0"
+                },
+                {
+                    "hue": "#ff0000"
+                }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "labels.icon",
+                "stylers": [
+                {
+                    "hue": "#ff0000"
+                },
+                {
+                    "lightness": "10"
+                }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "visibility": "off"
+                }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "visibility": "simplified"
+                },
+                {
+                    "saturation": -60
+                },
+                {
+                    "color": "#bde3ee"
+                }
+                ]
+            }
+            ],
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: false,
+            disableDefaultUI: true
+        }
+        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+        var marker = new google.maps.Marker({
+            position: mugsLatLng,
+            zIndex: google.maps.Marker.MAX_ZINDEX,
+            map: map,
+
+        });
+
+    }
+
+    var delta ;
+    var oldDelta =0;
+    var resetDeltaTimer;
+    var date ;
+    var scrollInertiaTimer;
+    var oldTime;
+    var step = 100;
+    var speed = 100;
+
+    var lethargy = new Lethargy(); // Use defaults
+
+    $(window).bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e){
+        if($('.carte').css("visibility") == "visible"){
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+
+        if( $(window).scrollTop()<sectionScroll[3]){
+            e.preventDefault();
+            e.stopPropagation();
+            delta = lethargy.check(e);
+            if(delta !==false && delta != oldDelta){
+                oldDelta = delta;
+                TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / viewSize)*viewSize+(viewSize*delta*-1)}, ease:Quad.easeInOut, onComplete:resetOldDelta});
+            }
+            
+        }else{
+            
+            var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+            var is_windows = navigator.userAgent.toLowerCase().indexOf('windows') > -1;
+
+            if(is_chrome && is_windows){
+
+
+                delta = Math.abs(e.deltaY)/e.deltaY;
+
+                if(typeof e.deltaY === 'undefined'){
+                    delta = oldDelta;
+                }else{
+                    oldDelta = delta;
+                }
+                e.preventDefault();
+                e.stopPropagation();
+                //console.log(-delta*speed);
+
+
+                setTimeout(accel, 300);
+                speed +=20;
+                if(speed==120){
+                    TweenMax.to(window, 0.3, {scrollTo:{y:$(window).scrollTop()-delta*speed}, ease:Quad.easeInOut, onComplete:resetOldDelta});
+                }else{
+                    TweenMax.to(window, 0.3, {scrollTo:{y:$(window).scrollTop()-delta*speed}, ease:Quad.easeOut, onComplete:resetOldDelta});
+                }
+                
+            }
+            
+        }
+        
+    });
+function accel(){
+    speed = 100;
+}
+
+function resetOldDelta(){
+    oldDelta = 0;
+    speed = 100;
+}
+
+$(window).bind('scroll', function(e) {
+
+    controller.update(true);
+
+    if($(window).scrollTop() < sectionScroll[5] && $(window).scrollTop()>sectionScroll[4]-viewSize){
+        $('.slideshow').addClass('play').removeClass('pause');
+    }else{
+        $('.slideshow').addClass('pause').removeClass('play');
+    }
+
+
+    clearTimeout(stopScroll);
+    stopScroll = setTimeout(windowStopScroll, 500);
+
+
+    if($(window).scrollTop() < sectionScroll[1]-viewSize/2){
+        if(!$('.m1').hasClass('current')){
+            $('.m1').addClass('current');
+            menu($('.m1'));
+
+        }       
+    }else if($(window).scrollTop() < sectionScroll[2]-viewSize/2){
+        if(!$('.m2').hasClass('current')){          
+            $('.m2').addClass('current');
+            menu($('.m2'));
+
+        }
+    }else if($(window).scrollTop() < sectionScroll[3]-viewSize/2){
+        if(!$('.m3').hasClass('current')){          
+            $('.m3').addClass('current');
+            menu($('.m3'));
+
+        }
+    }else if($(window).scrollTop() < sectionScroll[4]-viewSize/2){
+        if(!$('.m4').hasClass('current')){          
+            $('.m4').addClass('current');
+            menu($('.m4'));
+
+        }
+    }else if($(window).scrollTop() < sectionScroll[5]-viewSize/2){
+
+        if(!$('.m5').hasClass('current')){          
+            $('.m5').addClass('current');
+            menu($('.m5'));
+        }
+    }else if($(window).scrollTop() < sectionScroll[6]-viewSize/2){
+        if(!$('.m6').hasClass('current')){          
+            $('.m6').addClass('current');
+            menu($('.m6'));
+        }
+    }else if($(window).scrollTop() < sectionScroll[7]-viewSize/2){
+        if(!$('.m7').hasClass('current')){          
+            $('.m7').addClass('current');
+            menu($('.m7'));
+        }
+    }else if($(window).scrollTop() < sectionScroll[8]-viewSize/2){
+
+        if(!$('.m8').hasClass('current')){          
+            $('.m8').addClass('current');
+            menu($('.m8'));
+        }
+    }
+
+});
+function windowStopScroll(){
+    clearTimeout(stopScroll);
+    oldDelta = 0;
+
+    if( $(window).scrollTop()<sectionScroll[3]){
+
+        TweenMax.to(window, 0.5 + Math.abs($(window).scrollTop() / viewSize - Math.round($(window).scrollTop() / viewSize)), {scrollTo:{y:Math.round($(window).scrollTop() / viewSize)*viewSize}, ease:Quad.easeInOut});
+
+    }
+    if($(window).scrollTop()>sectionScroll[4]-viewSize/2  &&  $(window).scrollTop()<sectionScroll[4]+viewSize/2 ){
+        TweenMax.to(window, 0.5 + Math.abs($(window).scrollTop() / viewSize - Math.round($(window).scrollTop() / viewSize)), {scrollTo:{y: sectionScroll[4]+ Math.round(($(window).scrollTop()-sectionScroll[4])/ viewSize)*viewSize}, ease:Quad.easeInOut});
+
+    }
+
+    if($(window).scrollTop()>sectionScroll[6]-viewSize/2  &&  $(window).scrollTop()<sectionScroll[6]+viewSize/2 ){
+
+
+
+        TweenMax.to(window, 0.5 + Math.abs($(window).scrollTop() / viewSize - Math.round($(window).scrollTop() / viewSize)), {scrollTo:{y: sectionScroll[6]+ Math.round(($(window).scrollTop()-sectionScroll[6])/ viewSize)*viewSize}, ease:Quad.easeInOut});
+
+    }
+    if($(window).scrollTop()>sectionScroll[7]-viewSize/2  &&  $(window).scrollTop()<sectionScroll[7] ){
+        TweenMax.to(window, 0.5 + Math.abs($(window).scrollTop() / viewSize - Math.round($(window).scrollTop() / viewSize)), {scrollTo:{y: sectionScroll[7]+ Math.round(($(window).scrollTop()-sectionScroll[7])/ viewSize)*viewSize}, ease:Quad.easeInOut});
+
+    }
+
+
+}
+
+
+
+function menu(m){
+    if(clicked){
+        var nb = m.data('id');
+        var dist = Math.abs($(window).scrollTop()-sectionScroll[nb-1]);
+
+        TweenMax.to(window, 2+(dist/(viewSize*5)), {scrollTo:{y:sectionScroll[nb-1]}, ease:Power4.easeInOut});
+        clicked = false;
+
+    }
+
+
+    $('.mainmenu li').each(function(){
+
+        if($(this).hasClass('current') && $(this)[0] != m[0]){
+            $(this).removeClass('current');
+        }
+        if(!$(this).hasClass('current')){
+            TweenMax.to($(this).children('div'), 0.5, { scaleX:1,scaleY:1, opacity:0.5, ease:Back.easeOut});
+
+        }else{
+            TweenMax.to($(this).children('div'), 0.5,{ scaleX:0.5,scaleY:0.5, opacity:1,ease:Back.easeOut});
+        }
+
+    });     
+
+}
+function closeMenu(){
+
+    TweenMax.to($('.white-bg'), 0.5,{opacity:0, onComplete:hideThis, onCompleteParams:[$('.carte')], ease:Power2.easeIn});
+    TweenMax.to($('.black-bg'),0.5,{opacity:0});
+}
+
+function showMenu(id, sens){
+    $('.rslides_tabs').remove();
+    $('#slideshowMenu').empty().removeClass();
+    $('#listingContent ul').empty();
+    $('#listingContent .arrow-up').css('opacity',0);
+    if(sens == null){
+        $('.carte').css('visibility', 'visible');
+        TweenMax.fromTo($('.black-bg'), 1,{opacity:0},{delay:0.5,opacity:0.8});
+        TweenMax.fromTo($('.carte').find('.white-bg'), 0.5,{width:0, opacity:1}, {width:'80%', ease:Power2.easeOut});
+        TweenMax.fromTo('.picture', 0.3,{opacity:0, x:100}, {opacity:1, x:0, ease:Power1.easeOut});
+        TweenMax.fromTo('.listing', 0.3,{x:100, opacity:0 }, {x:0, opacity:1, ease:Power1.easeOut, delay:0.05});
+
+    }else{
+        if(sens=="right"){
+            TweenMax.fromTo('.white-bg', 0.3,{opacity:0, x:100}, {opacity:1,x:0,  ease:Power2.easeOut, transformOrigin:"right"});
+            TweenMax.fromTo('.picture', 0.3,{opacity:0, x:100}, {opacity:1, x:0, ease:Power1.easeOut});
+            TweenMax.fromTo('.listing', 0.3,{x:100, opacity:0 }, {x:0, opacity:1, ease:Power1.easeOut, delay:0.05});
+        }else{
+            TweenMax.fromTo('.white-bg', 0.3,{opacity:0, x:-100}, {opacity:1,x:0,ease:Power2.easeOut, transformOrigin:"left"});
+            TweenMax.fromTo('.picture', 0.3,{opacity:0, x:-100}, {opacity:1, x:0, ease:Power1.easeOut});
+            TweenMax.fromTo('.listing', 0.3,{x:-100, opacity:0 }, {x:0, opacity:1, ease:Power1.easeOut, delay:0.05});
+
+        }
+
+    }
+
+    var menuSelected = id;
+
+    $('#listingContent .title h3').html(menuArray[menuSelected]['title']);
+
+    for(var i=0; i<menuArray[menuSelected]['plates'].length; i++){
+        var cloneLi = $('#cloneCell').clone();
+        cloneLi.attr('id', menuArray[menuSelected]['plates'][i]['title']);
+        cloneLi.removeClass('hidden');
+        cloneLi.find('.blocLeft h5').html(menuArray[menuSelected]['plates'][i]['title']);
+        cloneLi.find('.blocLeft').append(menuArray[menuSelected]['plates'][i]['description']);
+        cloneLi.find('.blocRight').append(menuArray[menuSelected]['plates'][i]['price']+"â‚¬");
+        cloneLi.appendTo('.listing ul');            
+    }
+
+    for(var j=0; j<menuArray[menuSelected]['gallery'].length; j++){
+        $('#slideshowMenu').append('<li class="slide slide'+j+'"></li>');
+        $('.slide'+j).html('<div class="slide-img"></div>');
+        $('.slide'+j + ' .slide-img').css('background-image', 'url("'+menuArray[menuSelected]['gallery'][j]['sizes']['large']+'")');
+        $('.slide'+j).append('<div class="caption"><p>'+ menuArray[menuSelected]['gallery'][j]['title'] +'</p></div>');
+    }
+
+    checkArrow();
+
+    $('#slideshowMenu').responsiveSlides({
+              auto: true,             // Boolean: Animate automatically, true or false
+              speed: 1000,
+              timeout: 3000,             // Integer: Speed of the transition, in milliseconds
+              pager: true,           // Boolean: Show pager, true or false
+              nav: false,             // Boolean: Show navigation, true or false
+              random: false, 
+              pauseControls: true, 
+              prevText: "",             // String: Text for the "previous" button
+              nextText: "", 
+              pauseControls: true,
+              before: function(){},   // Function: Before callback
+              after: function(){}     // Function: After callback
+            });
+
+    $('#slideshowMenu').css('overflow', 'visible');
+    $('.rslides_tabs li a').html('<div class="puce"></div>');
+    setTimeout(showArrow,100);
+    
+
+}
+
+function loadMenu(){
+
+    jQuery.ajax({
+        url: url,
+        type:"GET",
+        dataType : "json",
+        async: true,
+        beforeSend : function(result){
+                    //loading here
+                },
+                success: function(result){
+                    menuArray = result;
+                    //console.log(menuArray);
+                },
+                error: function(jqXHR, textStatus, errorThrown ){
+                    //console.log(jqXHR);
+                    //console.log(textStatus);
+                    //console.log(errorThrown);
+                }
+            });
+}
+    //var lethargyMenu = new Lethargy(); // Use defaults
+    $('.carte').bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e){
+
+        e.preventDefault();
+        e.stopPropagation();
+        delta = lethargy.check(e);
+        if(delta !==false){
+            TweenMax.to('.listing .list-item', 0.3, {scrollTo:{y:$('.listing .list-item').scrollTop()+(100*delta*-1)}, ease:Quad.easeInOut, onUpdate:checkArrow});
+        }
+    });
+
+    $('.carte .arrow-up').click(function(){
+        TweenMax.to('.listing .list-item', 0.3, {scrollTo:{y:$('.listing .list-item').scrollTop()+(100*-1)}, ease:Quad.easeInOut, onUpdate:checkArrow});
+    });
+
+    $('.carte .arrow-down').click(function(){
+        TweenMax.to('.listing .list-item', 0.3, {scrollTo:{y:$('.listing .list-item').scrollTop()+(100*1)}, ease:Quad.easeInOut, onUpdate:checkArrow});
+    });
+
+    $('.carte .arrow-up').mouseenter(function(){
+        TweenMax.fromTo($(this).find('img'),0.3,{y:0},{y:-5, ease:Power2.easeOut, yoyo:true, repeat:-1});
+    });
+    $('.carte .arrow-down').mouseenter(function(){
+        TweenMax.fromTo($(this).find('img'),0.3,{y:0},{y:5, ease:Power2.easeOut, yoyo:true, repeat:-1});
+    });
+    $('.carte .arrow-up').mouseleave(function(){
+        TweenMax.killTweensOf($(this).find('img'));
+        TweenMax.to($(this).find('img'),0.3,{y:0, ease:Power2.easeInOut});
+    });
+    $('.carte .arrow-down').mouseleave(function(){
+        TweenMax.killTweensOf($(this).find('img'));
+        TweenMax.to($(this).find('img'),0.3,{y:0, ease:Power2.easeInOut});
+    });
+
+    function checkArrow(){
+        if($('.listing .list-item').scrollTop()==0){
+            $('.listing .arrow-up').css('opacity', '0');
+        }else{
+            $('.listing .arrow-up').css('opacity', '1');
+        }
+
+        if($('.listing .list-item').scrollTop() == ($('.listing ul').height() - $('.listing .list-item').height())){
+            $('.listing .arrow-down').css('opacity', '0');
+        }else{
+            $('.listing .arrow-down').css('opacity', '1');
+        }
+    }
+
+    function showArrow(){
+        if($('.listing ul').height()>$('.listing .list-item').height()){
+            $('.listing .arrow-down').removeClass('hidden');
+            $('.listing .arrow-up').removeClass('hidden');
+        }else{
+            $('.listing .arrow-down').addClass('hidden');
+            $('.listing .arrow-up').addClass('hidden');
+        }
+
+    }
+
+    $('.carte .arrow-left').click(function(){
+        if(currentMenu==1){
+            currentMenu = 7;
+        }else{
+            currentMenu --;
+        }
+        TweenMax.to('.white-bg', 0.3,{x:100, opacity:0,  ease:Power2.easeIn,onComplete:showMenu, onCompleteParams:[currentMenu, 'left']});
+
+    });
+
+    $('.carte .arrow-right').click(function(){
+        if(currentMenu==7){
+            currentMenu = 1;
+        }else{
+            currentMenu ++;
+        }
+        TweenMax.to('.white-bg', 0.3,{x:-100, opacity:0, ease:Power2.easeIn,onComplete:showMenu, onCompleteParams:[currentMenu, 'right']});
+    });
+
+
+    $('.carte .arrow-left').mouseenter(function(){
+        TweenMax.fromTo($(this).find('img'),0.3,{x:0},{x:-20, ease:Power2.easeOut, yoyo:true, repeat:-1});
+    });
+    $('.carte .arrow-right').mouseenter(function(){
+        TweenMax.fromTo($(this).find('img'),0.3,{x:0},{x:20, ease:Power2.easeOut, yoyo:true, repeat:-1});
+    });
+    $('.carte .arrow-left').mouseleave(function(){
+        TweenMax.killTweensOf($(this).find('img'));
+        TweenMax.to($(this).find('img'),0.3,{x:0, ease:Power2.easeInOut});
+    });
+    $('.carte .arrow-right').mouseleave(function(){
+        TweenMax.killTweensOf($(this).find('img'));
+        TweenMax.to($(this).find('img'),0.3,{x:0, ease:Power2.easeInOut});
+    });
+
+
+    
+    
+    initMap();
+    loadMenu();
+
+    $(".slideshow").responsiveSlides({
+          auto: true,             // Boolean: Animate automatically, true or false
+          speed: 1000,
+          timeout: 3000,             // Integer: Speed of the transition, in milliseconds
+          pager: false,           // Boolean: Show pager, true or false
+          nav: true,             // Boolean: Show navigation, true or false
+          random: false, 
+          prevText: "",             // String: Text for the "previous" button
+          nextText: "", 
+          pauseControls: true,
+          before: function(){},   // Function: Before callback
+          after: function(){}     // Function: After callback
+        });
+
+
+
+    
+    
+
+    homeScene = $(".section1 #scene").parallax();
+    section11Scene = $('.section11 #scene').parallax();
+
+    controller = new ScrollMagic.Controller();
+
+    var homeAnimation = new TimelineMax()
+    .add([
+        TweenMax.fromTo('.blackscreen', 1, {opacity:0.1}, {opacity:0.8}),
+        TweenMax.fromTo('.section1 .titleslide', 0.5, {y:0, opacity:1}, {opacity:0,y:-300, ease:Power1.easeIn}),
+        TweenMax.fromTo('.textIntro', 0.5, {opacity:0, y:300},{opacity:1, y:0, ease:Power1.easeOut, delay:0.5, onComplete:colorText}),
+        ]);
+
+    new ScrollMagic.Scene ({
+        triggerElement: ".section1",
+        triggerHook: "onLeave",
+        duration: "100%"
+    })
+    .setPin('.section1')
+    .setTween(homeAnimation)
+    .addTo(controller);
+
+
+
+    function colorText(){
+        $('.textIntro').addClass('colored');
+    }
+    
+    $('.section1 .arrow').click(function(){
+
+        if($(window).scrollTop() === 0 ){
+            var dist = Math.abs($(window).scrollTop()-viewSize);
+            TweenMax.to(window, 1, {scrollTo:{y:viewSize}, ease:Power1.easeInOut});
+        }else{
+            var nb = 2;
+            var dist = Math.abs($(window).scrollTop()-sectionScroll[nb-1]);
+            TweenMax.to(window, 1, {scrollTo:{y:sectionScroll[nb-1]}, ease:Power1.easeInOut});
+
+        }           
+        
+        
+    })
+    
+    
+    var wipeAnimation = new TimelineMax()
+    .add([ 
+        TweenMax.fromTo(".bg1", 1, {y: "0%"}, {y: "100%", ease: Linear.easeNone}),
+        TweenMax.fromTo(".bg2", 1, {y: "-100%"}, {y: "0%", ease: Linear.easeNone}), 
+        ])
+
+    .add([ 
+        TweenMax.fromTo(".bg2", 1, {x: "0%"}, {x: "-100%", ease: Linear.easeNone}),
+        TweenMax.fromTo(".bg3", 1, {x: "100%"}, {x: "0%", ease: Linear.easeNone}), 
+        ]);
+
+    
+        /*----------------------------
+        SECTION 2
+        ----------------------------*/
+
+        var sceneSection2 = new ScrollMagic.Scene({
+            triggerElement: ".section2",
+            triggerHook: "onLeave",
+            duration: "200%"
+        })
+        .setPin(".section2")
+        .setTween(wipeAnimation)
+        .addTo(controller);
+
+
+
+        var firstAnimationTween = new TimelineMax()
+        .add([ 
+            TweenMax.from('section.panel:nth-child(1) .inside .title .titleObj', 1, {opacity:0, x:-100, ease:Power3.easeOut, delay:0.4, onStart:stopTween, onStartParams:[$('.arrow')]}),
+            TweenMax.staggerFrom('section.panel:nth-child(1) .inside .imgList .obj .objimg', 0.5,{ x:-100, opacity:0, ease:Back.easeInOut, delay:0.5},0.1),
+            TweenMax.from('section.panel:nth-child(1) .inside .p .pObj',0.4,  {opacity:0, x:100,  ease:Power3.easeOut, delay:1}),
+            ])
+        .add([
+            TweenMax.to('section.panel:nth-child(1) .inside .title .titleObj', 1, {opacity:0, x:-100, ease:Power3.easeIn}),
+            TweenMax.staggerTo('section.panel:nth-child(1) .inside .imgList .obj .objimg', 0.5,{ y:300, opacity:0, ease:Back.easeIn},-0.1),
+            TweenMax.to('section.panel:nth-child(1) .inside .p .pObj', 1, {opacity:0, x:100,  ease:Power3.easeIn}),
+
+            TweenMax.from('section.panel:nth-child(2) .inside .title .titleObj', 1, {opacity:0, x:100, ease:Power3.easeOut, delay:0.4}),
+            TweenMax.staggerFrom('section.panel:nth-child(2) .inside .imgList .obj .objimg', 0.5,{ y:-300, opacity:0, ease:Back.easeOut, delay:0.4},-0.1),
+            TweenMax.from('section.panel:nth-child(2) .inside .p .pObj', 1, {opacity:0, x:-100,  ease:Power3.easeOut, delay:0.4}),
+            ])
+        .add([
+            TweenMax.to('section.panel:nth-child(2) .inside .title .titleObj', 1, {opacity:0, x:-100, ease:Power3.easeIn}),
+            TweenMax.staggerTo('section.panel:nth-child(2) .inside .imgList .obj .objimg', 0.5,{ x:300, opacity:0, ease:Back.easeIn},-0.1),
+            TweenMax.to('section.panel:nth-child(2) .inside .p .pObj', 1, {opacity:0, x:100,  ease:Power3.easeIn}),
+
+            TweenMax.from('section.panel:nth-child(3) .inside .title .titleObj', 1, {opacity:0, x:100, ease:Power3.easeOut, delay:0.4}),
+            TweenMax.staggerFrom('section.panel:nth-child(3) .inside .imgList .obj .objimg', 0.5,{ x:-300, opacity:0, ease:Back.easeOut, delay:0.4},-0.1),
+            TweenMax.from('section.panel:nth-child(3) .inside .p .pObj', 1, {opacity:0, x:-100,  ease:Power3.easeOut, delay:0.4}),
+            ])
+        .add([
+            TweenMax.to('section.panel:nth-child(3) .inside .title .titleObj', 1, {opacity:0, x:-100, ease:Power3.easeIn}),
+            TweenMax.staggerTo('section.panel:nth-child(3) .inside .imgList .obj .objimg', 0.5,{ x:100, opacity:0, ease:Back.easeInOut},-0.1),
+            TweenMax.to('section.panel:nth-child(3) .inside .p .pObj', 1, {opacity:0, x:100,  ease:Power3.easeIn, delay:0.4}),      
+            ]);
+
+        sceneFirst = new ScrollMagic.Scene({
+            triggerElement: ".section2",
+            triggerHook: "onEnter",
+            duration: "400%"
+        })
+
+        .setTween(firstAnimationTween)
+        .addTo(controller);
+
+
+
+
+
+        /*----------------------------
+        SECTION 3
+        ----------------------------*/
+
+
+        var section3Tween = new TimelineMax()
+        .add([
+            TweenMax.fromTo('.section3 .parallax-window', 1, {y:'-50%'}, {y:'0%', ease:Linear.easeNone}),
+            TweenMax.fromTo('.section3 .textOverparallax', 1,{y:-100, opacity:0},{y:0,opacity:1, ease:Linear.easeNone}),
+            TweenMax.fromTo('.lampe',1,{y:'20%'}, {y:'0%', ease:Linear.easeNone}),
+            ])
+        .add([
+            TweenMax.fromTo('.section3 .parallax-window', 1, {y:'0%'}, {y:'50%', ease:Linear.easeNone}),
+            TweenMax.fromTo('.section3 .textOverparallax', 1,{y:0},{y:100, ease:Linear.easeNone}),
+            TweenMax.fromTo('.lampe',1,{y:'0%'}, {y:'-20%', ease:Linear.easeNone}),
+            ]);
+
+        sceneSection3 = new ScrollMagic.Scene({
+            triggerElement: ".section3",
+            triggerHook: "onEnter",
+            duration : "200%"
+        })
+        .setTween(section3Tween)
+        .addTo(controller);
+
+
+
+
+        function move (what, progress) {
+            var to = -(viewSize/1.2)+(((viewSize/1.2)*2)*progress);
+            TweenMax.to(what, 0.3, {y: to ,force3D: true, ease:Linear.easeNone});
+        }
+
+
+        /*----------------------------
+        SECTION 4
+        ----------------------------*/
+
+
+        var section4Tween = new TimelineMax()
+        .add([
+            TweenMax.fromTo('.section4 .parallax-window', 1, {y:'-50%'}, {y:'0%', ease:Linear.easeNone}),
+            TweenMax.fromTo('.section4 .textOverparallax', 1,{y:-250},{y:0, ease:Linear.easeNone}),
+            ])
+        .add([
+            TweenMax.fromTo('.section4 .parallax-window', 1, {y:'0%'}, {y:'50%', ease:Linear.easeNone}),
+            TweenMax.fromTo('.section4 .textOverparallax', 1,{y:0},{y:250, ease:Linear.easeNone}),
+            ]);
+
+        sceneSection4 = new ScrollMagic.Scene({
+            triggerElement: ".section4",
+            triggerHook: "onEnter",
+            duration : "200%"
+        })
+
+        .setTween(section4Tween)
+        .addTo(controller);
+
+
+/*          $('.section4').mouseover(function(e){
+            $(this).mousemove(function(e){
+                var percent = e.pageX/$(this).width();
+                $('.section4 .parallax-window').css('opacity',percent);
+            })
+             
+
+})*/
+
+
+
+
+        /*----------------------------
+        SECTION 5
+        ----------------------------*/
+
+        var section5Tween = new TimelineMax()
+        .add([
+
+            TweenMax.fromTo('.parassol.rouge', 1.3, {x:150, y:50, rotation:30}, {x:-150,y:-50, rotation:-30, ease:Power1.easeInOut}),
+            TweenMax.fromTo('.parassol.vert', 1.5, {x:-250, y:170, rotation:-30}, {x:250,y:-170, rotation:45, ease:Power1.easeInOut}),
+            TweenMax.fromTo('.parassol.creme', 1.2, {x:-150, y:-15, rotation:40}, {x:150,y:15, rotation:0, ease:Power1.easeInOut}),
+            TweenMax.fromTo('.verre', 1.2, {x:50, y:-25, rotation:-25}, {x:100,y:100, rotation:25, ease:Power1.easeInOut}),
+            TweenMax.fromTo('.goutte', 1.2, { y:0}, {scaleX: 0.8, scaleY:0.8, y:150,ease:Power1.easeInOut}),
+            TweenMax.fromTo('.calme .title', 1.5, {x:150,opacity:0},{x:-150,opacity:3, ease:Power1.easeInOut})
+            ]);
+
+
+
+        sceneSection5 = new ScrollMagic.Scene({
+            triggerElement: ".section5",
+            triggerHook: "onEnter",
+            duration : "200%"
+        })
+
+        .setTween(section5Tween)
+        .addTo(controller);
+
+
+
+
+        var section5TweenParallax = new TimelineMax()
+        .add([
+            TweenMax.fromTo('.section5para .parallax-window', 1, {x:0}, {x:-200, ease:Linear.easeNone}),
+            ])
+        .add([
+            TweenMax.fromTo('.section5para .parallax-window', 1, {x:-200}, {x:-400, ease:Linear.easeNone}),
+            ])
+
+
+
+        sceneSection5Parallax = new ScrollMagic.Scene({
+            triggerElement: ".section5",
+            triggerHook: "onEnter",
+            duration : "200%"
+        })
+
+        .setTween(section5TweenParallax)
+        .addTo(controller);
+
+
+
+
+        var section6TraceTween = new TimelineMax({delay:23});
+
+        section6TraceTween
+        .to('#tracesvg path#p1', 14, { onStart:showThis, onStartParams:['path#p1'],strokeDashoffset: 0, ease:Linear.easeNone})
+        .to('#tracesvg path#p2', 7, {onStart:showThis, onStartParams:['path#p2'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+        .to('#tracesvg path#p3', 11, {onStart:showThis, onStartParams:['path#p3'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+        .to('#tracesvg path#p4', 12, {onStart:showThis, onStartParams:['path#p4'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+        .to('#tracesvg path#p5', 10, {onStart:showThis, onStartParams:['path#p5'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+        .to('#tracesvg path#p6', 9, {onStart:showThis, onStartParams:['path#p6'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+        .to('#tracesvg path#p7', 5, {onStart:showThis, onStartParams:['path#p7'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5});
+
+
+
+        var section6SVGTween = new TimelineMax({delay:18});
+        section6SVGTween.add([
+            TweenMax.staggerTo('#saladesvg path',2.5,{onStart:showThis, onStartParams:['#saladesvg path'],strokeDashoffset: 0, strokeWidth:6}, 0.3),
+            TweenMax.staggerTo('#surlepoucesvg path',2.5,{onStart:showThis, onStartParams:['#surlepoucesvg path'],strokeDashoffset: 0, delay:17}, 0.3),
+            TweenMax.staggerTo('#nosplatssvg path',2.5,{onStart:showThis, onStartParams:['#nosplatssvg path'],strokeDashoffset: 0, delay:25.5}, 0.3),
+            TweenMax.staggerTo('#sushisvg path',2.5,{onStart:showThis, onStartParams:['#sushisvg path'],strokeDashoffset: 0, delay:38}, 0.3),
+            TweenMax.staggerTo('#nosgourmandisessvg path',2.5,{onStart:showThis, onStartParams:['#nosgourmandisessvg path'],strokeDashoffset: 0, delay:51.5}, 0.3),
+            TweenMax.staggerTo('#cocktailssvg path',2.5,{onStart:showThis, onStartParams:['#cocktailssvg path'],strokeDashoffset: 0, delay:63}, 0.3),
+            TweenMax.staggerTo('#teatimesvg path',2.5,{onStart:showThis, onStartParams:['#teatimesvg path'],strokeDashoffset: 0, delay:73.5}, 0.3),
+            ]);
+
+
+        var section6ImgTween = new TimelineMax({delay:0});
+        section6ImgTween.add([
+            TweenMax.fromTo('.plate1', 30, {x:-20,rotation: -15},{x:0,rotation:0, ease:Power1.easeInOut}),
+
+            TweenMax.fromTo('.planchecharcuterie', 30, {x:20,rotation: 15},{x:0,rotation:0, ease:Power1.easeInOut, delay:10}),
+
+            TweenMax.fromTo('.burger', 30,{y:-50,x:-20,rotation: -15},{y:0,x:0,rotation:0, ease:Power1.easeInOut, delay:30}),
+            TweenMax.fromTo('.frittes', 30,{x:20,rotation: 15},{x:0,rotation:0, ease:Power1.easeInOut, delay:34}),
+
+            TweenMax.fromTo('.sushis', 30,{x:20,rotation: 15},{x:0,rotation:0, ease:Power1.easeInOut, delay:40}),
+
+            TweenMax.fromTo('.gourmandise-1', 30,{x:-20,rotation: -15},{x:0,rotation:0, ease:Power1.easeInOut, delay:45}),
+
+            TweenMax.fromTo('.gourmandise-3', 30,{x:-20,rotation: -15},{x:0,rotation:0, ease:Power1.easeInOut, delay:52}),
+            TweenMax.fromTo('.gourmandise-2', 30,{x:20,rotation: 15},{x:0,rotation:0, ease:Power1.easeInOut, delay:55}),
+
+            TweenMax.fromTo('.cocktail', 30,{y:50,x:-20,rotation: -15},{y:0,x:0,rotation:0, ease:Power1.easeInOut, delay:64}),
+
+            TweenMax.fromTo('.mug-3', 25,{x:20,rotation: 15},{x:0,rotation:0, ease:Power1.easeInOut, delay:75}),
+            TweenMax.fromTo('.muffin', 20,{x:-20,rotation: -15},{x:0,rotation:0, ease:Power1.easeInOut, delay:80}),
+            ]);
+
+        /*----------------------------
+        SECTION 6
+        ----------------------------*/
+
+        var section6Tween = new TimelineMax()
+        .add([
+            section6TraceTween,
+            section6SVGTween,
+            section6ImgTween
+            ]);
+
+
+
+        sceneSection6 = new ScrollMagic.Scene({
+            triggerElement: ".section6",
+            triggerHook: "onEnter",
+            duration : "4000px"
+
+
+
+        })
+
+        .setTween(section6Tween)
+        .addTo(controller);
+
+
+        /*----------------------------
+        SECTION 7
+        ----------------------------*/
+
+        var section7Tween = new TimelineMax()
+        .fromTo(".section7 .textOverparallax", 70, {opacity:0, x:300}, {opacity:1, x:0, ease:Quad.easeInOut, delay:10})
+
+
+
+        sceneSection7 = new ScrollMagic.Scene({
+            triggerElement: ".section7",
+            triggerHook: "onEnter",
+            duration : "80%"
+        })
+
+        .setTween(section7Tween)
+        .addTo(controller);
+
+
+
+        var section7TweenPara = new TimelineMax()
+        .add([
+            TweenMax.fromTo('.section7 .parallax-window', 1,{y:'-80%'},{y:'0%' , ease:Linear.easeNone}),
+            ])
+        .add([
+            TweenMax.fromTo('.section7 .parallax-window', 1,{y:'0%'},{y:'80%', ease:Linear.easeNone}),
+            ]);
+
+
+
+        sceneSection7Para = new ScrollMagic.Scene({
+            triggerElement: ".section7",
+            triggerHook: "onEnter",
+            duration : "200%"
+        })
+
+        .setTween(section7TweenPara)
+        .addTo(controller);
+
+        /*----------------------------
+        SECTION 8
+        ----------------------------*/
+
+
+
+
+
+
+        /*----------------------------
+        SECTION 9
+        ----------------------------*/
+
+        var section9TweenEquipe1 = new TimelineMax()
+        .fromTo(".section9 .equipe1", .7, {opacity:0, y:100}, {opacity:1, y:0, ease:Quad.easeOut})
+
+
+
+        sceneSection9Equipe1 = new ScrollMagic.Scene({
+            triggerElement: ".section9 .equipe1",
+            triggerHook: "onEnter",
+
+
+
+
+        })
+
+        .setTween(section9TweenEquipe1)
+        .addTo(controller);
+
+
+
+        var section9TweenEquipe2 = new TimelineMax()
+        .fromTo(".section9 .equipe2", .7, {opacity:0, y:100}, {opacity:1, y:0, ease:Quad.easeOut})
+
+
+
+        sceneSection9Equipe2 = new ScrollMagic.Scene({
+            triggerElement: ".section9 .equipe2",
+            triggerHook: "onEnter",
+
+
+
+
+        })
+
+        .setTween(section9TweenEquipe2)
+        .addTo(controller);
+
+
+
+        var section9TweenEquipe3 = new TimelineMax()
+        .fromTo(".section9 .equipe3", .7, {opacity:0, y:100}, {opacity:1, y:0, ease:Quad.easeOut})
+
+
+
+        sceneSection9Equipe3 = new ScrollMagic.Scene({
+            triggerElement: ".section9 .equipe3",
+            triggerHook: "onEnter",
+
+
+
+
+        })
+
+        .setTween(section9TweenEquipe3)
+        .addTo(controller);
+
+
+        var section9TweenParagraph = new TimelineMax()
+        .fromTo(".section9 .paragraph", .7, {opacity:0, y:100}, {opacity:1, y:0, ease:Quad.easeOut})
+
+
+
+        sceneSection9Paragraph = new ScrollMagic.Scene({
+            triggerElement: ".section9 .paragraph",
+            triggerHook: "onEnter",
+
+
+
+
+        })
+
+        .setTween(section9TweenParagraph)
+        .addTo(controller);
+
+
+
+        /*----------------------------
+        SECTION 10
+        ----------------------------*/
+
+        var section10TweenParagraph = new TimelineMax()
+        .add([
+
+            TweenMax.fromTo(".section10 .paragraph", 2, {textShadow:"rgba(154,129,69, 1) -50px 20px 10px"}, {textShadow:"rgba(154,129,69, 0) -350px 20px 50px", ease:Quad.easeIn}),
+            TweenMax.fromTo(".section10 .spot", 2, {x:-70}, {x:200, ease:Quad.easeIn}),
+            ])
+
+
+
+
+        sceneSection10Paragraph = new ScrollMagic.Scene({
+            triggerElement: ".section10",
+            triggerHook: "onEnter",
+            duration: "150%"
+
+
+
+
+        })
+
+        .setTween(section10TweenParagraph)
+        .addTo(controller);
+
+        /*----------------------------
+        SECTION 12
+        ----------------------------*/
+
+
+        var section12Tween = new TimelineMax()
+        .add([
+
+            TweenMax.from(".legume1", 1, {y:300, ease:Linear.easeNone}),
+            TweenMax.from(".legume2", 1, {y:100, ease:Linear.easeNone}),
+            TweenMax.from(".legume3", 1, {y:700, ease:Linear.easeNone}),
+            TweenMax.from(".legume4", 1, {y:150, ease:Linear.easeNone}),
+            TweenMax.from(".legume5", 1, {y:300, ease:Linear.easeNone}),
+            TweenMax.from(".legume6", 1, {y:600, ease:Linear.easeNone}),
+            TweenMax.from(".legume7", 1, {y:1000, ease:Linear.easeNone}),
+            TweenMax.from(".legume8", 1, {y:400, ease:Linear.easeNone}),
+            TweenMax.fromTo(".info",1,{y:200},{y:-200, ease:Linear.easeNone}),
+
+            ])
+
+
+
+        sceneSection12 = new ScrollMagic.Scene({
+            triggerElement: ".section12",
+            triggerHook: "onEnter",
+            duration: "200%"
+
+        })
+
+        .setTween(section12Tween)
+        .addTo(controller);
+
+
+
+
+        $('.rollover').each(function(){
+
+
+
+            $(this).mouseenter(function(){
+                $(this).css('cursor', 'pointer');
+                TweenMax.killTweensOf($(this).find('.roundbtn'));
+                TweenMax.to($(this).find('.roundbtn'), 0.3, {opacity:1, scaleX:1 , scaleY:1 , ease:Back.easeOut, delay:0.03});
+                TweenMax.to($(this).find('.roundbtn #decouvrir'), 0.2, {delay:0.3, opacity:1});
+            });
+
+            $(this).mouseleave(function(){
+
+                TweenMax.killTweensOf($(this).find('.roundbtn'));
+
+
+                TweenMax.to($(this).find('.roundbtn #decouvrir'), 0.2,  {opacity:0});
+                TweenMax.to($(this).find('.roundbtn'), 0.3, {scaleX:0, scaleY:0, ease:Back.easeIn, delay:0.3});
+
+            });
+
+            $(this).click(function(){
+                currentMenu = $(this).data('id');
+                showMenu(currentMenu);
+            });
+        });
+
+        $('.carte .black-bg').click(function(){
+            closeMenu();
+        });
+
+
+        $('.closeBtn').mouseenter(function(){
+            $(this).css('cursor', 'pointer');
+            TweenMax.to($(this).find('img'), 0.3, {opacity:1, rotation:90, scale:0.8, ease:Back.easeOut});
+        });
+
+        $('.closeBtn').mouseleave(function(){
+            TweenMax.to($(this).find('img'), 0.3, {opacity:1, rotation:0, scale:1, ease:Back.easeOut});
+        });
+        $('.closeBtn').click(function(){
+            closeMenu();
+        });
+
+
+        $('.mainmenu li').mouseover(function(){
+            TweenMax.to($(this).children('span'), 0.2, {opacity:1,  x:-100});
+            TweenMax.to($(this).children('div'), 0.5,{scaleX:0.5,scaleY:0.5, opacity:1,ease:Back.easeOut});
+
+            $(this).css( 'cursor', 'pointer' );
+        });
+        $('.mainmenu li').mouseout(function(){
+            TweenMax.to($(this), 0.2, {x:0, ease:Back.easeOut});
+            TweenMax.to($(this).children('span'), 1, {opacity:0});
+
+            if($(this).hasClass('current')){
+                TweenMax.to($(this).children('div'), 0.5,{ scaleX:0.5,scaleY:0.5,opacity:1,ease:Back.easeOut});
+            }else{
+                TweenMax.to($(this).children('div'), 0.5, { scaleX:1,scaleY:1, opacity:0.5, ease:Back.easeOut});
+            }
+        });
+
+        $('.logoFB').mouseover(function(){
+            TweenMax.to($(this).find('span'), 0.2, {opacity:1});
+            TweenMax.to($(this).find('img'), 0.2,{scaleX:0.5, scaleY:0.5});
+        });
+        $('.logoFB').mouseout(function(){
+            TweenMax.to($(this).find('span'), 1, {opacity:0});
+            TweenMax.to($(this).find('img'), 0.2,{scaleX:1, scaleY:1});
+        });
+
+        $('.mainmenu li').click(function(){
+            $(this).addClass('current');
+            clicked = true;
+            menu($(this));
+
+
+        });
+
+
+        
+
+
+    });
