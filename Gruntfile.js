@@ -4,40 +4,6 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
-		// charset
-		charset: {
-			dist: {
-				options: {
-					from: 'UTF-8',
-					to: 'EUC-KR',
-					fileTypes: {
-						html5: {
-							ext: ['.html'],
-							detect: /<meta\s+charset=["']?.+?["']?\s*\/?>/i,
-							replace: '<meta charset="{{charset}}">'
-						},
-						css: {
-							ext: ['.css'],
-							detect: /^@charset\s+(".+?"|'.+?')/,
-							replace: '@charset "{{charset}}"'
-						},
-						scripts: {
-							ext: ['.js'],
-							detect: /^@charset\s+(".+?"|'.+?')/,
-							replace: '@charset "{{charset}}"'
-						}
-					}
-				},
-				files: [{
-					expand: true,
-					cwd: 'build/',
-					dest: '../popfunding-dev/',
-					src: ['**/*.{html,css,js}']
-
-				}]
-			},
-		},
-
 		// html
 		includes: {
 			build: {
@@ -59,7 +25,7 @@ module.exports = function(grunt) {
 				// retinaSrcFilter: 'sources/assets/images/sprites/*@2x.png',
 				dest: 'sources/assets/images/sprites.png',
 				// retinaDest: 'sources/assets/images/sprites@2x.png',
-				imgPath: '/assets/images/sprites.png',
+				imgPath: '../images/sprites.png',
 				destCss: 'sources/assets/styles/scss/_sprites.scss',
 				padding: 5,
 				cssVarMap: function(sprite) {
@@ -157,7 +123,7 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: 'build/',
 					src: ['**', '**/**'],
-					dest: '../popfunding-dev/'
+					dest: 'release/'
 				}]
 			}
 		},

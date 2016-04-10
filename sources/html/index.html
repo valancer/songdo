@@ -6,19 +6,19 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
-	<script src="/assets/scripts/libs/jquery-1.11.1.min.js"></script>
-<!--
-	<script src="/assets/scripts/libs/jquery.ScrollMagic.min.js"></script>
-	<script src="/assets/scripts/libs/debug.addIndicators.min.js"></script>
-	<script src="/assets/scripts/libs/animation.gsap.min.js"></script>
--->
-	<script src="/assets/scripts/libs/TweenMax.min.js?v=1.18.2"></script>
+	<script src="./assets/scripts/libs/jquery-1.11.1.min.js"></script>
+
+	<script src="./assets/scripts/libs/ScrollMagic.js"></script>
+	<script src="./assets/scripts/libs/debug.addIndicators.min.js"></script>
+	<script src="./assets/scripts/libs/animation.gsap.min.js"></script>
+	<script src="./assets/scripts/libs/TweenMax.min.js?v=1.18.2"></script>
 
 	<!-- custom -->
-	<script src="/assets/scripts/common.js"></script>
-	<link rel="stylesheet" href="/assets/styles/songdo.css">
+	<script src="./assets/scripts/common.js"></script>
+	<link rel="stylesheet" href="./assets/styles/songdo.css">
 </head>
 <body>
+	<div class="dimmed"></div>
 
 	<div class="menus">
 		<button type="button" class="btn-toggle-menu">
@@ -37,9 +37,9 @@
 			</ul>
 
 			<p class="banners">
-				<a href="#">Rewards &amp; Gift</a>
-				<a href="#">Fever Festival</a>
-				<a href="#">Grand Event</a>
+				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Rewards &amp; Gift"></a>
+				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Fever Festival"></a>
+				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Grand Event"></a>
 			</p>
 		</nav>
 
@@ -52,14 +52,14 @@
 
 		<!-- indicators -->
 		<ul class="list-indicators">
-			<li class="long"><span>여행을 시작해</span></li>
-			<li><span>아울렛에 도착</span></li>
-			<li><span>쇼핑타임</span></li>
-			<li class="long"><span>식사와 휴식</span></li>
-			<li><span>프리미엄마켓</span></li>
-			<li class="long"><span>체험존</span></li>
-			<li><span>카든테라스</span></li>
-			<li><span>엔딩</span></li>
+			<li class="long is-selected"><a href="#"><span>여행을 시작해</span></a></li>
+			<li><a href="#"><span>아울렛에 도착</span></a></li>
+			<li><a href="#"><span>쇼핑타임</span></a></li>
+			<li class="long"><a href="#"><span>식사와 휴식</span></a></li>
+			<li><a href="#"><span>프리미엄마켓</span></a></li>
+			<li class="long"><a href="#"><span>체험존</span></a></li>
+			<li><a href="#"><span>카든테라스</span></a></li>
+			<li><a href="#"><span>엔딩</span></a></li>
 		</ul>
 	</div>
 
@@ -68,10 +68,14 @@
 
 	<!-- scene1 : home -->
 	<section class="scene home">
-		
-		<h2></h2>
+		<div class="inner">
+			<div class="moon"></div>
+			<div class="wally"></div>
+			<div class="title"></div>
+			<div class="description"></div>
+		</div>
 
-		<a href="#">testasdfjiawoehfiaowehfioaw;hfio;awhefi;oa</a>
+		<a href="#" class="btn-start">START</a>
 	</section>
 
 

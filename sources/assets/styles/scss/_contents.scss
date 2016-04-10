@@ -7,7 +7,16 @@
 
 
 /* section1 - home */
-.scene.home { background: #2a2847 url('/assets/images/scene_home/bg_last.png') center center no-repeat; background-size: cover;
+.scene.home { background: #2a2847 url('../images/scene_home/bg_last.png') center center no-repeat; background-size: cover;
+	> .inner { display: block; position: absolute; top: 0; left: 50%; margin-left: -600px; height: 100%; width: 1200px; background: url('../images/scene_home/bg_constellation.png') center center no-repeat; }
+
+	.moon { display: block; position: absolute; top: 7.87037037037%; left: 50%; margin-left: -$s-scene01-moon-width/2; @include sprite($s-scene01-moon); }
+	.title { display: block; position: absolute; top: 49.814814814815%; left: 50%; margin-left: -$s-scene01-txt01-width/2; @include sprite($s-scene01-txt01); }
+	.description { display: block; position: absolute; top: 67.962962962963%; left: 50%; margin-left: -$s-scene01-txt02-width/2; @include sprite($s-scene01-txt02); }
+	.wally { display: block; position: absolute; top: 12.037037037037%; left: 50%; margin-left: -$s-scene01-wally-width/1.8; @include sprite($s-scene01-wally); }
+
+	/* scroll start */
+	.btn-start { display: block; position: absolute; bottom: 8.148148148148%; left: 50%; margin-left: -$s-scene01-start-width/2; text-indent: -9999px; @include sprite($s-scene01-start); }
 
 }
 
