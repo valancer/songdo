@@ -7,9 +7,10 @@
 
 
 /* section1 - home */
-.scene.home { background: #2a2847 url('../images/scene_home/bg_last.png') center center no-repeat; background-size: cover;
+.scene.home { overflow: hidden; background: #2a2847 url('../images/scene_home/bg_last.png') center center no-repeat; background-size: cover;
 	> .inner { display: block; position: absolute; top: 0; left: 50%; margin-left: -600px; height: 100%; width: 1200px; background: url('../images/scene_home/bg_constellation.png') center center no-repeat; }
 
+	/* init */
 	.moon { display: block; position: absolute; top: 7.87037037037%; left: 50%; margin-left: -$s-scene01-moon-width/2; @include sprite($s-scene01-moon); }
 	.title { display: block; position: absolute; top: 49.814814814815%; left: 50%; margin-left: -$s-scene01-txt01-width/2; @include sprite($s-scene01-txt01); }
 	.description { display: block; position: absolute; top: 67.962962962963%; left: 50%; margin-left: -$s-scene01-txt02-width/2; @include sprite($s-scene01-txt02); }
@@ -18,6 +19,14 @@
 	/* scroll start */
 	.btn-start { display: block; position: absolute; bottom: 8.148148148148%; left: 50%; margin-left: -$s-scene01-start-width/2; text-indent: -9999px; @include sprite($s-scene01-start); }
 
+	/* motion start */
+	.dark-city { display: block; position: absolute; top: 100%; left: 0; height: 1240px; width: 100%; background: url('../images/scene_home/01_darkcity.png') center top no-repeat; }
+	.empirebuilding { display: block; position: absolute; top: 100%; left: 0; height: 1094px; width: 100%; background: url('../images/scene_home/02_empirebuilding.png') center top no-repeat; }
+	.cloud-big { display: block; position: absolute; top: 100%; left: 0; height: 752px; width: 100%; background: url('../images/scene_home/03_cloud_big.png') center top no-repeat; }
+	.mountain { display: block; position: absolute; top: 100%; left: 0; height: 800px; width: 100%; background: url('../images/scene_home/04_mount.png') center top no-repeat; }
+	.sea { display: block; position: absolute; top: 100%; left: 0; height: 800px; width: 100%; background: #9bc1f8 url('../images/scene_home/05_sea.png') center top no-repeat; }
+	.day-building { display: block; position: absolute; bottom: -100%; left: 0; height: 668px; width: 100%; background: url('../images/scene_home/06_daybuilding.png') center top no-repeat; }
+	.outlet { display: block; position: absolute; bottom: -100%; left: 0; height: 325px; width: 100%; background: url('../images/scene_home/07_outlet.png') center top no-repeat; }
 }
 
 /* section2 - home */
