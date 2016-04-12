@@ -365,14 +365,15 @@ body {
 
 /* time layer */
 .time-layer {
-  display: none;
+  display: block;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1000;
-  background-color: rgba(16, 20, 53, 0.8); }
+  z-index: -1;
+  background-color: rgba(16, 20, 53, 0.8);
+  opacity: 0; }
   .time-layer .time {
     position: absolute;
     top: 50%;

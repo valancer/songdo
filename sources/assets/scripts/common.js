@@ -4,7 +4,32 @@ $(document).ready(function (e) {
 });
 
 
-var _controller = new ScrollMagic.Controller();
+var controller = new ScrollMagic.Controller();
+var sceneData = [
+	{
+		title: 'Home',
+		animation: null,
+		scroll: 'none'
+	},
+	{
+		title: "After Home",
+		animation: null,
+		scroll: 'direct',
+		timeAnimation: null,
+		timeLayer: {
+			target: '.time01'
+		}
+	},
+	{
+		title: "Arrvied Outlet",
+		animation: null,
+		scroll: 'auto',
+		timeAnimation: null,
+		timeLayer: {
+			target: '.time02'
+		}
+	}
+];
 
 var Navigation = (function ($) {
 	var scope,
@@ -65,7 +90,7 @@ var Navigation = (function ($) {
 			e.preventDefault();
 
 			var target = $(this).attr('href');
-			_controller.scrollTo(target);
+			controller.scrollTo(target);
 		});
 	}
 
@@ -83,18 +108,15 @@ var Navigation = (function ($) {
 var Scene = (function ($) {
 	var scope,
 		_currentScene,
+		_isAnimating,
 		_viewHeight,
-		_showTimes,
-		_homeAnimation,
-		_afterHomeAnimation,
-		_arrivedAnimation,
+
 		_timeArrivedAnimation,
 		init = function () {
 			_currentScene = 0;
-			_readyShowTime = false;
+			_isAnimating = false;
 
 			_viewHeight = $(window).height();
-			_showTimes = [1, 2];
 
 			initMotion();
 			initEvent();
@@ -103,22 +125,12 @@ var Scene = (function ($) {
 
 	// stopTween
 	function stopTween(div){
-		console.log("stopTween");
 		TweenMax.killTweensOf(div);
-	}
-
-
-	function viewWillScene(index) {
-		if( index === 1 ) {
-			_afterHomeAnimation.restart();
-		} else if( index === 2 ) {
-			arrivedAnimation.resume();
-		}
 	}
 
 	function initMotion() {
 		/* scene : home */
-		_homeAnimation = new TimelineMax({paused: true})
+		var homeAnimation = new TimelineMax({paused: true, onStart:startAnimation})
 			.add([
 				TweenMax.fromTo('.scene.home .moon', 0.5, {delay: 5, opacity: 0, y: -30}, {opacity: 1, y: 0}),
 			])
@@ -133,15 +145,14 @@ var Scene = (function ($) {
 			])
 			.add([
 				TweenMax.fromTo('.scene.home .wally', 1, {y: 0}, {y: 10, ease: Quad.easeInOut, repeat: -1, yoyo: true}),
-				TweenMax.fromTo('.scene.home .btn-start', 0.5, {opacity: 0, y: -30}, {opacity: 1, y: 0})
+				TweenMax.fromTo('.scene.home .btn-start', 0.5, {opacity: 0, y: -30}, {opacity: 1, y: 0, onComplete:finishAnimation})
 			]);
+		sceneData[0].animation = homeAnimation;
 
 
 
 		/* scene : after home */
-		_afterHomeAnimation = new TimelineMax({paused: true, onComplete: function(){
-				_currentScene = 1;
-			}})
+		var afterHomeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onComplete:finishAnimation})
 			.add([
 				TweenMax.to('.scene.home .btn-start', 0.5, {opacity: 0})
 			])
@@ -158,49 +169,42 @@ var Scene = (function ($) {
 				TweenMax.to('.scene.home .outlet', 3, {delay: 3, y: "-100%"}),
 				TweenMax.to('.scene.home', 6, {})
 			]);
+/*
 		new ScrollMagic.Scene({
 			triggerElement: ".scene.arrived",
 			triggerHook: "onEnter",
-			duration: 0,
-			offset: 1
+			duration: 0
 		})
 		.setTween(_afterHomeAnimation.restart())
-		.addTo(_controller);
+		.addTo(controller);
+*/
+		sceneData[1].animation = afterHomeAnimation;
 
 
 		/* scene : arrived outlet */
-		_timeArrivedAnimation = new TimelineMax({paused: true, onComplete: function(){
-				viewWillScene(_currentScene++);
-			}})
-			.fromTo('.time-layer', 0.5, {delay: 1.5, opacity: 0}, {opacity: 1, display: 'block'});
-
-
-		/* scene : arrived outlet */
-		var arrivedAnimation = new TimelineMax({onComplete: function(){
-				_currentScene = 2;
-			}})
+		var arrivedAnimation = new TimelineMax({onStart:startAnimation, onComplete:finishAnimation})
 			.from('.scene.arrived .title-time', 0.5, {delay: 1.2, opacity: 0})
 			.from('.scene.arrived .wally', 0.5, {delay: 1, opacity: 0, x: -30})
 			.from('.scene.arrived .txt01', 0.5, {opacity: 0});
-
 		var sceneArrived = new ScrollMagic.Scene({
 			triggerElement: ".scene.arrived",
 			triggerHook: 'onLeave'
 		})
 		.setTween(arrivedAnimation)
-		.addTo(_controller);
+		.addTo(controller);
+		sceneData[2].animation = arrivedAnimation;
+
+
+		startScene();
 	}
 
 
+
 	function initEvent() {
-		_homeAnimation.restart();
-
-
 		/* home - start */
 		$('.scene.home .btn-start').on('click', function(e) {
 			e.preventDefault();
-			// _afterHomeAnimation.restart();
-			_controller.scrollTo(1);
+			next();
 		});
 
 		/* wheel event */
@@ -209,33 +213,109 @@ var Scene = (function ($) {
 			e.preventDefault();
 			e.stopPropagation();
 
-/*
 			var results = lethargy.check(e);
 			if( results !== false ) {
-				console.log("results : " + results);
-
 				if( results < 0 ) {
-					// next
-					if( _currentScene === 0 ) {
-						viewWillScene(1);
-						return;
-					}
-
-					for(var scene in _showTimes) {
-						if( scene === _currentScene ) {
-							console.log("_timeArrivedAnimation.restart()");
-							_timeArrivedAnimation.restart();
-							return;
-						}
-					}
+					next();
+				} else {
+					prev();
 				}
-
-				// TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / _viewHeight)*_viewHeight+(_viewHeight*results*-1)}, ease:Quad.easeInOut});
 			}
-*/
 		});
 
 	}
+
+	function startAnimation() {
+		_isAnimating = true;
+		console.log("startAnimation : " + _isAnimating);
+	}
+
+	function finishAnimation(isTimeLayer) {
+		_isAnimating = false;
+		console.log("finishAnimation : " + _isAnimating);
+		if( isTimeLayer ) {
+			TweenMax.set('.time-layer', {css: {zIndex:-1}});
+			next(true);
+		}
+	}
+
+	/* start Scene */
+	function startScene() {
+		animationScene(sceneData[0].animation);
+	}
+
+	/* animationScene */
+	function animationScene(animation) {
+		animation.restart();
+	}
+
+	/* time layer */
+	function timeLayerAnimation(scene) {
+		if( _isAnimating ) {
+			console.log("moving.... cancel next()");
+			return;
+		}
+
+		/* scene : time layer */
+		startAnimation();
+		TweenMax.set('.time-layer', {css: {zIndex:2000}});
+		var timeAnimation = new TimelineMax({onStart:startAnimation, onComplete:finishAnimation, onCompleteParams:[true]})
+			.add([
+				TweenMax.to('.time-layer', 0.5, {delay: 1.5, opacity: 1})
+			])
+			.add([
+				TweenMax.to('.time-layer', 0.5, {delay: 1.5, opacity: 0})
+			]);
+	}
+
+	/* next Scene */
+	function next(afterTimeLaer) {
+		if( _isAnimating ) {
+			console.log("moving.... cancel next()");
+			return;
+		}
+
+		var scene = sceneData[_currentScene];
+		var nextScene = sceneData[_currentScene+1];
+		if( nextScene === undefined ) return;
+
+		console.log("_currentScene : " + _currentScene);
+		console.log(scene);
+		console.log(nextScene);
+		console.log("timeLayer : " + scene.hasOwnProperty('timeLayer'));
+
+		// Time Layer 표시 이후
+		// if( afterTimeLaer !== undefined && afterTimeLaer ) {
+
+		// }
+
+		if( !afterTimeLaer && scene.hasOwnProperty('timeLayer') ) {
+			timeLayerAnimation(scene);
+/*
+			animationScene(nextScene.animation);
+			if( nextScene.scroll == "auto" ) {
+				TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / _viewHeight)*_viewHeight+(_viewHeight)}, ease:Quad.easeInOut});
+			}
+*/
+		} else {
+			if( nextScene.scroll == "auto" ) {
+				TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / _viewHeight)*_viewHeight+(_viewHeight)}, ease:Quad.easeInOut});
+			} else if( nextScene.scroll == "direct" ) {
+				animationScene(nextScene.animation);
+			}
+			_currentScene++;
+		}
+	}
+
+	/* prev Scene */
+	function prev() {
+		if( _isAnimating ) {
+			console.log("moving.... cancel prev()");
+			return;
+		}
+
+	}
+
 
 	return {
 		init: function () {
