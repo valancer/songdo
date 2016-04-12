@@ -166,8 +166,8 @@ The `sprites` mixin generates identical output to the CSS template
   .scene .title-time {
     display: block;
     position: absolute;
-    top: 133px;
-    left: 67px;
+    top: 90px;
+    left: 30px;
     text-indent: -9999px;
     opacity: 1; }
 
@@ -194,7 +194,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -195px;
     background-image: url(../images/sprites.png);
-    background-position: -538px -647px;
+    background-position: -1458px 0px;
     width: 390px;
     height: 390px; }
   .scene.home .title {
@@ -204,7 +204,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -243px;
     background-image: url(../images/sprites.png);
-    background-position: -455px -1081px;
+    background-position: -978px -1081px;
     width: 486px;
     height: 146px; }
   .scene.home .description {
@@ -235,7 +235,7 @@ The `sprites` mixin generates identical output to the CSS template
     margin-left: -37px;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: -1012px -583px;
+    background-position: -1715px -507px;
     width: 74px;
     height: 43px; }
   .scene.home .bg-animation {
@@ -290,7 +290,7 @@ The `sprites` mixin generates identical output to the CSS template
     width: 100%;
     background: url("../images/scene_home/07_outlet.png") center bottom no-repeat; }
 
-/* scene - home */
+/* scene - arrived outlet */
 .scene.arrived {
   overflow: hidden;
   background: #3e5c9b url("../images/scene_arrived/bg_last.jpg") center center no-repeat;
@@ -298,7 +298,7 @@ The `sprites` mixin generates identical output to the CSS template
   /* init */ }
   .scene.arrived .title-time {
     background-image: url(../images/sprites.png);
-    background-position: -455px -1232px;
+    background-position: -538px -934px;
     width: 551px;
     height: 39px; }
   .scene.arrived .bg01 {
@@ -328,10 +328,162 @@ The `sprites` mixin generates identical output to the CSS template
     left: 290px;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: -933px -647px;
+    background-position: 0px -1348px;
     width: 420px;
     height: 305px;
     opacity: 1; }
+
+/* scene - outlet brand */
+.scene.brand {
+  overflow: hidden;
+  background: #8ca6d6 url("../images/scene_brand/bg_last.png") center center no-repeat; }
+  .scene.brand .title-time {
+    z-index: 1;
+    background-image: url(../images/sprites.png);
+    background-position: -538px -978px;
+    width: 652px;
+    height: 30px; }
+  .scene.brand .outlet-brand {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    margin-top: -126px;
+    margin-left: -524px;
+    height: 252px;
+    width: 1048px; }
+    .scene.brand .outlet-brand .btn {
+      display: block;
+      position: relative;
+      float: left;
+      padding: 0 20px;
+      height: 252px;
+      width: 222px; }
+      .scene.brand .outlet-brand .btn:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-position: center center;
+        background-repeat: no-repeat; }
+      .scene.brand .outlet-brand .btn > span {
+        display: block;
+        position: absolute;
+        text-indent: -9999px;
+        background-position: 0 0;
+        background-repeat: no-repeat; }
+      .scene.brand .outlet-brand .btn.luxury:before {
+        background-image: url("../images/scene_brand/menu_box01.png"); }
+      .scene.brand .outlet-brand .btn.luxury > span {
+        top: 36px;
+        left: -31px;
+        height: 128px;
+        width: 232px;
+        background-image: url("../images/scene_brand/menu_object01.png"); }
+      .scene.brand .outlet-brand .btn.sport-factory:before {
+        background-image: url("../images/scene_brand/menu_box02.png"); }
+      .scene.brand .outlet-brand .btn.sport-factory > span {
+        top: 100px;
+        left: 52px;
+        height: 237px;
+        width: 217px;
+        background-image: url("../images/scene_brand/menu_object02.png"); }
+      .scene.brand .outlet-brand .btn.fashion:before {
+        background-image: url("../images/scene_brand/menu_box03.png"); }
+      .scene.brand .outlet-brand .btn.fashion > span {
+        top: -69px;
+        left: 68px;
+        height: 271px;
+        width: 200px;
+        background-image: url("../images/scene_brand/menu_object03.png"); }
+      .scene.brand .outlet-brand .btn.handsome:before {
+        background-image: url("../images/scene_brand/menu_box04.png"); }
+      .scene.brand .outlet-brand .btn.handsome > span {
+        top: 80px;
+        left: 24px;
+        height: 197px;
+        width: 246px;
+        background-image: url("../images/scene_brand/menu_object04.png"); }
+  .scene.brand .bag {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -1458px -395px;
+    width: 252px;
+    height: 219px;
+    opacity: 1; }
+  .scene.brand .wally {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: 0px -1081px;
+    width: 518px;
+    height: 262px;
+    opacity: 1; }
+  .scene.brand .wilma {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -538px -647px;
+    width: 552px;
+    height: 282px;
+    opacity: 1; }
+  .scene.brand .bg01 {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    background: url("../images/scene_brand/menu_bg01.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 0; }
+  .scene.brand .bg02 {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    background: url("../images/scene_brand/menu_bg02.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 0; }
+  .scene.brand .bg03 {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    background: url("../images/scene_brand/menu_bg03.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 0; }
+  .scene.brand .bg04 {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    background: url("../images/scene_brand/menu_bg04.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 0; }
 
 html {
   box-sizing: border-box;
@@ -340,17 +492,6 @@ html {
 body {
   overflow-x: hidden;
   overflow-y: auto; }
-  body:before {
-    content: '';
-    display: block;
-    pointer-events: none;
-    position: fixed;
-    top: 30px;
-    right: 30px;
-    bottom: 30px;
-    left: 30px;
-    z-index: 901;
-    border: 7px solid #fff; }
 
 /* menus dimmed */
 .dimmed {
@@ -383,7 +524,7 @@ body {
       margin-top: -129px;
       margin-left: -225px;
       background-image: url(../images/sprites.png);
-      background-position: 0px -1081px;
+      background-position: -523px -1081px;
       width: 450px;
       height: 258px; }
     .time-layer .time.time02 {
@@ -398,22 +539,22 @@ body {
 .menus {
   display: block;
   position: fixed;
-  top: 37px;
-  right: 30px;
-  bottom: 37px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
   z-index: 900;
   width: 50px;
   background-color: #fff; }
   .menus .title-area {
     display: block;
     position: fixed;
-    top: 60px;
-    left: 60px; }
+    top: 30px;
+    left: 30px; }
     .menus .title-area .sondgo {
       display: block;
       text-indent: -9999px;
       background-image: url(../images/sprites.png);
-      background-position: -1012px -548px;
+      background-position: -1458px -619px;
       width: 325px;
       height: 30px; }
   .menus .btn-toggle-menu {
@@ -482,7 +623,7 @@ body {
       margin: 58px auto 0 auto;
       text-indent: -9999px;
       background-image: url(../images/sprites.png);
-      background-position: -1358px -647px;
+      background-position: -1715px -395px;
       width: 80px;
       height: 107px; }
     .menus .open-menus .list-menus {
@@ -505,77 +646,77 @@ body {
             background-color: #000; }
           .menus .open-menus .list-menus > li a.btn-home {
             background-image: url(../images/sprites.png);
-            background-position: -1424px -444px;
+            background-position: -1800px -419px;
             width: 18px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-home:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1424px -420px;
+              background-position: -1823px -395px;
               width: 18px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-location {
             background-image: url(../images/sprites.png);
-            background-position: -1316px -583px;
+            background-position: -1715px -555px;
             width: 70px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-location:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1166px -583px;
+              background-position: -1458px -654px;
               width: 70px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-floor {
             background-image: url(../images/sprites.png);
-            background-position: -1091px -583px;
+            background-position: -1533px -654px;
             width: 70px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-floor:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1091px -607px;
+              background-position: -1608px -654px;
               width: 70px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-membership {
             background-image: url(../images/sprites.png);
-            background-position: -1391px -583px;
+            background-position: -1794px -507px;
             width: 51px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-membership:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1166px -607px;
+              background-position: -1794px -531px;
               width: 51px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-coupon {
             background-image: url(../images/sprites.png);
-            background-position: -1394px -607px;
+            background-position: -1790px -579px;
             width: 53px;
             height: 18px; }
             .menus .open-menus .list-menus > li a.btn-coupon:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1336px -607px;
+              background-position: -1758px -654px;
               width: 53px;
               height: 18px; }
       .menus .open-menus .list-menus.is-hover a.btn-home {
         background-image: url(../images/sprites.png);
-        background-position: -1424px -396px;
+        background-position: -1800px -395px;
         width: 18px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-location {
         background-image: url(../images/sprites.png);
-        background-position: -1241px -583px;
+        background-position: -1715px -579px;
         width: 70px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-floor {
         background-image: url(../images/sprites.png);
-        background-position: -1342px -548px;
+        background-position: -1683px -654px;
         width: 70px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-membership {
         background-image: url(../images/sprites.png);
-        background-position: -1222px -607px;
+        background-position: -1790px -555px;
         width: 51px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-coupon {
         background-image: url(../images/sprites.png);
-        background-position: -1278px -607px;
+        background-position: -1788px -619px;
         width: 53px;
         height: 18px; }
     .menus .open-menus .banners a {

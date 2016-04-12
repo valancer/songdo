@@ -2,7 +2,7 @@
 
 /* scene */
 .scene { display: block; position: relative; box-sizing: border-box; padding: 37px; height: 100vh; 
-	.title-time { display: block; position: absolute; top: 133px; left: 67px; text-indent: -9999px; opacity: 1; }
+	.title-time { display: block; position: absolute; top: 90px; left: 30px; text-indent: -9999px; opacity: 1; }
 }
 
 
@@ -31,7 +31,7 @@
 }
 
 
-/* scene - home */
+/* scene - arrived outlet */
 .scene.arrived { overflow: hidden; background: #3e5c9b url('../images/scene_arrived/bg_last.jpg') center center no-repeat; background-size: cover;
 	.title-time { @include sprite($s-title-1030); }
 
@@ -40,3 +40,47 @@
 	.wally { display: block; position: absolute; bottom: 0; left: 0; @include sprite($s-scene03-wally); opacity: 1; }
 	.txt01 { display: block; position: absolute; bottom: $s-scene03-wally-height - 102; left: $s-scene03-wally-width - 260; text-indent: -9999px; @include sprite($s-scene03-txt01); opacity: 1; }
 }
+
+/* scene - outlet brand */
+.scene.brand { overflow: hidden; background: #8ca6d6 url('../images/scene_brand/bg_last.png') center center no-repeat;
+	.title-time { z-index: z("default"); @include sprite($s-title-1100); }
+
+	.outlet-brand { position: absolute; top: 50%; left: 50%; z-index: z("default"); margin-top: -126px; margin-left: -524px; height: 252px; width: 1048px;
+		.btn { display: block; position: relative; float: left; padding: 0 20px; height: 252px; width: 222px;
+			&:before { content: ''; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-position: center center; background-repeat: no-repeat; }
+
+			> span { display: block; position: absolute; text-indent: -9999px; background-position: 0 0; background-repeat: no-repeat; }
+			
+			&.luxury {
+				&:before { background-image: url('../images/scene_brand/menu_box01.png'); }
+				> span { top: 36px; left: -31px; height: 128px; width: 232px; background-image: url('../images/scene_brand/menu_object01.png'); }
+			}
+			
+			&.sport-factory {
+				&:before { background-image: url('../images/scene_brand/menu_box02.png'); }
+				> span { top: 100px; left: 52px; height: 237px; width: 217px; background-image: url('../images/scene_brand/menu_object02.png'); }
+			}
+			
+			&.fashion {
+				&:before { background-image: url('../images/scene_brand/menu_box03.png'); }
+				> span { top: -69px; left: 68px; height: 271px; width: 200px; background-image: url('../images/scene_brand/menu_object03.png'); }
+			}
+			
+			&.handsome {
+				&:before { background-image: url('../images/scene_brand/menu_box04.png'); }
+				> span { top: 80px; left: 24px; height: 197px; width: 246px; background-image: url('../images/scene_brand/menu_object04.png'); }
+			}
+		}
+	}
+
+	.bag { display: block; position: absolute; top: 0; right: 0; text-indent: -9999px; @include sprite($s-scene04-object01); opacity: 1;  }
+	.wally { display: block; position: absolute; bottom: 0; right: 0; text-indent: -9999px; @include sprite($s-scene04-wally); opacity: 1;  }
+	.wilma { display: block; position: absolute; bottom: 0; left: 0; text-indent: -9999px; @include sprite($s-scene04-wilma); opacity: 1;  }
+
+	.bg01 { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 1; background: url('../images/scene_brand/menu_bg01.jpg') center center no-repeat; background-size: cover; opacity: 0; }
+	.bg02 { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 1; background: url('../images/scene_brand/menu_bg02.jpg') center center no-repeat; background-size: cover; opacity: 0; }
+	.bg03 { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 1; background: url('../images/scene_brand/menu_bg03.jpg') center center no-repeat; background-size: cover; opacity: 0; }
+	.bg04 { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 1; background: url('../images/scene_brand/menu_bg04.jpg') center center no-repeat; background-size: cover; opacity: 0; }
+}
+
+

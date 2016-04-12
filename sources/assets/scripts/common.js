@@ -1,6 +1,7 @@
 $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
+	Brand.init();
 });
 
 
@@ -28,9 +29,21 @@ var sceneData = [
 		timeLayer: {
 			target: '.time02'
 		}
+	},
+	{
+		title: "Outlet Brand",
+		animation: null,
+		scroll: 'auto',
+		timeAnimation: null,
+		timeLayer: {
+			target: '.time02'
+		}
 	}
 ];
 
+
+
+/* 우측 메뉴 및 네비게이션 */
 var Navigation = (function ($) {
 	var scope,
 		$dimmed,
@@ -105,6 +118,8 @@ var Navigation = (function ($) {
 
 
 
+
+/* 전체 SCENE 애니메이션 고나련 */
 var Scene = (function ($) {
 	var scope,
 		_currentScene,
@@ -121,12 +136,6 @@ var Scene = (function ($) {
 			initMotion();
 			initEvent();
 		};//end init
-
-
-	// stopTween
-	function stopTween(div){
-		TweenMax.killTweensOf(div);
-	}
 
 	function initMotion() {
 		/* scene : home */
@@ -195,6 +204,25 @@ var Scene = (function ($) {
 		sceneData[2].animation = arrivedAnimation;
 
 
+		/* scene : arrived outlet */
+		var brandAnimation = new TimelineMax({onStart:startAnimation, onComplete:finishAnimation})
+			.from('.scene.brand .title-time', 0.5, {delay: 1.2, opacity: 0})
+			.from('.scene.brand .btn.luxury', 0.3, {delay: 0, opacity: 0, y: -30})
+			.from('.scene.brand .btn.sport-factory', 0.3, {delay: 0, opacity: 0, y: 30})
+			.from('.scene.brand .btn.fashion', 0.3, {delay: 0, opacity: 0, y: -30})
+			.from('.scene.brand .btn.handsome', 0.3, {delay: 0, opacity: 0, y: 30})
+			.from('.scene.brand .wilma', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.brand .wally', 0.5, {delay: 1, opacity: 0});
+		var sceneBrand = new ScrollMagic.Scene({
+			triggerElement: ".scene.brand",
+			triggerHook: 'onLeave'
+		})
+		.setTween(brandAnimation)
+		.addTo(controller);
+		sceneData[3].animation = brandAnimation;
+
+
+
 		startScene();
 	}
 
@@ -224,6 +252,13 @@ var Scene = (function ($) {
 		});
 
 	}
+
+
+	// stopTween
+	function stopTween(div){
+		TweenMax.killTweensOf(div);
+	}
+
 
 	function startAnimation() {
 		_isAnimating = true;
@@ -316,6 +351,60 @@ var Scene = (function ($) {
 
 	}
 
+
+	return {
+		init: function () {
+			scope = this;
+
+			init();
+		},
+		getIsAnimating: function() {
+			return _isAnimating;
+		}
+	};
+}(jQuery));
+
+
+
+
+/* SCENE04 - Brand 메뉴 */
+var Brand = (function ($) {
+	var scope,
+		$brandContainer,
+		$btns,
+		init = function () {
+			$brandContainer = $('.scene.brand .outlet-brand');
+			$btns = $brandContainer.find('.btn');
+
+			initLayout();
+			initEvent();
+		};//end init
+
+	function initLayout() {
+	}
+
+	function initEvent() {
+		$brandContainer.on('mouseenter', function(e) {
+			if( Scene.getIsAnimating() ) return;
+			TweenMax.to('.scene.brand .btn > span', 0.5, {opacity: 0});
+		});
+
+		$brandContainer.on('mouseleave', function(e) {
+			TweenMax.to('.scene.brand .btn > span', 0.5, {delay: 0.3, opacity: 1});
+		});
+		/* menus */
+		$btns.on('mouseenter', function(e) {
+			if( Scene.getIsAnimating() ) return;
+
+			var $targetBG = $($(this).data('target'));
+			TweenMax.to($targetBG, 0.5, {opacity: 1});
+		});
+
+		$btns.on('mouseleave', function(e) {
+			var $targetBG = $($(this).data('target'));
+			TweenMax.to($targetBG, 0.5, {delay: 0.3, opacity: 0});
+		});
+	}
 
 	return {
 		init: function () {
