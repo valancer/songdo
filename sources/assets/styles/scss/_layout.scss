@@ -5,7 +5,20 @@ body { overflow-x: hidden; overflow-y: auto;
 }
 
 
+/* menus dimmed */
 .dimmed { display: block; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("modaless")-1; background-color: rgba(0, 0, 0, 0.5); }
+
+
+
+/* time layer */
+.time-layer { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("modal"); background-color: rgba(16, 20, 53, 0.8);
+	.time { position: absolute; top: 50%; left: 50%; text-indent: -9999px;
+		&.time01 { margin-top: -$s-time01-height/2; margin-left: -$s-time01-width/2; @include sprite($s-time01); }
+		&.time02 { margin-top: -$s-time02-height/2; margin-left: -$s-time02-width/2; @include sprite($s-time02); }
+	}
+}
+
+
 
 /* memus */
 .menus { display: block; position: fixed; top: 37px; right: 30px; bottom: 37px; z-index: z("modaless"); width: 50px; background-color: #fff;

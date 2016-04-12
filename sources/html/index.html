@@ -8,10 +8,12 @@
 	<meta name="format-detection" content="telephone=no">
 	<script src="./assets/scripts/libs/jquery-1.11.1.min.js"></script>
 
+	<script src="./assets/scripts/libs/TweenMax.min.js?v=1.18.2"></script>
 	<script src="./assets/scripts/libs/ScrollMagic.js"></script>
 	<script src="./assets/scripts/libs/debug.addIndicators.min.js"></script>
 	<script src="./assets/scripts/libs/animation.gsap.min.js"></script>
-	<script src="./assets/scripts/libs/TweenMax.min.js?v=1.18.2"></script>
+	<script src="./assets/scripts/libs/ScrollToPlugin.min.js"></script>
+	<script src="./assets/scripts/libs/lethargy.min.js"></script>
 
 	<!-- custom -->
 	<script src="./assets/scripts/common.js"></script>
@@ -52,8 +54,8 @@
 
 		<!-- indicators -->
 		<ul class="list-indicators">
-			<li class="long is-selected"><a href="#"><span>여행을 시작해</span></a></li>
-			<li><a href="#"><span>아울렛에 도착</span></a></li>
+			<li class="long is-selected"><a href="#home"><span>여행을 시작해</span></a></li>
+			<li><a href="#arrived"><span>아울렛에 도착</span></a></li>
 			<li><a href="#"><span>쇼핑타임</span></a></li>
 			<li class="long"><a href="#"><span>식사와 휴식</span></a></li>
 			<li><a href="#"><span>프리미엄마켓</span></a></li>
@@ -64,10 +66,16 @@
 	</div>
 
 
+	<!-- Time Container -->
+	<div class="scene time-layer">
+		<p class="time time01">10시30분 아울렛에 도착</p>
+		<!-- <p class="time time02">11시 즐거운 쇼핑타임</p> -->
+	</div>
+
 
 
 	<!-- scene1 : home -->
-	<section class="scene home">
+	<section id="home" class="scene home">
 		<div class="inner">
 			<div class="moon"></div>
 			<div class="wally"></div>
@@ -87,12 +95,13 @@
 	</section>
 
 
+	<!-- scene3 : outlet -->
+	<section id="arrived" class="scene arrived">
+		<p id="arrived-title-time" class="title-time">10:30 현대프리미엄아울렛 도착</p>
 
-	<!-- scene2 : home -->
-	<section class="scene home-motion">
-		
-		section2
-
+		<div class="bg01"></div>
+		<div class="wally"></div>
+		<a href="#" class="txt01">오시는 길</a>
 	</section>
 
 </body>
