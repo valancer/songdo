@@ -204,7 +204,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -243px;
     background-image: url(../images/sprites.png);
-    background-position: -978px -1081px;
+    background-position: -555px -396px;
     width: 486px;
     height: 146px; }
   .scene.home .description {
@@ -214,7 +214,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -203.5px;
     background-image: url(../images/sprites.png);
-    background-position: -1012px -396px;
+    background-position: -523px -1081px;
     width: 407px;
     height: 147px; }
   .scene.home .wally {
@@ -298,7 +298,7 @@ The `sprites` mixin generates identical output to the CSS template
   /* init */ }
   .scene.arrived .title-time {
     background-image: url(../images/sprites.png);
-    background-position: -538px -934px;
+    background-position: -935px -1081px;
     width: 551px;
     height: 39px; }
   .scene.arrived .bg01 {
@@ -340,7 +340,7 @@ The `sprites` mixin generates identical output to the CSS template
   .scene.brand .title-time {
     z-index: 1;
     background-image: url(../images/sprites.png);
-    background-position: -538px -978px;
+    background-position: -935px -1125px;
     width: 652px;
     height: 30px; }
   .scene.brand .outlet-brand {
@@ -516,24 +516,40 @@ body {
   background-color: rgba(16, 20, 53, 0.8);
   opacity: 0; }
   .time-layer .time {
+    display: block;
     position: absolute;
     top: 50%;
-    left: 50%;
+    margin-top: -129px;
+    width: 100%;
     text-indent: -9999px; }
-    .time-layer .time.time01 {
-      margin-top: -129px;
-      margin-left: -225px;
+    .time-layer .time > .now {
+      display: block;
+      margin: 0 auto;
+      opacity: 0; }
+    .time-layer .time > .now-txt {
+      display: block;
+      margin: 50px auto 0 auto;
+      opacity: 0; }
+    .time-layer .time.time01 > .now {
       background-image: url(../images/sprites.png);
-      background-position: -523px -1081px;
+      background-position: -538px -934px;
       width: 450px;
-      height: 258px; }
-    .time-layer .time.time02 {
-      margin-top: -118.5px;
-      margin-left: -226px;
+      height: 139px; }
+    .time-layer .time.time01 > .now-txt {
       background-image: url(../images/sprites.png);
-      background-position: -555px -396px;
+      background-position: -555px -547px;
+      width: 443px;
+      height: 71px; }
+    .time-layer .time.time02 > .now {
+      background-image: url(../images/sprites.png);
+      background-position: -1458px -619px;
+      width: 383px;
+      height: 123px; }
+    .time-layer .time.time02 > .now-txt {
+      background-image: url(../images/sprites.png);
+      background-position: -993px -934px;
       width: 452px;
-      height: 237px; }
+      height: 63px; }
 
 /* memus */
 .menus {
@@ -554,7 +570,7 @@ body {
       display: block;
       text-indent: -9999px;
       background-image: url(../images/sprites.png);
-      background-position: -1458px -619px;
+      background-position: -1458px -747px;
       width: 325px;
       height: 30px; }
   .menus .btn-toggle-menu {
@@ -656,22 +672,22 @@ body {
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-location {
             background-image: url(../images/sprites.png);
-            background-position: -1715px -555px;
+            background-position: -1715px -579px;
             width: 70px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-location:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1458px -654px;
+              background-position: -1533px -782px;
               width: 70px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-floor {
             background-image: url(../images/sprites.png);
-            background-position: -1533px -654px;
+            background-position: -1608px -782px;
             width: 70px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-floor:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1608px -654px;
+              background-position: -1715px -555px;
               width: 70px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-membership {
@@ -681,17 +697,17 @@ body {
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-membership:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1794px -531px;
+              background-position: -1790px -555px;
               width: 51px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-coupon {
             background-image: url(../images/sprites.png);
-            background-position: -1790px -579px;
+            background-position: -1788px -747px;
             width: 53px;
             height: 18px; }
             .menus .open-menus .list-menus > li a.btn-coupon:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1758px -654px;
+              background-position: -1758px -782px;
               width: 53px;
               height: 18px; }
       .menus .open-menus .list-menus.is-hover a.btn-home {
@@ -701,22 +717,22 @@ body {
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-location {
         background-image: url(../images/sprites.png);
-        background-position: -1715px -579px;
+        background-position: -1458px -782px;
         width: 70px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-floor {
         background-image: url(../images/sprites.png);
-        background-position: -1683px -654px;
+        background-position: -1683px -782px;
         width: 70px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-membership {
         background-image: url(../images/sprites.png);
-        background-position: -1790px -555px;
+        background-position: -1794px -531px;
         width: 51px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-coupon {
         background-image: url(../images/sprites.png);
-        background-position: -1788px -619px;
+        background-position: -1790px -579px;
         width: 53px;
         height: 18px; }
     .menus .open-menus .banners a {

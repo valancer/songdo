@@ -10,9 +10,18 @@ body { overflow-x: hidden; overflow-y: auto; }
 
 /* time layer */
 .time-layer { display: block; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: rgba(16, 20, 53, 0.8); opacity: 0;
-	.time { position: absolute; top: 50%; left: 50%; text-indent: -9999px;
-		&.time01 { margin-top: -$s-time01-height/2; margin-left: -$s-time01-width/2; @include sprite($s-time01); }
-		&.time02 { margin-top: -$s-time02-height/2; margin-left: -$s-time02-width/2; @include sprite($s-time02); }
+	.time { display: block; position: absolute; top: 50%; margin-top: -129px; width: 100%; text-indent: -9999px;
+		> .now { display: block; margin: 0 auto; opacity: 0; }
+		> .now-txt { display: block; margin: 50px auto 0 auto; opacity: 0; }
+
+		&.time01 {
+			> .now { @include sprite($s-time-1030); }
+			> .now-txt { @include sprite($s-time-1030-txt); }
+		}
+		&.time02 {
+			> .now { @include sprite($s-time-1100); }
+			> .now-txt { @include sprite($s-time-1100-txt); }
+		}
 	}
 }
 

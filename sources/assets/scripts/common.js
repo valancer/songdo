@@ -291,15 +291,22 @@ var Scene = (function ($) {
 			return;
 		}
 
+		var now = scene.timeLayer.target + " .now";
+		var nowTxt = scene.timeLayer.target + " .now-txt";
+
 		/* scene : time layer */
 		startAnimation();
 		TweenMax.set('.time-layer', {css: {zIndex:2000}});
 		var timeAnimation = new TimelineMax({onStart:startAnimation, onComplete:finishAnimation, onCompleteParams:[true]})
+			.to('.time-layer', 0.5, {delay: 1.5, opacity: 1})
 			.add([
-				TweenMax.to('.time-layer', 0.5, {delay: 1.5, opacity: 1})
+				TweenMax.fromTo(now, 0.3, {y: 30}, {opacity: 1, y: 0}),
+				TweenMax.fromTo(nowTxt, 0.3, {y: 30}, {delay: 0.2, opacity: 1, y:0})
 			])
+			.to('.time-layer', 0.5, {delay: 1.5, opacity: 0})
 			.add([
-				TweenMax.to('.time-layer', 0.5, {delay: 1.5, opacity: 0})
+				TweenMax.to(now, 0.1, {opacity: 0}),
+				TweenMax.to(nowTxt, 0.1, {opacity: 0})
 			]);
 	}
 
@@ -326,12 +333,6 @@ var Scene = (function ($) {
 
 		if( !afterTimeLaer && scene.hasOwnProperty('timeLayer') ) {
 			timeLayerAnimation(scene);
-/*
-			animationScene(nextScene.animation);
-			if( nextScene.scroll == "auto" ) {
-				TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / _viewHeight)*_viewHeight+(_viewHeight)}, ease:Quad.easeInOut});
-			}
-*/
 		} else {
 			if( nextScene.scroll == "auto" ) {
 				TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / _viewHeight)*_viewHeight+(_viewHeight)}, ease:Quad.easeInOut});
