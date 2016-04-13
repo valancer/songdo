@@ -1,7 +1,7 @@
 
 
 /* scene */
-.scene { display: block; position: relative; box-sizing: border-box; padding: 37px; height: 100vh; 
+.scene { display: block; position: relative; box-sizing: border-box; height: 100vh; 
 	.title-time { display: block; position: absolute; top: 90px; left: 30px; text-indent: -9999px; opacity: 1; }
 }
 
@@ -86,7 +86,44 @@
 
 
 /* scene - launch */
-.scene.launch { overflow: hidden; height: 4230px; background: url('../images/scene_launch/bg_last.png') left top repeat;
-	.line-container { margin: 300px auto 0 auto; height: 100%; width: 1114px; background-color: #0f0; }
+.scene.launch { overflow: hidden; height: 4230px; background-image: url('../images/scene_launch/bg_object.png'), url('../images/scene_launch/bg_last.png'); background-position: center bottom, center top; background-repeat: no-repeat, repeat;
+	.header { height: 883px; width: 100%; text-indent: -9999px; background: url('../images/scene_launch/bg_header.png') center top repeat; }
+
+	.contents { position: absolute; top: 883px; left: calc(50% - 600px); height: 100%; width: 1200px; background-color: rgba(0, 0, 0, 0.3); }
+
+	.object { position: absolute; background-position: left top; background-repeat: no-repeat;
+		.btn-more { display: block; position: absolute; top: 0; left: 0; text-indent: -9999px; @include sprite($s-btn-plus01); }
+		
+		&.restaurant { top: 233px; left: calc(50% - 50px); height: 540px; width: 692px; background-image: url('../images/scene_launch/object01.png');
+			.btn-more { top: -124px; left: 156px; }
+		}
+		
+		&.cafeteria { top: 851px; left: calc(50% - 502px); height: 309px; width: 713px; background-image: url('../images/scene_launch/object02.png');
+			.btn-more { top: -130px; left: -85px; }
+		}
+		
+		&.deli { top: 1213px; left: calc(50% + 120px); height: 576px; width: 586px; background-image: url('../images/scene_launch/object03.png');
+			.btn-more { top: -130px; left: 388px; }
+		}
+		
+		&.dessert { top: 1657px; left: calc(50% - 401px); height: 450px; width: 392px; background-image: url('../images/scene_launch/object04.png');
+			.btn-more { top: -75px; left: 223px; }
+		}
+		
+		&.star-gallery { top: 2312px; left: 50%; height: 521px; width: 594px; background-image: url('../images/scene_launch/object05.png');
+			.btn-more { top: -184px; left: 428px; }
+		}
+		
+		&.bakery { top: 2859px; left: calc(50% - 487px); height: 395px; width: 481px; background-image: url('../images/scene_launch/object06.png');
+			.btn-more { top: -192px; left: 152px; }
+		}
+	}
+
+	.wally { display: block; position: absolute; top: 725px; left: 0; text-indent: -9999px; @include sprite($s-scene05-wally); pointer-events: none; }
+	.wilma { display: block; position: absolute; top: 1538px; right: 0; text-indent: -9999px; @include sprite($s-scene05-wilma); pointer-events: none; }
+	.woof { display: block; position: absolute; top: 2160px; left: 0; text-indent: -9999px; @include sprite($s-scene05-woof); pointer-events: none; }
+	.odlaw { display: block; position: absolute; top: 2620px; right: 0; text-indent: -9999px; @include sprite($s-scene05-odlaw); pointer-events: none; }
+
+	svg#tracesvg { position: absolute; top: 883px; left: calc(50% - 557px); }
 }
 

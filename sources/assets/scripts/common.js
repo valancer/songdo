@@ -2,7 +2,8 @@ $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
 	Brand.init();
-	Path.init();
+	Launch.init();
+	// Path.init();
 });
 
 
@@ -234,23 +235,17 @@ var Scene = (function ($) {
 
 
 		/* scene : launch */
-		var traceAnimation = new TimelineMax({delay:23})
-			.to('#tracesvg path#p1', 14, { onStart:showThis, onStartParams:['path#p1'],strokeDashoffset: 0, ease:Linear.easeNone})
-			.to('#tracesvg path#p2', 7, {onStart:showThis, onStartParams:['path#p2'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
-			.to('#tracesvg path#p3', 11, {onStart:showThis, onStartParams:['path#p3'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
-			.to('#tracesvg path#p4', 12, {onStart:showThis, onStartParams:['path#p4'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
-			.to('#tracesvg path#p5', 10, {onStart:showThis, onStartParams:['path#p5'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
-			.to('#tracesvg path#p6', 9, {onStart:showThis, onStartParams:['path#p6'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
-			.to('#tracesvg path#p7', 5, {onStart:showThis, onStartParams:['path#p7'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5});
+/*
+		var traceAnimation = new TimelineMax({delay:0})
+			.to('#tracesvg path#p1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
 		var sceneLaunch = new ScrollMagic.Scene({
 			triggerElement: ".scene.launch",
-			triggerHook: 'onEnter',
 			duration: "4230px"
 		})
 		.setTween(traceAnimation)
+		.addIndicators()
 		.addTo(controller);
-
-
+*/
 
 		startScene();
 	}
@@ -458,6 +453,43 @@ var Brand = (function ($) {
 
 
 
+
+/* SCENE05 - Launch */
+var Launch = (function ($) {
+	var scope,
+		$btnsMore,
+		init = function () {
+			$btnsMore = $(".scene.launch .btn-more");
+
+			initLayout();
+			initEvent();
+		};//end init
+
+	function initLayout() {
+	}
+
+	function initEvent() {
+		$btnsMore.on('mouseenter', function(e) {
+			TweenMax.to($(this), 0.3, {scale: 1.3, ease: Back.easeInOut});
+		});
+
+		$btnsMore.on('mouseleave', function(e) {
+			TweenMax.to($(this), 0.3, {scale: 1, ease: Back.easeInOut});
+		});
+	}
+
+	return {
+		init: function () {
+			scope = this;
+
+			init();
+		}
+	};
+}(jQuery));
+
+
+
+
 /* SCENE05 - Path animation */
 var Path = (function ($) {
 	var scope,
@@ -482,7 +514,6 @@ var Path = (function ($) {
 		var lineLength = $el[0].getTotalLength();
 		$el.css("stroke-dasharray", lineLength);
 		$el.css("stroke-dashoffset", lineLength);
-		hideThis($el);
 	}
 
 	function hideThis(div){
