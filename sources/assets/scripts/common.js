@@ -2,6 +2,7 @@ $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
 	Brand.init();
+	Path.init();
 });
 
 
@@ -15,7 +16,7 @@ var sceneData = [
 	{
 		title: "After Home",
 		animation: null,
-		scroll: 'direct',
+		scroll: 'auto',	// direct
 		timeAnimation: null,
 		timeLayer: {
 			target: '.time01'
@@ -36,8 +37,14 @@ var sceneData = [
 		scroll: 'auto',
 		timeAnimation: null,
 		timeLayer: {
-			target: '.time02'
+			target: '.time03'
 		}
+	},
+	{
+		title: "Launch",
+		animation: null,
+		scroll: 'manual',
+		timeAnimation: null
 	}
 ];
 
@@ -124,12 +131,16 @@ var Scene = (function ($) {
 	var scope,
 		_currentScene,
 		_isAnimating,
+		_speed,
+		_oldDelta,
 		_viewHeight,
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 0;
+			_currentScene = 4;
 			_isAnimating = false;
+			_speed = 100;
+			_oldDelta = 0;
 
 			_viewHeight = $(window).height();
 
@@ -222,11 +233,31 @@ var Scene = (function ($) {
 		sceneData[3].animation = brandAnimation;
 
 
+		/* scene : launch */
+		var traceAnimation = new TimelineMax({delay:23})
+			.to('#tracesvg path#p1', 14, { onStart:showThis, onStartParams:['path#p1'],strokeDashoffset: 0, ease:Linear.easeNone})
+			.to('#tracesvg path#p2', 7, {onStart:showThis, onStartParams:['path#p2'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+			.to('#tracesvg path#p3', 11, {onStart:showThis, onStartParams:['path#p3'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+			.to('#tracesvg path#p4', 12, {onStart:showThis, onStartParams:['path#p4'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+			.to('#tracesvg path#p5', 10, {onStart:showThis, onStartParams:['path#p5'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+			.to('#tracesvg path#p6', 9, {onStart:showThis, onStartParams:['path#p6'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5})
+			.to('#tracesvg path#p7', 5, {onStart:showThis, onStartParams:['path#p7'], strokeDashoffset: 0, ease:Linear.easeNone, delay:1.5});
+		var sceneLaunch = new ScrollMagic.Scene({
+			triggerElement: ".scene.launch",
+			triggerHook: 'onEnter',
+			duration: "4230px"
+		})
+		.setTween(traceAnimation)
+		.addTo(controller);
+
+
 
 		startScene();
 	}
 
-
+	function showThis(div){
+		$(document).find(div).css('visibility', 'visible');
+	}
 
 	function initEvent() {
 		/* home - start */
@@ -238,15 +269,20 @@ var Scene = (function ($) {
 		/* wheel event */
 		var lethargy = new Lethargy();
 		$(window).bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e){
-			e.preventDefault();
-			e.stopPropagation();
+			
+			var scene = sceneData[_currentScene];
+			if( scene.scroll == "manual" ) {
+			} else {
+				e.preventDefault();
+				e.stopPropagation();
 
-			var results = lethargy.check(e);
-			if( results !== false ) {
-				if( results < 0 ) {
-					next();
-				} else {
-					prev();
+				var results = lethargy.check(e);
+				if( results !== false ) {
+					if( results < 0 ) {
+						next();
+					} else {
+						prev();
+					}
 				}
 			}
 		});
@@ -334,9 +370,9 @@ var Scene = (function ($) {
 		if( !afterTimeLaer && scene.hasOwnProperty('timeLayer') ) {
 			timeLayerAnimation(scene);
 		} else {
-			if( nextScene.scroll == "auto" ) {
+			if( scene.scroll == "auto" ) {
 				TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / _viewHeight)*_viewHeight+(_viewHeight)}, ease:Quad.easeInOut});
-			} else if( nextScene.scroll == "direct" ) {
+			} else if( scene.scroll == "direct" ) {
 				animationScene(nextScene.animation);
 			}
 			_currentScene++;
@@ -364,6 +400,9 @@ var Scene = (function ($) {
 		}
 	};
 }(jQuery));
+
+
+
 
 
 
@@ -415,3 +454,51 @@ var Brand = (function ($) {
 		}
 	};
 }(jQuery));
+
+
+
+
+/* SCENE05 - Path animation */
+var Path = (function ($) {
+	var scope,
+		$traceSVG,
+		init = function () {
+			$traceSVG = $("#tracesvg");
+
+			initLayout();
+			initEvent();
+		};//end init
+
+	function initLayout() {
+		$traceSVG.find('path').each(function() {
+			pathPrepare($(this));
+		});
+	}
+
+	function initEvent() {
+	}
+
+	function pathPrepare($el) {
+		var lineLength = $el[0].getTotalLength();
+		$el.css("stroke-dasharray", lineLength);
+		$el.css("stroke-dashoffset", lineLength);
+		hideThis($el);
+	}
+
+	function hideThis(div){
+		$(document).find(div).css('visibility', 'hidden');
+	}
+
+	return {
+		init: function () {
+			scope = this;
+
+			init();
+		}
+	};
+}(jQuery));
+
+
+
+
+

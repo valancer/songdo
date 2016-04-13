@@ -485,6 +485,17 @@ The `sprites` mixin generates identical output to the CSS template
     background-size: cover;
     opacity: 0; }
 
+/* scene - launch */
+.scene.launch {
+  overflow: hidden;
+  height: 4230px;
+  background: url("../images/scene_launch/bg_last.png") left top repeat; }
+  .scene.launch .line-container {
+    margin: 300px auto 0 auto;
+    height: 100%;
+    width: 1114px;
+    background-color: #0f0; }
+
 html {
   box-sizing: border-box;
   height: 101%; }

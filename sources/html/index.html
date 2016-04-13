@@ -14,6 +14,7 @@
 	<script src="./assets/scripts/libs/animation.gsap.min.js"></script>
 	<script src="./assets/scripts/libs/ScrollToPlugin.min.js"></script>
 	<script src="./assets/scripts/libs/lethargy.min.js"></script>
+	<script src="./assets/scripts/libs/jquery.mousewheel.min.js"></script>
 
 	<!-- custom -->
 	<script src="./assets/scripts/common.js"></script>
@@ -55,9 +56,9 @@
 		<!-- indicators -->
 		<ul class="list-indicators">
 			<li class="long is-selected"><a href="#home"><span>여행을 시작해</span></a></li>
-			<li><a href="#arrived"><span>아울렛에 도착</span></a></li>
-			<li><a href="#brand"><span>쇼핑타임</span></a></li>
-			<li class="long"><a href="#"><span>식사와 휴식</span></a></li>
+			<li><a href="#arrived"><span>아울렛에 도착 10:30</span></a></li>
+			<li><a href="#brand"><span>즐거운 쇼핑타임 11:00</span></a></li>
+			<li class="long"><a href="#launch"><span>딜리셔스 타임 13:00</span></a></li>
 			<li><a href="#"><span>프리미엄마켓</span></a></li>
 			<li class="long"><a href="#"><span>체험존</span></a></li>
 			<li><a href="#"><span>카든테라스</span></a></li>
@@ -130,6 +131,47 @@
 		<div class="bg03"></div>
 		<div class="bg04"></div>
 	</section>
+
+
+
+	<!-- scene5 :  -->
+	<section id="launch" class="scene launch">
+		
+		<div class="line-container">
+<!--
+			<svg version="1.1" id="tracesvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1114px" height="3384px" viewBox="0 0 1114 3384" enable-background="new 0 0 1114 3384" xml:space="preserve">
+				<path id="p1" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M497.796,3378.763c0,0,87.13-135.86-4.501-229.673c-84-86-148.018-101.255-212.677-159.771c-74.821-67.711-87.34-171.165-37-250c53-83,94.324-70.956,143-125c50.179-55.711,31.066-120.411,2.721-145.74c-33.542-29.971-59.951-9.678-46,30c21.458,61.029,77.458,82.029,141,82c292.664-0.131,386.439-132.939,426.457-179.971c97-114,127.818-248.787,127.471-354.01c-0.471-141.99-176.471-167.99-176.471-167.99c-72-11-87-63-69-105s57-75,110-63s63,68,49,108s-86,207-358,226c-271.999,19-279.155-201.604-268.999-257c11-60,31-112,122-191s287.999-115,287.999-115c513-106,348.77-422.751,348.77-422.751c-150.77-284.249-468.166-86.384-468.166-86.384s-103.591,60.103-171.228,3.604c-78.375-65.469-7.375-117.469-7.375-117.469s57.86-40.923,30,25c-71,168-343.397,82.865-343.397,82.865C-55.204,916.607,22.017,711.09,22.017,711.09c77.382-194.618,254.593-47.486,254.593-47.486s152.789,138.869,364.789,48.869C845.6,625.783,873.576,458.733,868.795,368.607c-7-132-47.195-174.607-208.354-237.721c0,0-73.342-29.386-87.441-78.062c0,0-6.204-22.437-5-46.876"/>
+			</svg>
+-->
+			<svg version="1.1" id="tracesvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1031px" height="3544px" viewBox="0 0 1031 3544" enable-background="new 0 0 1031 3544" xml:space="preserve">
+			<path id="p1" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="0" d="M845,14.04
+			c94.488-0.933,147.798,113.116,61,198.96c-112.197,110.964-250.383,70.569-402,133c-110.712,45.587-171.223,130.125-158.981,201.27"
+			/>
+			<path id="p2" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="10" d="M395.214,636.783
+			C508.019,750.449,735.719,626.242,785,780c18.75,58.5,0.346,121.5-10.028,149.343"/>
+			<path id="p3" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="10" d="M719,1080.551
+			C685.436,1165,677,1284,735,1326c47.015,34.045,115.498,12.164,131-45c16-59-23-111-88-112c-84.843-1.306-125.168,89.977-138.98,151
+			c-15.885,70.191,14.48,139.643,57.16,193.202"/>
+			<path id="p4" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="10" d="M784.698,1636.219
+			c35.149,46.862,48.542,101.471-3.998,141.429c-52.421,39.867-115.838,17.305-165.888-13.571
+			c-53.508-33.005-222.409-144.596-354.4-151.492c-65.354-3.416-132.975,15.642-173.593,70.394
+			c-35.042,47.233-43.539,112.665-22.847,167.587c22.548,59.844,76.491,95.053,137.791,106.104
+			c81.652,14.722,130.323-30.101,213.6-42.669c112.637-17,195.638,54.803,221.399,130.602"/>
+			<path id="p5" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="10" d="M679.961,2196
+			c15.618,110-32.448,221.008-163.556,202.901C437.362,2387.983,326,2354,248,2411c-69.651,50.899-70.48,127.04-64.81,178.391"/>
+			<path id="p6" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="10" d="M223.544,2718.265
+			c19.247,66.11,179.788,263.739,297.122,209.739c49.069-22.583,50-86-0.667-117.333c-43.041-26.617-106-8-114,43.333
+			c-13.321,85.474,76,101.996,136,210.663"/>
+			<path id="p7" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="10" d="M597,3185
+			c0,0,60.092,149.502,40.768,359"/>
+			</svg>
+
+		</div>
+
+	</section>
+
+
+
 
 </body>
 </html>
