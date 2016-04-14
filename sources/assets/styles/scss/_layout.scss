@@ -9,7 +9,10 @@ body { overflow-x: hidden; overflow-y: auto; padding-right: 50px; }
 
 
 /* time layer */
-.time-layer { display: block; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: rgba(14, 19, 55, 0.8); opacity: 0;
+.time-layer { display: block; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: rgba(43, 49, 110, 0.8); opacity: 0;
+	.bg-time04 { background-color: rgba(33, 20, 15, 0.8); }
+	.bg-time06 { background-color: rgba(15, 33, 33, 0.8); }
+
 	.time { display: block; position: absolute; top: 50%; margin-top: -129px; width: 100%; text-indent: -9999px;
 		> .now { display: block; margin: 0 auto; opacity: 0; }
 		> .now-txt { display: block; margin: 50px auto 0 auto; opacity: 0; }
@@ -26,9 +29,21 @@ body { overflow-x: hidden; overflow-y: auto; padding-right: 50px; }
 			> .now { @include sprite($s-time-1300); }
 			> .now-txt { @include sprite($s-time-1300-txt); }
 		}
+		&.time04 {
+			> .now { @include sprite($s-time-1500); }
+			> .now-txt { @include sprite($s-time-1500-txt); }
+		}
 		&.time05 {
-			> .now { @include sprite($s-time-1100); }
-			> .now-txt { @include sprite($s-time-1100-txt); }
+			> .now { @include sprite($s-time-1700); }
+			> .now-txt { @include sprite($s-time-1700-txt); }
+		}
+		&.time06 {
+			> .now { @include sprite($s-time-1900); }
+			> .now-txt { @include sprite($s-time-1900-txt); }
+		}
+		&.time07 {
+			> .now { @include sprite($s-time-2100); }
+			> .now-txt { @include sprite($s-time-2100-txt); }
 		}
 	}
 }
@@ -122,16 +137,23 @@ body { overflow-x: hidden; overflow-y: auto; padding-right: 50px; }
 			&.long { height: 70px; }
 			&.is-selected { background-color: #000;
 				> a {
-					span { display: block; }
+					span { display: block; opacity: 1; }
 				}
 			}
 			
 			> a { display: block; position: relative; height: 100%; width: 100%;
 				&:hover { background-color: #000;
-					span { display: block; }
+					span { display: block; opacity: 1; }
 				}
 
-				span { display: none; box-sizing: border-box; position: absolute; top: 0; left: -207px; padding-left: 20px; height: 48px; width: 184px; font-size: 12px; color: #fff; line-height: 48px; background-color: #000; }
+				span { display: block; box-sizing: border-box; position: absolute; top: -15px; left: -207px; padding-left: 20px; height: 48px; width: 184px; font-size: 14px; color: #fff; line-height: 48px; text-decoration: none; background-color: #000;
+					&:before { content: ''; display: block; position: absolute; top: 50%; right: -$s-bg-arrow01-width; margin-top: -$s-bg-arrow01-height/2; @include sprite($s-bg-arrow01); }
+					
+					opacity: 0;
+					transition: opacity 0.3s ease-in;
+
+					time { display: block; position: absolute; top: 0; right: 0; padding-right: 22px; line-height: 48px; }
+				}
 			}
 		}
 	}	
@@ -139,8 +161,8 @@ body { overflow-x: hidden; overflow-y: auto; padding-right: 50px; }
 
 
 /* popup */
-.popup { position: relative; padding: 100px; background-color: #fff;
-	.mfp-close { display: block; position: absolute; top: 10px; right: 10px; @include sprite($s-btn-close01); }
+.popup { position: relative; box-sizing: border-box; padding: 100px; height: 100vh; background-color: #fff;
+	.mfp-close { display: block; position: absolute; top: 10px; right: 10px; cursor: pointer !important; text-align: left; text-indent: -9999px; @include sprite($s-btn-close01); }
 	p { display: block; width: 900px; margin: 0 auto; }
 }
 

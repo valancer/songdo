@@ -2,16 +2,19 @@ $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
 	Brand.init();
-	Launch.init();
+	ManualScroll.init();
 	Path.init();
-	Market.init();
-	// Popup.init();
+	RollingBG.init();
+	Popup.init();
 
 });
 
 
 var isOpenPopup = false;
 var controller = new ScrollMagic.Controller();
+controller.scrollTo(function (newpos) {
+	TweenMax.to(window, 1.2, {scrollTo: {y: newpos}});
+});
 var sceneData = [
 	{
 		id: '#home',
@@ -33,7 +36,8 @@ var sceneData = [
 		scroll: 'auto',
 		timeAnimation: null,
 		timeLayer: {
-			target: '.time02'
+			target: '.time02',
+			bgColor: 'rgba(14, 29, 55, 0.8)'
 		}
 	},
 	{
@@ -43,7 +47,8 @@ var sceneData = [
 		scroll: 'auto',
 		timeAnimation: null,
 		timeLayer: {
-			target: '.time03'
+			target: '.time03',
+			bgColor: 'rgba(16, 34, 68, 0.8)'
 		}
 	},
 	{
@@ -61,7 +66,8 @@ var sceneData = [
 		upScroll: 'launch',
 		timeAnimation: null,
 		timeLayer: {
-			target: '.time05'
+			target: '.time05',
+			bgColor: 'rgba(42, 33, 21, 0.8)'
 		}
 	},
 	{
@@ -79,14 +85,15 @@ var sceneData = [
 		upScroll: 'exzone',
 		timeAnimation: null,
 		timeLayer: {
-			target: '.time07'
+			target: '.time07',
+			bgColor: 'rgba(45, 33, 28, 0.8)'
 		}
 	},
 	{
 		id: '#ending',
 		title: "Ending",
 		animation: null,
-		scroll: 'auto',
+		scroll: 'none',
 		timeAnimation: null
 	}
 ];
@@ -102,6 +109,7 @@ var Navigation = (function ($) {
 		$menusContainer,
 		$btnToggleMenu,
 		$listIndicators,
+		_lastSelected,
 		init = function () {
 			$dimmed = $('.dimmed');
 			$navigationContainer = $('.menus');
@@ -118,6 +126,8 @@ var Navigation = (function ($) {
 	function initLayout() {
 		TweenMax.set($openMenus, {autoAlpha:0});
 		TweenMax.set($dimmed, {autoAlpha:0});
+
+		_lastSelected = '';
 	}
 
 	function initEvent() {
@@ -152,9 +162,19 @@ var Navigation = (function ($) {
 		$anchors.on('click', function(e) {
 			e.preventDefault();
 
-			var target = $(this).attr('href');
-			controller.scrollTo(target);
+			_updateAnchor($(this).attr('href'));
 		});
+	}
+
+	function _updateAnchor(target) {
+		$('.list-indicators [href="' + _lastSelected + '"]').closest('li').removeClass('is-selected');
+
+		$selected = $('.list-indicators [href="' + target + '"]');
+		$selected.closest('li').addClass("is-selected");
+
+		Scene.updateCurrentScene(target);
+		controller.scrollTo(target);
+		_lastSelected = target;
 	}
 
 	return {
@@ -162,6 +182,9 @@ var Navigation = (function ($) {
 			scope = this;
 
 			init();
+		},
+		updateAnchor: function(target) {
+			_updateAnchor(target);
 		}
 	};
 }(jQuery));
@@ -183,7 +206,7 @@ var Scene = (function ($) {
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 5;
+			_currentScene = 0;
 			_isAnimating = false;
 
 
@@ -201,7 +224,7 @@ var Scene = (function ($) {
 
 	function initMotion() {
 		/* scene : home */
-		var homeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:[0]})
+		var homeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[0]})
 			.fromTo('.scene.home .moon', 0.5, {delay: 5, opacity: 0, y: -30}, {opacity: 1, y: 0})
 			.fromTo('.scene.home .title', 0.5, {opacity: 0, y: 30}, {opacity: 1, y: 0})
 			.fromTo('.scene.home .description', 0.5, {opacity: 0, y: 30}, {opacity: 1, y: 0})
@@ -263,14 +286,15 @@ var Scene = (function ($) {
 
 
 		/* scene : outlet brand */
-		var brandAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[3], onComplete:finishAnimation, onCompleteParams:[3]})
+		var brandAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[3]})
 			.from('.scene.brand .title-time', 0.5, {delay: 1.2, opacity: 0})
 			.from('.scene.brand .btn.luxury', 0.3, {delay: 0, opacity: 0, y: -30})
 			.from('.scene.brand .btn.sport-factory', 0.3, {delay: 0, opacity: 0, y: 30})
 			.from('.scene.brand .btn.fashion', 0.3, {delay: 0, opacity: 0, y: -30})
-			.from('.scene.brand .btn.handsome', 0.3, {delay: 0, opacity: 0, y: 30})
+			.from('.scene.brand .btn.handsome', 0.3, {delay: 0, opacity: 0, y: 30, onComplete:finishAnimation, onCompleteParams:[3]})
 			.from('.scene.brand .wilma', 0.5, {delay: 1, opacity: 0})
 			.from('.scene.brand .wally', 0.5, {delay: 1, opacity: 0});
+
 		var sceneBrand = new ScrollMagic.Scene({
 			triggerElement: ".scene.brand",
 			triggerHook: 'onLeave'
@@ -318,10 +342,10 @@ var Scene = (function ($) {
 
 		/* scene : ex zone */
 		var exAnimation = new TimelineMax({delay:0})
-			.to('#exzonesvg path#e1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
+			.to('#dashsvg path#e1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
 		sceneExzone = new ScrollMagic.Scene({
 			triggerElement: ".scene.exzone",
-			duration: "3379px",
+			duration: "3424px",
 			offset: 800
 		})
 		.setTween(exAnimation)
@@ -338,7 +362,7 @@ var Scene = (function ($) {
 		var sceneParassol = new ScrollMagic.Scene({
 			triggerElement: ".scene.garden",
 			triggerHook: 'onEnter',
-			duration: "200%"
+			duration: "100%"
 		})
 		.setTween(parassolAnimation)
 		.addTo(controller);
@@ -378,7 +402,9 @@ var Scene = (function ($) {
 		sceneData[8].animation = endingAnimation;
 
 
-		sceneData[0].animation.restart();
+		// start
+		controller.scrollTo(0);
+		sceneData[_currentScene].animation.restart();
 	}
 
 
@@ -413,9 +439,9 @@ var Scene = (function ($) {
 					// 런치
 					console.log("런치 : " + windowTop + ", " + (launchTop+launchHeight-(_viewHeight+50)));
 				
-				} else if( exzoneTop-30 <= windowTop && windowTop < exzoneTop+exzoneHeight-(_viewHeight+50) ) {
+				} else if( exzoneTop-30 <= windowTop && windowTop < exzoneTop+exzoneHeight-(_viewHeight+10) ) {
 					// 체험존
-					console.log("체험존 : " + windowTop + ", " + (exzoneTop+exzoneHeight-(_viewHeight+50)));
+					console.log("체험존 : " + windowTop + ", " + (exzoneTop+exzoneHeight-(_viewHeight+10)));
 				
 				} else {
 					e.preventDefault();
@@ -455,10 +481,12 @@ var Scene = (function ($) {
 	function timeLayerAnimation(scene) {
 		var now = scene.timeLayer.target + " .now";
 		var nowTxt = scene.timeLayer.target + " .now-txt";
+		var bgc = scene.timeLayer.bgColor;
 
 		/* scene : time layer */
 		var timeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["T"], onComplete:finishAnimation, onCompleteParams:["T"]})
 			.set('.time-layer', {css: {zIndex:2000}})
+			.set('.time-layer', {backgroundColor: bgc})
 			.to('.time-layer', 0.5, {delay: 0, opacity: 1})
 			.add([
 				TweenMax.fromTo(now, 0.3, {y: 30}, {opacity: 1, y: 0}),
@@ -488,8 +516,12 @@ var Scene = (function ($) {
 		console.log('[startAnimation] : ' + _currentScene);
 
 
-		if( fromValue == "M" ) {
-			_currentScene = 5;
+		if( fromValue == "4" ||  fromValue == "6" ) {
+			RollingBG.stopMarket();
+		}
+
+		if( fromValue == "6" ||  fromValue == "8" ) {
+			RollingBG.stopGarden();
 		}
 	}
 
@@ -517,9 +549,18 @@ var Scene = (function ($) {
 			next();
 		}
 
+		// scene - market rolling bg
+		if( fromValue == 5 ) {
+			RollingBG.rollingMarket();
+		}
+
+		// scene - garden rolling bg
+		if( fromValue == 7 ) {
+			RollingBG.rollingGarden();
+		}
 
 		// scene - outlet
-		if( fromValue == "AO" ) {
+		if( fromValue == 2 ) {
 			sceneData[1].animation.pause(0, true);
 			sceneData[1].animation.remove();
 		}
@@ -701,6 +742,23 @@ var Scene = (function ($) {
 	}
 
 
+	function updateCurrentScene(uid) {
+		var currentScene = null;
+
+		for( var i=0; i<sceneData.length; i++ ) {
+			var scene = sceneData[i];
+			if( scene.id == uid ) {
+				currentScene = scene;
+				_currentScene = i;
+			}
+		}
+
+		console.log(currentScene);
+		if( currentScene !== null && currentScene.hasOwnProperty("animation") && currentScene.animation !== null ) {
+			animationScene(currentScene.animation);
+		}
+	}
+
 	return {
 		init: function () {
 			scope = this;
@@ -709,6 +767,9 @@ var Scene = (function ($) {
 		},
 		getIsAnimating: function() {
 			return _isAnimating;
+		},
+		updateCurrentScene: function(uid) {
+			updateCurrentScene(uid);
 		}
 	};
 }(jQuery));
@@ -754,7 +815,7 @@ var Brand = (function ($) {
 
 		$btns.on('mouseleave', function(e) {
 			var $targetBG = $($(this).data('target'));
-			TweenMax.to($targetBG, 0.5, {delay: 0.3, opacity: 0});
+			TweenMax.to($targetBG, 0.5, {delay: 0.5, opacity: 0});
 		});
 	}
 
@@ -771,12 +832,13 @@ var Brand = (function ($) {
 
 
 
-/* SCENE05 - Launch */
-var Launch = (function ($) {
+/* SCENE05,06 - Launch, ExZone */
+var ManualScroll = (function ($) {
 	var scope,
 		$btnsMore,
 		init = function () {
-			$btnsMore = $(".scene.launch .btn-more");
+			$btnsLaunch = $(".scene.launch .btn-more");
+			$btnsExZone = $(".scene.exzone .btn-more");
 
 			initLayout();
 			initEvent();
@@ -786,11 +848,19 @@ var Launch = (function ($) {
 	}
 
 	function initEvent() {
-		$btnsMore.on('mouseenter', function(e) {
+		$btnsLaunch.on('mouseenter', function(e) {
 			TweenMax.to($(this), 0.3, {scale: 1.3, ease: Back.easeInOut});
 		});
 
-		$btnsMore.on('mouseleave', function(e) {
+		$btnsLaunch.on('mouseleave', function(e) {
+			TweenMax.to($(this), 0.3, {scale: 1, ease: Back.easeInOut});
+		});
+
+		$btnsExZone.on('mouseenter', function(e) {
+			TweenMax.to($(this), 0.3, {scale: 1.3, ease: Back.easeInOut});
+		});
+
+		$btnsExZone.on('mouseleave', function(e) {
 			TweenMax.to($(this), 0.3, {scale: 1, ease: Back.easeInOut});
 		});
 	}
@@ -814,7 +884,7 @@ var Path = (function ($) {
 		$restaurantSVG,
 		init = function () {
 			$traceSVG = $("#tracesvg");
-			$restaurantSVG = $("#restaurantsvg");
+			$exzoneSVG = $("#dashsvg");
 
 			initLayout();
 			initEvent();
@@ -824,7 +894,7 @@ var Path = (function ($) {
 		$traceSVG.find('path').each(function() {
 			pathPrepare($(this));
 		});
-		$restaurantSVG.find('path').each(function() {
+		$exzoneSVG.find('path').each(function() {
 			pathPrepare($(this));
 		});
 	}
@@ -850,14 +920,18 @@ var Path = (function ($) {
 
 
 /* SCENE06 - Market */
-var Market = (function ($) {
+var RollingBG = (function ($) {
 	var scope,
 		$marketContainer,
-		$slider,
+		$marketSlider,
+		$gardenContainer,
+		$gardenSlider,
 		_options,
 		init = function () {
 			$marketContainer = $('.scene.market');
-			$slider = $marketContainer.find('.slick-slider');
+			$marketSlider = $marketContainer.find('.slick-slider');
+			$gardenContainer = $('.scene.garden');
+			$gardenSlider = $gardenContainer.find('.slick-slider');
 
 			_options = {
 				dots: false,
@@ -865,11 +939,13 @@ var Market = (function ($) {
 				infinite: true,
 				draggable: false,
 				speed: 1000,
-				autoplay: true,
+				autoplay: false,
 				autoplaySpeed: 3000,
 				fade: true,
 				slidesToShow: 1,
-				slidesToScroll: 1
+				slidesToScroll: 1,
+				cssEase: 'linear',
+				lazyLoad: 'progressive'
 			};
 
 			initLayout();
@@ -877,13 +953,29 @@ var Market = (function ($) {
 		};//end init
 
 	function initLayout() {
+		$marketSlider.slick(_options);
+		$gardenSlider.slick(_options);
 	}
 
 	function initEvent() {
 	}
 
-	function bgRolling() {
-		$slider.slick(_options);
+	// market
+	function rollingMarket() {
+		$marketSlider.slick("slickPlay");
+	}
+
+	function stopMarket() {
+		$marketSlider.slick("slickPause");
+	}
+
+	// garder
+	function rollingGarden() {
+		$gardenSlider.slick("slickPlay");
+	}
+
+	function stopGarden() {
+		$gardenSlider.slick("slickPause");
 	}
 
 	return {
@@ -892,8 +984,17 @@ var Market = (function ($) {
 
 			init();
 		},
-		rolling : function() {
-			bgRolling();
+		rollingMarket : function() {
+			rollingMarket();
+		},
+		stopMarket : function() {
+			stopMarket();
+		},
+		rollingGarden : function() {
+			rollingGarden();
+		},
+		stopGarden : function() {
+			stopGarden();
 		}
 	};
 }(jQuery));
@@ -904,17 +1005,31 @@ var Market = (function ($) {
 
 
 /* Popup */
-/*
 var Popup = (function ($) {
 	var scope,
+		$popups,
 		init = function () {
+			$popups = $('a.va-btn-popup');
 
 			initLayout();
 			initEvent();
 		};//end init
 
 	function initLayout() {
-		$.magnificPopup({
+
+	}
+
+	function initEvent() {
+		$popups.magnificPopup({
+			type: 'image',
+			mainClass: 'mfp-fade',
+			image: {
+				markup: '<aside class="popup">'+
+							'<div class="mfp-close"></div>'+
+							'<div class="mfp-img"></div>'+
+						'</aside>',
+				verticalFit: false
+			},
 			callbacks: {
 			    open: function() {
 			    	isOpenPopup = true;
@@ -924,16 +1039,6 @@ var Popup = (function ($) {
 			    }
 			}
 		});
-
-		// 임시
-		$('.btn-location').magnificPopup({
-			fixedContentPos: true,
-			mainClass: 'mfp-fade'
-		});
-
-	}
-
-	function initEvent() {
 	}
 
 	return {
@@ -944,5 +1049,4 @@ var Popup = (function ($) {
 		}
 	};
 }(jQuery));
-*/
 
