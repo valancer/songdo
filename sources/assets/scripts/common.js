@@ -172,7 +172,7 @@ var Scene = (function ($) {
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 2;
+			_currentScene = 0;
 			_isAnimating = false;
 
 
@@ -437,15 +437,16 @@ var Scene = (function ($) {
 
 	function startAnimation(fromValue) {
 		console.log("fromValue : " + fromValue + ", _currentScene : " + _currentScene);
-		if( fromValue != _currentScene ) {
+		if( fromValue == "T" ) {
+			console.log('[start TimeLayer] : ' + _currentScene);
+			_isAnimating = true;
+		} else if( fromValue != _currentScene ) {
 			console.log("not this screen");
 			return;
 		}
 
 		_isAnimating = true;
 		console.log('[startAnimation] : ' + _currentScene);
-
-
 
 
 		if( fromValue == "M" ) {
