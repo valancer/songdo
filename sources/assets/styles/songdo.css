@@ -1,3 +1,4 @@
+@import url(slick.css);
 /**
  * variable
  */
@@ -193,7 +194,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -195px;
     background-image: url(../images/sprites.png);
-    background-position: 0px -1600px;
+    background-position: -2349px -876px;
     width: 390px;
     height: 390px; }
   .scene.home .title {
@@ -203,7 +204,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -243px;
     background-image: url(../images/sprites.png);
-    background-position: -1236px -997px;
+    background-position: 0px -2123px;
     width: 486px;
     height: 146px; }
   .scene.home .description {
@@ -213,7 +214,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -203.5px;
     background-image: url(../images/sprites.png);
-    background-position: -820px -1600px;
+    background-position: 0px -2274px;
     width: 407px;
     height: 147px; }
   .scene.home .wally {
@@ -223,7 +224,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -296.11111px;
     background-image: url(../images/sprites.png);
-    background-position: -681px -647px;
+    background-position: -1733px -924px;
     width: 533px;
     height: 429px; }
   .scene.home .btn-start {
@@ -234,7 +235,7 @@ The `sprites` mixin generates identical output to the CSS template
     margin-left: -37px;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: -1748px -783px;
+    background-position: -2646px -1786px;
     width: 74px;
     height: 43px; }
   .scene.home .bg-animation {
@@ -297,9 +298,9 @@ The `sprites` mixin generates identical output to the CSS template
   /* init */ }
   .scene.arrived .title-time {
     background-image: url(../images/sprites.png);
-    background-position: -551px -1507px;
-    width: 551px;
-    height: 39px; }
+    background-position: -1071px -2022px;
+    width: 785px;
+    height: 30px; }
   .scene.arrived .bg01 {
     display: block;
     position: absolute;
@@ -307,7 +308,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 50%;
     margin-left: -449px;
     background-image: url(../images/sprites.png);
-    background-position: -1236px 0px;
+    background-position: -830px 0px;
     width: 898px;
     height: 391px; }
   .scene.arrived .wally {
@@ -316,7 +317,7 @@ The `sprites` mixin generates identical output to the CSS template
     bottom: 0;
     left: 0;
     background-image: url(../images/sprites.png);
-    background-position: -681px 0px;
+    background-position: 0px -466px;
     width: 550px;
     height: 642px;
     opacity: 1; }
@@ -327,7 +328,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 290px;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: -395px -1600px;
+    background-position: -2349px -1271px;
     width: 420px;
     height: 305px;
     opacity: 1; }
@@ -339,7 +340,7 @@ The `sprites` mixin generates identical output to the CSS template
   .scene.brand .title-time {
     z-index: 1;
     background-image: url(../images/sprites.png);
-    background-position: -1107px -1507px;
+    background-position: -520px -2065px;
     width: 652px;
     height: 30px; }
   .scene.brand .outlet-brand {
@@ -413,7 +414,7 @@ The `sprites` mixin generates identical output to the CSS template
     right: 0;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: -1748px -396px;
+    background-position: -1360px -649px;
     width: 252px;
     height: 219px;
     opacity: 1; }
@@ -424,7 +425,7 @@ The `sprites` mixin generates identical output to the CSS template
     right: 0;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: -1108px -1220px;
+    background-position: -1071px -1685px;
     width: 518px;
     height: 262px;
     opacity: 1; }
@@ -435,7 +436,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 0;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: -551px -1220px;
+    background-position: -1733px -1358px;
     width: 552px;
     height: 282px;
     opacity: 1; }
@@ -498,15 +499,22 @@ The `sprites` mixin generates identical output to the CSS template
     background: url("../images/scene_launch/bg_header.png") center top repeat; }
   .scene.launch .contents {
     position: absolute;
-    top: 883px;
+    top: 871px;
     left: calc(50% - 600px);
     height: 100%;
-    width: 1200px;
-    background-color: rgba(0, 0, 0, 0.3); }
+    width: 1200px; }
   .scene.launch .object {
     position: absolute;
     background-position: left top;
     background-repeat: no-repeat; }
+    .scene.launch .object .object-title {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-indent: -9999px;
+      background-position: left top;
+      background-repeat: no-repeat; }
     .scene.launch .object .btn-more {
       display: block;
       position: absolute;
@@ -514,7 +522,7 @@ The `sprites` mixin generates identical output to the CSS template
       left: 0;
       text-indent: -9999px;
       background-image: url(../images/sprites.png);
-      background-position: -2005px -508px;
+      background-position: -2646px -1693px;
       width: 88px;
       height: 88px; }
     .scene.launch .object.restaurant {
@@ -523,8 +531,14 @@ The `sprites` mixin generates identical output to the CSS template
       height: 540px;
       width: 692px;
       background-image: url("../images/scene_launch/object01.png"); }
+      .scene.launch .object.restaurant .object-title {
+        top: -220px;
+        left: 220px;
+        height: 236px;
+        width: 243px;
+        background-image: url("../images/scene_launch/object_txt01.png"); }
       .scene.launch .object.restaurant .btn-more {
-        top: -124px;
+        top: -106px;
         left: 156px; }
     .scene.launch .object.cafeteria {
       top: 851px;
@@ -532,42 +546,72 @@ The `sprites` mixin generates identical output to the CSS template
       height: 309px;
       width: 713px;
       background-image: url("../images/scene_launch/object02.png"); }
+      .scene.launch .object.cafeteria .object-title {
+        top: -126px;
+        left: 112px;
+        height: 106px;
+        width: 250px;
+        background-image: url("../images/scene_launch/object_txt02.png"); }
       .scene.launch .object.cafeteria .btn-more {
-        top: -130px;
-        left: -85px; }
+        top: -120px;
+        left: 20px; }
     .scene.launch .object.deli {
       top: 1213px;
-      left: calc(50% + 120px);
+      left: calc(50% + 110px);
       height: 576px;
       width: 586px;
       background-image: url("../images/scene_launch/object03.png"); }
+      .scene.launch .object.deli .object-title {
+        top: -110px;
+        left: 314px;
+        height: 79px;
+        width: 133px;
+        background-image: url("../images/scene_launch/object_txt03.png"); }
       .scene.launch .object.deli .btn-more {
-        top: -130px;
-        left: 388px; }
+        top: -120px;
+        left: 220px; }
     .scene.launch .object.dessert {
-      top: 1657px;
+      top: 1670px;
       left: calc(50% - 401px);
       height: 450px;
       width: 392px;
       background-image: url("../images/scene_launch/object04.png"); }
+      .scene.launch .object.dessert .object-title {
+        top: -106px;
+        left: 263px;
+        height: 171px;
+        width: 198px;
+        background-image: url("../images/scene_launch/object_txt04.png"); }
       .scene.launch .object.dessert .btn-more {
-        top: -75px;
-        left: 223px; }
+        top: -83px;
+        left: 202px; }
     .scene.launch .object.star-gallery {
       top: 2312px;
       left: 50%;
       height: 521px;
       width: 594px;
       background-image: url("../images/scene_launch/object05.png"); }
+      .scene.launch .object.star-gallery .object-title {
+        top: -222px;
+        left: 190px;
+        height: 160px;
+        width: 211px;
+        background-image: url("../images/scene_launch/object_txt05.png"); }
       .scene.launch .object.star-gallery .btn-more {
-        top: -184px;
-        left: 428px; }
+        top: -177px;
+        left: 410px; }
     .scene.launch .object.bakery {
       top: 2859px;
       left: calc(50% - 487px);
       height: 395px;
       width: 481px;
       background-image: url("../images/scene_launch/object06.png"); }
+      .scene.launch .object.bakery .object-title {
+        top: -182px;
+        left: 193px;
+        height: 162px;
+        width: 174px;
+        background-image: url("../images/scene_launch/object_txt06.png"); }
       .scene.launch .object.bakery .btn-more {
         top: -192px;
         left: 152px; }
@@ -578,20 +622,20 @@ The `sprites` mixin generates identical output to the CSS template
     left: 0;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: -1236px -396px;
-    width: 507px;
-    height: 596px;
+    background-position: 0px -1113px;
+    width: 504px;
+    height: 567px;
     pointer-events: none; }
   .scene.launch .wilma {
     display: block;
     position: absolute;
-    top: 1538px;
+    top: 1535px;
     right: 0;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: 0px 0px;
-    width: 676px;
-    height: 569px;
+    background-position: -1733px 0px;
+    width: 611px;
+    height: 418px;
     pointer-events: none; }
   .scene.launch .woof {
     display: block;
@@ -600,7 +644,7 @@ The `sprites` mixin generates identical output to the CSS template
     left: 0;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: 0px -1220px;
+    background-position: -520px -1685px;
     width: 546px;
     height: 375px;
     pointer-events: none; }
@@ -611,14 +655,257 @@ The `sprites` mixin generates identical output to the CSS template
     right: 0;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
-    background-position: 0px -574px;
-    width: 595px;
-    height: 641px;
+    background-position: -509px -1113px;
+    width: 523px;
+    height: 518px;
     pointer-events: none; }
   .scene.launch svg#tracesvg {
     position: absolute;
-    top: 883px;
-    left: calc(50% - 557px); }
+    top: 871px;
+    left: calc(50% - 457px); }
+
+/* secen - premium market */
+.scene.market {
+  overflow: hidden; }
+  .scene.market .title-time {
+    z-index: 1;
+    background-image: url(../images/sprites.png);
+    background-position: -1071px -1952px;
+    width: 908px;
+    height: 30px; }
+  .scene.market .btn-market {
+    display: block;
+    position: absolute;
+    top: 204px;
+    left: 42px;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -830px -977px;
+    width: 445px;
+    height: 129px;
+    opacity: 1; }
+  .scene.market .wally {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 570px);
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -2349px 0px;
+    width: 451px;
+    height: 449px;
+    opacity: 1; }
+  .scene.market .odlaw {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% + 65px);
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -2349px -454px;
+    width: 386px;
+    height: 417px;
+    opacity: 1; }
+  .scene.market .wizard {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 142px);
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -2349px -1581px;
+    width: 292px;
+    height: 417px;
+    opacity: 1; }
+  .scene.market .slick-slider {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #000; }
+  .scene.market .slick-list, .scene.market .slick-track {
+    height: 100%;
+    width: 100%; }
+  .scene.market .bg01 {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url("../images/scene_market/bg01.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 1; }
+  .scene.market .bg02 {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url("../images/scene_market/bg02.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 1; }
+  .scene.market .bg03 {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url("../images/scene_market/bg03.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 1; }
+  .scene.market .bg04 {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url("../images/scene_market/bg04.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 1; }
+
+/* secen - garden terrace */
+.scene.garden .title-time {
+  z-index: 1;
+  background-image: url(../images/sprites.png);
+  background-position: -1071px -1987px;
+  width: 901px;
+  height: 30px; }
+.scene.garden .btn-pub {
+  display: block;
+  position: absolute;
+  top: 204px;
+  left: 42px;
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: -1594px -1685px;
+  width: 461px;
+  height: 167px;
+  opacity: 0; }
+.scene.garden .wilma {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 516px);
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: -1733px -423px;
+  width: 511px;
+  height: 496px;
+  opacity: 1; }
+.scene.garden .wally {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: calc(50% + 20px);
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: -1037px -1113px;
+  width: 510px;
+  height: 501px;
+  opacity: 1; }
+.scene.garden .parassol01 {
+  display: block;
+  position: absolute;
+  top: -300px;
+  left: calc(50% + 59px);
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: -830px -396px;
+  width: 525px;
+  height: 576px; }
+.scene.garden .parassol02 {
+  display: block;
+  position: absolute;
+  top: -105px;
+  left: calc(50% + 390px);
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: 0px -1685px;
+  width: 515px;
+  height: 433px; }
+.scene.garden .slick-slider {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #000; }
+.scene.garden .slick-list, .scene.garden .slick-track {
+  height: 100%;
+  width: 100%; }
+.scene.garden .bg01 {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: url("../images/scene_garden/bg01.jpg") center center no-repeat;
+  background-size: cover;
+  opacity: 1; }
+.scene.garden .bg02 {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: url("../images/scene_garden/bg02.jpg") center center no-repeat;
+  background-size: cover;
+  opacity: 1; }
+.scene.garden .bg03 {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: url("../images/scene_garden/bg03.jpg") center center no-repeat;
+  background-size: cover;
+  opacity: 1; }
+
+/* scene9 - ending */
+.scene.ending {
+  overflow: hidden;
+  background: url("../images/scene_ending/bg_last.jpg") center bottom no-repeat; }
+  .scene.ending .title-time {
+    z-index: 1;
+    background-image: url(../images/sprites.png);
+    background-position: -509px -1636px;
+    width: 1096px;
+    height: 30px; }
+  .scene.ending .people {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    left: 65px;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: 0px 0px;
+    width: 825px;
+    height: 461px;
+    opacity: 1; }
+    .scene.ending .people .txt01 {
+      display: block;
+      position: absolute;
+      top: -90px;
+      left: 300px;
+      text-indent: -9999px;
+      background-image: url(../images/sprites.png);
+      background-position: -555px -643px;
+      width: 212px;
+      height: 175px;
+      opacity: 1; }
+    .scene.ending .people .txt02 {
+      display: block;
+      position: absolute;
+      top: -67px;
+      left: 100px;
+      text-indent: -9999px;
+      background-image: url(../images/sprites.png);
+      background-position: -555px -466px;
+      width: 225px;
+      height: 172px;
+      opacity: 1; }
+    .scene.ending .people .txt03 {
+      display: block;
+      position: absolute;
+      top: -159px;
+      left: 706px;
+      text-indent: -9999px;
+      background-image: url(../images/sprites.png);
+      background-position: -1360px -396px;
+      width: 356px;
+      height: 248px;
+      opacity: 1; }
 
 html {
   box-sizing: border-box;
@@ -668,22 +955,22 @@ body {
       opacity: 0; }
     .time-layer .time.time01 > .now {
       background-image: url(../images/sprites.png);
-      background-position: -1631px -1220px;
+      background-position: -491px -2123px;
       width: 450px;
       height: 139px; }
     .time-layer .time.time01 > .now-txt {
       background-image: url(../images/sprites.png);
-      background-position: -681px -1081px;
+      background-position: -2349px -2003px;
       width: 443px;
       height: 71px; }
     .time-layer .time.time02 > .now {
       background-image: url(../images/sprites.png);
-      background-position: -1748px -620px;
+      background-position: -1280px -977px;
       width: 383px;
       height: 123px; }
     .time-layer .time.time02 > .now-txt {
       background-image: url(../images/sprites.png);
-      background-position: -1236px -1148px;
+      background-position: -1594px -1857px;
       width: 452px;
       height: 63px; }
 
@@ -706,7 +993,7 @@ body {
       display: block;
       text-indent: -9999px;
       background-image: url(../images/sprites.png);
-      background-position: -1748px -748px;
+      background-position: -2349px -2079px;
       width: 325px;
       height: 30px; }
   .menus .btn-toggle-menu {
@@ -775,7 +1062,7 @@ body {
       margin: 58px auto 0 auto;
       text-indent: -9999px;
       background-image: url(../images/sprites.png);
-      background-position: -2005px -396px;
+      background-position: -2646px -1581px;
       width: 80px;
       height: 107px; }
     .menus .open-menus .list-menus {
@@ -798,77 +1085,77 @@ body {
             background-color: #000; }
           .menus .open-menus .list-menus > li a.btn-home {
             background-image: url(../images/sprites.png);
-            background-position: -2090px -420px;
+            background-position: -2740px -619px;
             width: 18px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-home:hover {
               background-image: url(../images/sprites.png);
-              background-position: -2113px -396px;
+              background-position: -2763px -595px;
               width: 18px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-location {
             background-image: url(../images/sprites.png);
-            background-position: -1827px -783px;
+            background-position: -2725px -1786px;
             width: 70px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-location:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1977px -783px;
+              background-position: -2646px -1834px;
               width: 70px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-floor {
             background-image: url(../images/sprites.png);
-            background-position: -2052px -783px;
+            background-position: -2721px -1834px;
             width: 70px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-floor:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1827px -807px;
+              background-position: -2646px -1858px;
               width: 70px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-membership {
             background-image: url(../images/sprites.png);
-            background-position: -2078px -748px;
+            background-position: -2740px -454px;
             width: 51px;
             height: 19px; }
             .menus .open-menus .list-menus > li a.btn-membership:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1977px -807px;
+              background-position: -2740px -478px;
               width: 51px;
               height: 19px; }
           .menus .open-menus .list-menus > li a.btn-coupon {
             background-image: url(../images/sprites.png);
-            background-position: -1748px -831px;
+            background-position: -2740px -526px;
             width: 53px;
             height: 18px; }
             .menus .open-menus .list-menus > li a.btn-coupon:hover {
               background-image: url(../images/sprites.png);
-              background-position: -1864px -831px;
+              background-position: -2740px -572px;
               width: 53px;
               height: 18px; }
       .menus .open-menus .list-menus.is-hover a.btn-home {
         background-image: url(../images/sprites.png);
-        background-position: -2090px -396px;
+        background-position: -2740px -595px;
         width: 18px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-location {
         background-image: url(../images/sprites.png);
-        background-position: -1902px -783px;
+        background-position: -2725px -1810px;
         width: 70px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-floor {
         background-image: url(../images/sprites.png);
-        background-position: -1902px -807px;
+        background-position: -2721px -1858px;
         width: 70px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-membership {
         background-image: url(../images/sprites.png);
-        background-position: -2033px -807px;
+        background-position: -2740px -502px;
         width: 51px;
         height: 19px; }
       .menus .open-menus .list-menus.is-hover a.btn-coupon {
         background-image: url(../images/sprites.png);
-        background-position: -1806px -831px;
+        background-position: -2740px -549px;
         width: 53px;
         height: 18px; }
     .menus .open-menus .banners a {

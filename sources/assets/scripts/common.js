@@ -3,27 +3,28 @@ $(document).ready(function (e) {
 	Scene.init();
 	Brand.init();
 	Launch.init();
-	// Path.init();
+	Path.init();
+	Market.init();
 });
 
 
 var controller = new ScrollMagic.Controller();
 var sceneData = [
 	{
+		id: '#home',
 		title: 'Home',
 		animation: null,
-		scroll: 'none'
+		scroll: 'direct'
 	},
 	{
+		id: '#after-home',
 		title: "After Home",
 		animation: null,
-		scroll: 'auto',	// direct
-		timeAnimation: null,
-		timeLayer: {
-			target: '.time01'
-		}
+		scroll: 'auto',
+		timeAnimation: null
 	},
 	{
+		id: '#arrived',
 		title: "Arrvied Outlet",
 		animation: null,
 		scroll: 'auto',
@@ -33,6 +34,7 @@ var sceneData = [
 		}
 	},
 	{
+		id: '#brand',
 		title: "Outlet Brand",
 		animation: null,
 		scroll: 'auto',
@@ -42,9 +44,37 @@ var sceneData = [
 		}
 	},
 	{
+		id: '#launch',
 		title: "Launch",
 		animation: null,
-		scroll: 'manual',
+		scroll: 'auto',
+		timeAnimation: null
+	},
+	{
+		id: '#market',
+		title: "Premium Market",
+		animation: null,
+		scroll: 'auto',
+		timeAnimation: null,
+		timeLayer: {
+			target: '.time05'
+		}
+	},
+	{
+		id: '#garden',
+		title: "Garden Terrace",
+		animation: null,
+		scroll: 'auto',
+		timeAnimation: null,
+		timeLayer: {
+			target: '.time08'
+		}
+	},
+	{
+		id: '#ending',
+		title: "Ending",
+		animation: null,
+		scroll: 'auto',
 		timeAnimation: null
 	}
 ];
@@ -138,7 +168,7 @@ var Scene = (function ($) {
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 4;
+			_currentScene = 0;
 			_isAnimating = false;
 			_speed = 100;
 			_oldDelta = 0;
@@ -151,19 +181,11 @@ var Scene = (function ($) {
 
 	function initMotion() {
 		/* scene : home */
-		var homeAnimation = new TimelineMax({paused: true, onStart:startAnimation})
-			.add([
-				TweenMax.fromTo('.scene.home .moon', 0.5, {delay: 5, opacity: 0, y: -30}, {opacity: 1, y: 0}),
-			])
-			.add([
-				TweenMax.fromTo('.scene.home .title', 0.5, {opacity: 0, y: 30}, {opacity: 1, y: 0}),
-			])
-			.add([
-				TweenMax.fromTo('.scene.home .description', 0.5, {opacity: 0, y: 30}, {opacity: 1, y: 0}),
-			])
-			.add([
-				TweenMax.fromTo('.scene.home .wally', 0.5, {opacity: 0, y: 30}, {opacity: 1, y: 0}),
-			])
+		var homeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["H"]})
+			.fromTo('.scene.home .moon', 0.5, {delay: 5, opacity: 0, y: -30}, {opacity: 1, y: 0})
+			.fromTo('.scene.home .title', 0.5, {opacity: 0, y: 30}, {opacity: 1, y: 0})
+			.fromTo('.scene.home .description', 0.5, {opacity: 0, y: 30}, {opacity: 1, y: 0})
+			.fromTo('.scene.home .wally', 0.5, {opacity: 0, y: 30}, {opacity: 1, y: 0})
 			.add([
 				TweenMax.fromTo('.scene.home .wally', 1, {y: 0}, {y: 10, ease: Quad.easeInOut, repeat: -1, yoyo: true}),
 				TweenMax.fromTo('.scene.home .btn-start', 0.5, {opacity: 0, y: -30}, {opacity: 1, y: 0, onComplete:finishAnimation})
@@ -173,10 +195,10 @@ var Scene = (function ($) {
 
 
 		/* scene : after home */
-		var afterHomeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onComplete:finishAnimation})
-			.add([
-				TweenMax.to('.scene.home .btn-start', 0.5, {opacity: 0})
-			])
+		// TweenMax.set('.time-layer', {css: {zIndex:2000}});
+		var afterHomeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:["AH"], onComplete:finishAnimation, onCompleteParams:["AH"]})
+			.set('.time-layer', {css: {zIndex:2000}})
+			.to('.scene.home .btn-start', 0.5, {opacity: 0})
 			.add([
 				TweenMax.to('.scene.home .moon, .scene.home .wally, .scene.home .title, .scene.home .description', 0.5, {opacity: 0, y: -60}),
 				TweenMax.to('.scene.home .inner', 1, {css: {backgroundPosition: "0px -30px", opacity: 0}}),
@@ -189,6 +211,16 @@ var Scene = (function ($) {
 				TweenMax.to('.scene.home .day-building', 1, {delay: 5, y: "-115%"}),
 				TweenMax.to('.scene.home .outlet', 3, {delay: 3, y: "-100%"}),
 				TweenMax.to('.scene.home', 6, {})
+			])
+			.to('.time-layer', 0.5, {delay: 1.5, opacity: 1})
+			.add([
+				TweenMax.fromTo('.time01 .now', 0.3, {y: 30}, {opacity: 1, y: 0}),
+				TweenMax.fromTo('.time01 .now-txt', 0.3, {y: 30}, {delay: 0.2, opacity: 1, y:0})
+			])
+			.to('.time-layer', 0.5, {delay: 1.5, opacity: 0})
+			.add([
+				TweenMax.to('.time01 .now', 0.1, {opacity: 0}),
+				TweenMax.to('.time01 .now-txt', 0.1, {opacity: 0})
 			]);
 /*
 		new ScrollMagic.Scene({
@@ -203,7 +235,7 @@ var Scene = (function ($) {
 
 
 		/* scene : arrived outlet */
-		var arrivedAnimation = new TimelineMax({onStart:startAnimation, onComplete:finishAnimation})
+		var arrivedAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["AO"], onComplete:finishAnimation, onCompleteParams:["AO"]})
 			.from('.scene.arrived .title-time', 0.5, {delay: 1.2, opacity: 0})
 			.from('.scene.arrived .wally', 0.5, {delay: 1, opacity: 0, x: -30})
 			.from('.scene.arrived .txt01', 0.5, {opacity: 0});
@@ -216,8 +248,8 @@ var Scene = (function ($) {
 		sceneData[2].animation = arrivedAnimation;
 
 
-		/* scene : arrived outlet */
-		var brandAnimation = new TimelineMax({onStart:startAnimation, onComplete:finishAnimation})
+		/* scene : outlet brand */
+		var brandAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["B"], onComplete:finishAnimation, onCompleteParams:["B"]})
 			.from('.scene.brand .title-time', 0.5, {delay: 1.2, opacity: 0})
 			.from('.scene.brand .btn.luxury', 0.3, {delay: 0, opacity: 0, y: -30})
 			.from('.scene.brand .btn.sport-factory', 0.3, {delay: 0, opacity: 0, y: 30})
@@ -234,20 +266,95 @@ var Scene = (function ($) {
 		sceneData[3].animation = brandAnimation;
 
 
+
+
 		/* scene : launch */
-/*
 		var traceAnimation = new TimelineMax({delay:0})
 			.to('#tracesvg path#p1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
-		var sceneLaunch = new ScrollMagic.Scene({
+		sceneLaunch = new ScrollMagic.Scene({
 			triggerElement: ".scene.launch",
-			duration: "4230px"
+			duration: "3379px",
+			offset: 870
 		})
 		.setTween(traceAnimation)
-		.addIndicators()
 		.addTo(controller);
-*/
 
-		startScene();
+
+
+
+		/* scene : premium market */
+		var marketAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["M"], onComplete:finishAnimation, onCompleteParams:["M"]})
+			.add([
+				TweenMax.from('.scene.market .title-time', 0.5, {delay: 0.5, opacity: 0}),
+				TweenMax.from('.scene.market .btn-market', 0.5, {delay: 0.5, opacity: 0})
+			])
+			.from('.scene.market .wally', 0.5, {delay: 1, opacity: 0, x: 20})
+			.from('.scene.market .odlaw', 0.5, {delay: 0.5, opacity: 0})
+			.from('.scene.market .wizard', 0.5, {delay: 0.5, opacity: 0, x: -30});
+
+		var sceneMarket = new ScrollMagic.Scene({
+			triggerElement: ".scene.market",
+			triggerHook: 'onLeave'
+		})
+		.setTween(marketAnimation)
+		.addTo(controller);
+		sceneData[5].animation = marketAnimation;
+
+
+
+
+		/* scene : garden terrace */
+		var parassolAnimation = new TimelineMax()
+			.add([
+				TweenMax.from('.scene.garden .parassol01', 1.3, {x:-470, y:576, rotation:-45, ease:Power1.easeInOut}),
+				TweenMax.from('.scene.garden .parassol02', 1.3, {x:-470, y:433, rotation:-45, ease:Power1.easeInOut})
+			]);
+		var sceneParassol = new ScrollMagic.Scene({
+			triggerElement: ".scene.garden",
+			triggerHook: 'onEnter',
+			duration: "200%"
+		})
+		.setTween(parassolAnimation)
+		.addTo(controller);
+
+
+		var gardenAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["GARDEN"], onComplete:finishAnimation, onCompleteParams:["GARDEN"]})
+			.add([
+				TweenMax.from('.scene.garden .title-time', 0.5, {delay: 0.5, opacity: 0}),
+				TweenMax.from('.scene.garden .btn-pub', 0.5, {delay: 0.5, opacity: 0})
+			])
+			.from('.scene.garden .wilma', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.garden .wally', 0.5, {delay: 0.5, opacity: 0});
+			
+		var sceneGarden = new ScrollMagic.Scene({
+			triggerElement: ".scene.garden",
+			triggerHook: 'onLeave'
+		})
+		.setTween(gardenAnimation)
+		.addTo(controller);
+		sceneData[6].animation = gardenAnimation;
+
+
+
+		/* scene : ending */
+		var endingAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["END"], onComplete:finishAnimation, onCompleteParams:["END"]})
+			.from('.scene.ending .title-time', 0.5, {opacity: 0})
+			.from('.scene.ending .people', 0.5, {delay: 1, opacity: 0, x: -30})
+			.from('.scene.ending .txt01', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.ending .txt02', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.ending .txt03', 1, {delay: 1, opacity: 0});
+
+		var sceneEnding = new ScrollMagic.Scene({
+			triggerElement: ".scene.garden",
+			triggerHook: 'onLeave'
+		})
+		.setTween(endingAnimation)
+		.addTo(controller);
+		sceneData[7].animation = endingAnimation;
+
+
+
+
 	}
 
 	function showThis(div){
@@ -266,7 +373,13 @@ var Scene = (function ($) {
 		$(window).bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e){
 			
 			var scene = sceneData[_currentScene];
-			if( scene.scroll == "manual" ) {
+
+			var sceneTop = $('#launch').offset().top;
+			var sceneHeight = $('#launch').height();
+			var windowTop = $(window).scrollTop();
+
+			if( sceneTop <= windowTop && windowTop < sceneTop+sceneHeight ) {
+
 			} else {
 				e.preventDefault();
 				e.stopPropagation();
@@ -282,6 +395,11 @@ var Scene = (function ($) {
 			}
 		});
 
+		$(window).bind('resize', function(){
+			_viewHeight = $(window).height();
+			controller.update(true);
+		});
+
 	}
 
 
@@ -291,34 +409,52 @@ var Scene = (function ($) {
 	}
 
 
-	function startAnimation() {
+	function startAnimation(fromValue) {
 		_isAnimating = true;
-		console.log("startAnimation : " + _isAnimating);
+
+		console.log("start animation from : " + fromValue);
+
+		if( fromValue == "M" ) {
+			_currentScene = 5;
+		}
 	}
 
-	function finishAnimation(isTimeLayer) {
+	function finishAnimation(value) {
 		_isAnimating = false;
-		console.log("finishAnimation : " + _isAnimating);
-		if( isTimeLayer ) {
+
+		console.log("[finishAnimation] " + value);
+		// scene - after motion
+		if( value == "AH" ) {
+			console.log("finishAnimation : AH stop");
+			TweenMax.set('.time-layer', {css: {zIndex:-1}});
+			next();
+		}
+
+		// scene - outlet
+		if( value == "AO" ) {
+			console.log("finishAnimation : AO stop");
+			sceneData[1].animation.pause(0, true);
+			sceneData[1].animation.remove();
+		}
+
+		// time layer
+		if( value == "T" ) {
+			console.log("finishAnimation : time layer stop");
 			TweenMax.set('.time-layer', {css: {zIndex:-1}});
 			next(true);
 		}
 	}
 
-	/* start Scene */
-	function startScene() {
-		animationScene(sceneData[0].animation);
-	}
-
 	/* animationScene */
 	function animationScene(animation) {
+		console.log(animation);
 		animation.restart();
 	}
 
 	/* time layer */
 	function timeLayerAnimation(scene) {
 		if( _isAnimating ) {
-			console.log("moving.... cancel next()");
+			console.log("moving.... cancel timeLayerAnimation");
 			return;
 		}
 
@@ -326,10 +462,9 @@ var Scene = (function ($) {
 		var nowTxt = scene.timeLayer.target + " .now-txt";
 
 		/* scene : time layer */
-		startAnimation();
-		TweenMax.set('.time-layer', {css: {zIndex:2000}});
-		var timeAnimation = new TimelineMax({onStart:startAnimation, onComplete:finishAnimation, onCompleteParams:[true]})
-			.to('.time-layer', 0.5, {delay: 1.5, opacity: 1})
+		var timeAnimation = new TimelineMax({onStart:startAnimation, onComplete:finishAnimation, onCompleteParams:["T"]})
+			.set('.time-layer', {css: {zIndex:2000}})
+			.to('.time-layer', 0.5, {delay: 0, opacity: 1})
 			.add([
 				TweenMax.fromTo(now, 0.3, {y: 30}, {opacity: 1, y: 0}),
 				TweenMax.fromTo(nowTxt, 0.3, {y: 30}, {delay: 0.2, opacity: 1, y:0})
@@ -340,6 +475,7 @@ var Scene = (function ($) {
 				TweenMax.to(nowTxt, 0.1, {opacity: 0})
 			]);
 	}
+
 
 	/* next Scene */
 	function next(afterTimeLaer) {
@@ -353,24 +489,45 @@ var Scene = (function ($) {
 		if( nextScene === undefined ) return;
 
 		console.log("_currentScene : " + _currentScene);
-		console.log(scene);
-		console.log(nextScene);
-		console.log("timeLayer : " + scene.hasOwnProperty('timeLayer'));
-
-		// Time Layer 표시 이후
-		// if( afterTimeLaer !== undefined && afterTimeLaer ) {
-
-		// }
+		console.log("has timeLayer : " + scene.hasOwnProperty('timeLayer'));
 
 		if( !afterTimeLaer && scene.hasOwnProperty('timeLayer') ) {
+			console.log("[next] if timeLayer - _isAnimating : " + _isAnimating);
 			timeLayerAnimation(scene);
 		} else {
 			if( scene.scroll == "auto" ) {
-				TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / _viewHeight)*_viewHeight+(_viewHeight)}, ease:Quad.easeInOut});
+				_isAnimating = true;
+
+
+				var index = _currentScene-1 < 0 ? 1 : _currentScene;
+				var fix01 = 0;
+				if( _currentScene > 4 ) {
+					index = _currentScene - 1;
+					fix01 = 4230;
+				}
+				var calcposy = index * _viewHeight + fix01;
+				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
+					_isAnimating = false;
+					console.log("auto plus before " + _currentScene);
+					_currentScene++;
+					console.log("auto plus " + _currentScene);
+				}});
+
+/*
+				TweenMax.to(window, 1.2, {scrollTo:{y:Math.round($(window).scrollTop() / _viewHeight)*_viewHeight+(_viewHeight)}, ease:Quad.easeInOut, onComplete: function() {
+					_isAnimating = false;
+					console.log("auto plus before " + _currentScene);
+					_currentScene++;
+					console.log("auto plus " + _currentScene);
+				}});
+*/
 			} else if( scene.scroll == "direct" ) {
+				_isAnimating = true;
 				animationScene(nextScene.animation);
+				console.log("direct plus before " + _currentScene);
+				_currentScene++;
+				console.log("direct plus " + _currentScene);
 			}
-			_currentScene++;
 		}
 	}
 
@@ -381,6 +538,37 @@ var Scene = (function ($) {
 			return;
 		}
 
+		var scene = sceneData[_currentScene];
+		
+		var prevScene = sceneData[_currentScene-1];
+		if( _currentScene === 2 ) {
+			prevScene = sceneData[_currentScene-2];
+		}
+		if( prevScene === undefined ) return;
+
+
+		var index = _currentScene < 3 ? 0 : _currentScene-1;
+		var fix01 = 0;
+		if( _currentScene > 4 ) {
+			index = _currentScene - 1;
+			fix01 = 4230;
+		}
+		var calcposy = index * _viewHeight + fix01;
+
+
+		TweenMax.to(window, 1.2, {onStart: function() {
+			_isAnimating = true;
+		}, scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
+			_isAnimating = false;
+			if( _currentScene === 2 ) {
+				_currentScene = _currentScene - 2;
+			} else {
+				console.log("prev complete minus before " + _currentScene);
+				_currentScene = _currentScene - 1;
+				console.log("prev complete minus " + _currentScene);
+			}
+			console.log("prev complete : " + _currentScene);
+		}});
 	}
 
 
@@ -494,8 +682,10 @@ var Launch = (function ($) {
 var Path = (function ($) {
 	var scope,
 		$traceSVG,
+		$restaurantSVG,
 		init = function () {
 			$traceSVG = $("#tracesvg");
+			$restaurantSVG = $("#restaurantsvg");
 
 			initLayout();
 			initEvent();
@@ -503,6 +693,9 @@ var Path = (function ($) {
 
 	function initLayout() {
 		$traceSVG.find('path').each(function() {
+			pathPrepare($(this));
+		});
+		$restaurantSVG.find('path').each(function() {
 			pathPrepare($(this));
 		});
 	}
@@ -516,10 +709,6 @@ var Path = (function ($) {
 		$el.css("stroke-dashoffset", lineLength);
 	}
 
-	function hideThis(div){
-		$(document).find(div).css('visibility', 'hidden');
-	}
-
 	return {
 		init: function () {
 			scope = this;
@@ -531,5 +720,53 @@ var Path = (function ($) {
 
 
 
+/* SCENE06 - Market */
+var Market = (function ($) {
+	var scope,
+		$marketContainer,
+		$slider,
+		_options,
+		init = function () {
+			$marketContainer = $('.scene.market');
+			$slider = $marketContainer.find('.slick-slider');
+
+			_options = {
+				dots: false,
+				arrows: false,
+				infinite: true,
+				draggable: false,
+				speed: 1000,
+				autoplay: true,
+				autoplaySpeed: 3000,
+				fade: true,
+				slidesToShow: 1,
+				slidesToScroll: 1
+			};
+
+			initLayout();
+			initEvent();
+		};//end init
+
+	function initLayout() {
+	}
+
+	function initEvent() {
+	}
+
+	function bgRolling() {
+		$slider.slick(_options);
+	}
+
+	return {
+		init: function () {
+			scope = this;
+
+			init();
+		},
+		rolling : function() {
+			bgRolling();
+		}
+	};
+}(jQuery));
 
 

@@ -89,41 +89,108 @@
 .scene.launch { overflow: hidden; height: 4230px; background-image: url('../images/scene_launch/bg_object.png'), url('../images/scene_launch/bg_last.png'); background-position: center bottom, center top; background-repeat: no-repeat, repeat;
 	.header { height: 883px; width: 100%; text-indent: -9999px; background: url('../images/scene_launch/bg_header.png') center top repeat; }
 
-	.contents { position: absolute; top: 883px; left: calc(50% - 600px); height: 100%; width: 1200px; background-color: rgba(0, 0, 0, 0.3); }
+	.contents { position: absolute; top: 871px; left: calc(50% - 600px); height: 100%; width: 1200px; }
 
 	.object { position: absolute; background-position: left top; background-repeat: no-repeat;
+		.object-title { display: block; position: absolute; top: 0; left: 0; text-indent: -9999px; background-position: left top; background-repeat: no-repeat; }
 		.btn-more { display: block; position: absolute; top: 0; left: 0; text-indent: -9999px; @include sprite($s-btn-plus01); }
 		
 		&.restaurant { top: 233px; left: calc(50% - 50px); height: 540px; width: 692px; background-image: url('../images/scene_launch/object01.png');
-			.btn-more { top: -124px; left: 156px; }
+			.object-title { top: -220px; left: 220px; height: 236px; width: 243px; background-image: url('../images/scene_launch/object_txt01.png'); }
+			.btn-more { top: -106px; left: 156px; }
 		}
 		
 		&.cafeteria { top: 851px; left: calc(50% - 502px); height: 309px; width: 713px; background-image: url('../images/scene_launch/object02.png');
-			.btn-more { top: -130px; left: -85px; }
+			.object-title { top: -126px; left: 112px; height: 106px; width: 250px; background-image: url('../images/scene_launch/object_txt02.png'); }
+			.btn-more { top: -120px; left: 20px; }
 		}
 		
-		&.deli { top: 1213px; left: calc(50% + 120px); height: 576px; width: 586px; background-image: url('../images/scene_launch/object03.png');
-			.btn-more { top: -130px; left: 388px; }
+		&.deli { top: 1213px; left: calc(50% + 110px); height: 576px; width: 586px; background-image: url('../images/scene_launch/object03.png');
+			.object-title { top: -110px; left: 314px; height: 79px; width: 133px; background-image: url('../images/scene_launch/object_txt03.png'); }
+			.btn-more { top: -120px; left: 220px; }
 		}
 		
-		&.dessert { top: 1657px; left: calc(50% - 401px); height: 450px; width: 392px; background-image: url('../images/scene_launch/object04.png');
-			.btn-more { top: -75px; left: 223px; }
+		&.dessert { top: 1670px; left: calc(50% - 401px); height: 450px; width: 392px; background-image: url('../images/scene_launch/object04.png');
+			.object-title { top: -106px; left: 263px; height: 171px; width: 198px; background-image: url('../images/scene_launch/object_txt04.png'); }
+			.btn-more { top: -83px; left: 202px; }
 		}
 		
 		&.star-gallery { top: 2312px; left: 50%; height: 521px; width: 594px; background-image: url('../images/scene_launch/object05.png');
-			.btn-more { top: -184px; left: 428px; }
+			.object-title { top: -222px; left: 190px; height: 160px; width: 211px; background-image: url('../images/scene_launch/object_txt05.png'); }
+			.btn-more { top: -177px; left: 410px; }
 		}
 		
 		&.bakery { top: 2859px; left: calc(50% - 487px); height: 395px; width: 481px; background-image: url('../images/scene_launch/object06.png');
+			.object-title { top: -182px; left: 193px; height: 162px; width: 174px; background-image: url('../images/scene_launch/object_txt06.png'); }
 			.btn-more { top: -192px; left: 152px; }
 		}
 	}
 
 	.wally { display: block; position: absolute; top: 725px; left: 0; text-indent: -9999px; @include sprite($s-scene05-wally); pointer-events: none; }
-	.wilma { display: block; position: absolute; top: 1538px; right: 0; text-indent: -9999px; @include sprite($s-scene05-wilma); pointer-events: none; }
+	.wilma { display: block; position: absolute; top: 1535px; right: 0; text-indent: -9999px; @include sprite($s-scene05-wilma); pointer-events: none; }
 	.woof { display: block; position: absolute; top: 2160px; left: 0; text-indent: -9999px; @include sprite($s-scene05-woof); pointer-events: none; }
 	.odlaw { display: block; position: absolute; top: 2620px; right: 0; text-indent: -9999px; @include sprite($s-scene05-odlaw); pointer-events: none; }
 
-	svg#tracesvg { position: absolute; top: 883px; left: calc(50% - 557px); }
+	svg#tracesvg { position: absolute; top: 871px; left: calc(50% - 457px); }
 }
+
+
+
+/* secen - premium market */
+.scene.market { overflow: hidden;
+	.title-time { z-index: z("default"); @include sprite($s-title-1500); }
+
+	.btn-market { display: block; position: absolute; top: 204px; left: 42px; text-indent: -9999px; @include sprite($s-scene06-btn-market); opacity: 1; }
+
+	.wally { display: block; position: absolute; bottom: 0; left: calc(50% - 570px); text-indent: -9999px; @include sprite($s-scene06-wally); opacity: 1; }
+	.odlaw { display: block; position: absolute; bottom: 0; left: calc(50% + 65px); text-indent: -9999px; @include sprite($s-scene06-odlaw); opacity: 1; }
+	.wizard { display: block; position: absolute; bottom: 0; left: calc(50% - 142px); text-indent: -9999px; @include sprite($s-scene06-wizard); opacity: 1; }
+
+	.slick-slider { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: #000; }
+	.slick-list, .slick-track { height: 100%; width: 100%; }
+	.bg01 { display: block; height: 100%; width: 100%; background: url('../images/scene_market/bg01.jpg') center center no-repeat; background-size: cover; opacity: 1; }
+	.bg02 { display: block; height: 100%; width: 100%; background: url('../images/scene_market/bg02.jpg') center center no-repeat; background-size: cover; opacity: 1; }
+	.bg03 { display: block; height: 100%; width: 100%; background: url('../images/scene_market/bg03.jpg') center center no-repeat; background-size: cover; opacity: 1; }
+	.bg04 { display: block; height: 100%; width: 100%; background: url('../images/scene_market/bg04.jpg') center center no-repeat; background-size: cover; opacity: 1; }
+}
+
+
+
+
+
+/* secen - garden terrace */
+.scene.garden {
+	.title-time { z-index: z("default"); @include sprite($s-title-1900); }
+
+	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 0; }
+
+	.wilma { display: block; position: absolute; bottom: 0; left: calc(50% - 516px); text-indent: -9999px; @include sprite($s-scene08-wilma); opacity: 1; }
+	.wally { display: block; position: absolute; bottom: 0; left: calc(50% + 20px); text-indent: -9999px; @include sprite($s-scene08-wally); opacity: 1; }
+
+	.parassol01 { display: block; position: absolute; top: -300px; left: calc(50% + 59px); text-indent: -9999px; @include sprite($s-scene08-parassol01); }
+	.parassol02 { display: block; position: absolute; top: -105px; left: calc(50% + 390px); text-indent: -9999px; @include sprite($s-scene08-parassol02); }
+
+	.slick-slider { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: #000; }
+	.slick-list, .slick-track { height: 100%; width: 100%; }
+	.bg01 { display: block; height: 100%; width: 100%; background: url('../images/scene_garden/bg01.jpg') center center no-repeat; background-size: cover; opacity: 1; }
+	.bg02 { display: block; height: 100%; width: 100%; background: url('../images/scene_garden/bg02.jpg') center center no-repeat; background-size: cover; opacity: 1; }
+	.bg03 { display: block; height: 100%; width: 100%; background: url('../images/scene_garden/bg03.jpg') center center no-repeat; background-size: cover; opacity: 1; }
+}
+
+
+
+
+/* scene9 - ending */
+.scene.ending { overflow: hidden; background: url('../images/scene_ending/bg_last.jpg') center bottom no-repeat;
+	.title-time { z-index: z("default"); @include sprite($s-title-2100); }
+
+	.people { display: block; position: absolute; bottom: 10px; left: 65px; text-indent: -9999px; @include sprite($s-scene09-people); opacity: 1;
+		.txt01 { display: block; position: absolute; top: -90px; left: 300px; text-indent: -9999px; @include sprite($s-scene09-txt01); opacity: 1; }
+		.txt02 { display: block; position: absolute; top: -67px; left: 100px; text-indent: -9999px; @include sprite($s-scene09-txt02); opacity: 1; }
+		.txt03 { display: block; position: absolute; top: -159px; left: 706px; text-indent: -9999px; @include sprite($s-scene09-txt03); opacity: 1; }
+	}
+}
+
+
+
 

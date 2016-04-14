@@ -15,6 +15,7 @@
 	<script src="./assets/scripts/libs/ScrollToPlugin.min.js"></script>
 	<script src="./assets/scripts/libs/lethargy.min.js"></script>
 	<script src="./assets/scripts/libs/jquery.mousewheel.min.js"></script>
+	<script src="./assets/scripts/libs/slick.min.js"></script>
 
 	<!-- custom -->
 	<script src="./assets/scripts/common.js"></script>
@@ -59,12 +60,14 @@
 			<li><a href="#arrived"><span>아울렛에 도착 10:30</span></a></li>
 			<li><a href="#brand"><span>즐거운 쇼핑타임 11:00</span></a></li>
 			<li class="long"><a href="#launch"><span>딜리셔스 타임 13:00</span></a></li>
-			<li><a href="#"><span>프리미엄마켓</span></a></li>
+			<li><a href="#market"><span>프리미엄마켓 15:00</span></a></li>
 			<li class="long"><a href="#"><span>체험존</span></a></li>
-			<li><a href="#"><span>카든테라스</span></a></li>
+			<li><a href="#garden"><span>가든테라스 19:00</span></a></li>
 			<li><a href="#"><span>엔딩</span></a></li>
 		</ul>
 	</div>
+
+
 
 
 	<!-- Time Container -->
@@ -102,6 +105,8 @@
 	</section>
 
 
+
+
 	<!-- scene3 : outlet -->
 	<section id="arrived" class="scene arrived">
 		<p id="arrived-title-time" class="title-time">10:30 현대프리미엄아울렛 도착</p>
@@ -110,6 +115,9 @@
 		<div class="wally"></div>
 		<a href="#" class="txt01">오시는 길</a>
 	</section>
+
+
+
 
 	<!-- scene4 : outlet brand -->
 	<section id="brand" class="scene brand">
@@ -134,40 +142,58 @@
 
 
 
-	<!-- scene5 :  -->
+	<!-- scene5 : Launch -->
 	<section id="launch" class="scene launch">
 		<header class="header">
 			<p>딜리셔스 13:00 런치타임</p>
 		</header>
 
-		<svg version="1.1" id="tracesvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1114px" height="3384px" viewBox="0 0 1114 3384" enable-background="new 0 0 1114 3384" xml:space="preserve">
-			<path id="p1" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M497.796,3378.763c0,0,87.13-135.86-4.501-229.673c-84-86-148.018-101.255-212.677-159.771c-74.821-67.711-87.34-171.165-37-250c53-83,94.324-70.956,143-125c50.179-55.711,31.066-120.411,2.721-145.74c-33.542-29.971-59.951-9.678-46,30c21.458,61.029,77.458,82.029,141,82c292.664-0.131,386.439-132.939,426.457-179.971c97-114,127.818-248.787,127.471-354.01c-0.471-141.99-176.471-167.99-176.471-167.99c-72-11-87-63-69-105s57-75,110-63s63,68,49,108s-86,207-358,226c-271.999,19-279.155-201.604-268.999-257c11-60,31-112,122-191s287.999-115,287.999-115c513-106,348.77-422.751,348.77-422.751c-150.77-284.249-468.166-86.384-468.166-86.384s-103.591,60.103-171.228,3.604c-78.375-65.469-7.375-117.469-7.375-117.469s57.86-40.923,30,25c-71,168-343.397,82.865-343.397,82.865C-55.204,916.607,22.017,711.09,22.017,711.09c77.382-194.618,254.593-47.486,254.593-47.486s152.789,138.869,364.789,48.869C845.6,625.783,873.576,458.733,868.795,368.607c-7-132-47.195-174.607-208.354-237.721c0,0-73.342-29.386-87.441-78.062c0,0-6.204-22.437-5-46.876"/>
+		<svg version="1.1" id="tracesvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			 width="914px" height="3379px" viewBox="0 0 914 3379" enable-background="new 0 0 914 3379" xml:space="preserve">
+		<path id="p1" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+			M449.018,5.199c0,0-26.51,41.809,3.712,86.801c23.04,34.301,61.667,55.333,119,68c76.045,16.801,210.074,75.141,214.195,205.045
+			c2.236,70.477-34.121,158.583-120.771,211.798c-58.457,35.9-155,58-263,47c-105.448-10.74-227.384-26.288-320.359,56.022
+			c-92.974,82.311-99.35,217.651-36.495,309.314c62.854,91.663,159.85,101.517,194.854,104.663c89,8,132.909-32.359,255.584-76.399
+			c122.676-44.04,289.416,34.399,333.959,121.652c54.354,106.471,8.971,212.823-42.445,264.172
+			c-11.766,11.751-138.066,128.376-300.582,61.309c-162.516-67.067-110.121-133.278-73.636-120.544
+			c24.053,8.396,32.791,36.315,33.787,61.477c0.995,25.162-0.107,106.444-70.563,165.828c-26.351,22.211-43.719,33.318-103.074,68.567
+			c-100.363,59.604-131.682,135.675-120.363,220.271c0,0,6.667,99.333,118.215,150.035c58.232,26.468,143.709,32.682,227.712,9.746
+			c65.734-17.949,157.25-59.039,248.65-31.973c91.4,27.067,187.02,115.61,153.447,285.896
+			c-26.814,135.999-143.348,204.275-218.115,247.487c-94.775,54.776-222.576,69.475-331.91,61.475s-131.357-67.642-135.133-94.829
+			c-5.534-39.838,23.961-30.963,33.616-26.729s41.182,28.31,44.47,81.551c3.047,49.341-19.031,74.498-47.019,98.527
+			c-38.779,33.294-51.746,40.429-105.67,78.155c-60.021,41.993-94.866,128.796-68.264,217.991
+			c11.333,38,55.333,141.334,205.333,185.334c79.366,23.28,172,67,140.667,178c-13.687,48.485-31.667,73-31.667,73"/>
 		</svg>
 
 
 		<div class="contents">
-
 			<div class="object restaurant">
+				<span class="object-title">다이닝 레스토랑</span>
 				<a href="#" class="btn-more">레스토랑 더보기</a>
 			</div>
 
 			<div class="object cafeteria">
+				<span class="object-title">카페테리아</span>
 				<a href="#" class="btn-more">카페테리아 더보기</a>
 			</div>
 
 			<div class="object deli">
+				<span class="object-title">델리</span>
 				<a href="#" class="btn-more">델리 더보기</a>
 			</div>
 
 			<div class="object dessert">
+				<span class="object-title">디져트</span>
 				<a href="#" class="btn-more">디져트 더보기</a>
 			</div>
 
 			<div class="object star-gallery">
+				<span class="object-title">스타갤러리</span>
 				<a href="#" class="btn-more">스타갤러리 더보기</a>
 			</div>
 
 			<div class="object bakery">
+				<span class="object-title">베이커리</span>
 				<a href="#" class="btn-more">베이커리 더보기</a>
 			</div>
 		</div>
@@ -177,6 +203,64 @@
 		<div class="woof"></div>
 		<div class="odlaw"></div>
 	</section>
+
+
+
+	<!-- scene6 : premium market -->
+	<div id="market" class="scene market">
+		<p id="market-title-time" class="title-time">15:00 장바구니에 담긴 유럽의 일상, 오들로는 너무 많이 담은거 아닌가요?</p>
+		
+		<a href="#" class="btn-market">신선하고 다양한 식재료, 프리미엄마켓을 만나세요</a>
+
+		<div class="wally"></div>
+		<div class="odlaw"></div>
+		<div class="wizard"></div>
+<!--
+		<div class="slick-slider">
+			<div class="slide-bg bg01"></div>
+			<div class="slide-bg bg02"></div>
+			<div class="slide-bg bg03"></div>
+			<div class="slide-bg bg04"></div>
+		</div>
+-->
+	</div>
+
+
+
+
+	<!-- scene8 : garden terrace -->
+	<div id="garden" class="scene garden">
+		<p id="garden-title-time" class="title-time">19:00 유럽의 정취와 아름다운 별자리, 월리와 웬다는 낭만에 푹 빠졌네요.</p>
+		
+		<a href="#" class="btn-pub">이국적인 레스토랑과 다이닝펍을 확인하세요</a>
+		
+		<div class="wilma"></div>
+		<div class="wally"></div>
+
+		<div class="parassol02"></div>
+		<div class="parassol01"></div>
+<!--
+		<div class="slick-slider">
+			<div class="slide-bg bg01"></div>
+			<div class="slide-bg bg02"></div>
+			<div class="slide-bg bg03"></div>
+		</div>
+-->
+	</div>
+
+
+
+
+	<!-- scene9 : ending -->
+	<div id="ending" class="scene ending">
+		<p id="ending-title-time" class="title-time">19:00 유럽의 정취와 아름다운 별자리, 월리와 웬다는 낭만에 푹 빠졌네요.</p>
+		
+		<div class="people">
+			<div class="txt01"></div>
+			<div class="txt02"></div>
+			<div class="txt03"></div>
+		</div>
+	</div>
 
 
 
