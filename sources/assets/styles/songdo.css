@@ -973,6 +973,26 @@ body {
       background-position: -1594px -1857px;
       width: 452px;
       height: 63px; }
+    .time-layer .time.time03 > .now {
+      background-image: url(../images/sprites.png);
+      background-position: -1280px -977px;
+      width: 383px;
+      height: 123px; }
+    .time-layer .time.time03 > .now-txt {
+      background-image: url(../images/sprites.png);
+      background-position: -1594px -1857px;
+      width: 452px;
+      height: 63px; }
+    .time-layer .time.time05 > .now {
+      background-image: url(../images/sprites.png);
+      background-position: -1280px -977px;
+      width: 383px;
+      height: 123px; }
+    .time-layer .time.time05 > .now-txt {
+      background-image: url(../images/sprites.png);
+      background-position: -1594px -1857px;
+      width: 452px;
+      height: 63px; }
 
 /* memus */
 .menus {
