@@ -16,6 +16,7 @@
 	<script src="./assets/scripts/libs/lethargy.min.js"></script>
 	<script src="./assets/scripts/libs/jquery.mousewheel.min.js"></script>
 	<script src="./assets/scripts/libs/slick.min.js"></script>
+	<script src="./assets/scripts/libs/jquery.magnific-popup.min.js"></script>
 
 	<!-- custom -->
 	<script src="./assets/scripts/common.js"></script>
@@ -61,9 +62,9 @@
 			<li><a href="#brand"><span>즐거운 쇼핑타임 11:00</span></a></li>
 			<li class="long"><a href="#launch"><span>딜리셔스 타임 13:00</span></a></li>
 			<li><a href="#market"><span>프리미엄마켓 15:00</span></a></li>
-			<li class="long"><a href="#"><span>체험존</span></a></li>
+			<li class="long"><a href="#exzone"><span>체험존</span></a></li>
 			<li><a href="#garden"><span>가든테라스 19:00</span></a></li>
-			<li><a href="#"><span>엔딩</span></a></li>
+			<li><a href="#ending"><span>엔딩</span></a></li>
 		</ul>
 	</div>
 
@@ -119,9 +120,11 @@
 	<section id="arrived" class="scene arrived">
 		<p id="arrived-title-time" class="title-time">10:30 현대프리미엄아울렛 도착</p>
 
+		<a href="#popup-garden" class="btn-location">오시는 방법 알려드릴께요</a>
+
 		<div class="bg01"></div>
 		<div class="wally"></div>
-		<a href="#" class="txt01">오시는 길</a>
+		<div class="txt01"></div>
 	</section>
 
 
@@ -224,7 +227,7 @@
 		<div class="odlaw"></div>
 		<div class="wizard"></div>
 
-			<div class="slide-bg bg01"></div>
+		<div class="bg01"></div>
 <!--
 		<div class="slick-slider">
 			<div class="slide-bg bg01"></div>
@@ -236,6 +239,25 @@
 	</div>
 
 
+	<!-- scene7 : ex zone -->
+	<div id="exzone" class="scene exzone">
+		<svg version="1.1" id="exzonesvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			 width="914px" height="3379px" viewBox="0 0 914 3379" enable-background="new 0 0 914 3379" xml:space="preserve">
+		<path id="e1" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+			M449.018,5.199c0,0-26.51,41.809,3.712,86.801c23.04,34.301,61.667,55.333,119,68c76.045,16.801,210.074,75.141,214.195,205.045
+			c2.236,70.477-34.121,158.583-120.771,211.798c-58.457,35.9-155,58-263,47c-105.448-10.74-227.384-26.288-320.359,56.022
+			c-92.974,82.311-99.35,217.651-36.495,309.314c62.854,91.663,159.85,101.517,194.854,104.663c89,8,132.909-32.359,255.584-76.399
+			c122.676-44.04,289.416,34.399,333.959,121.652c54.354,106.471,8.971,212.823-42.445,264.172
+			c-11.766,11.751-138.066,128.376-300.582,61.309c-162.516-67.067-110.121-133.278-73.636-120.544
+			c24.053,8.396,32.791,36.315,33.787,61.477c0.995,25.162-0.107,106.444-70.563,165.828c-26.351,22.211-43.719,33.318-103.074,68.567
+			c-100.363,59.604-131.682,135.675-120.363,220.271c0,0,6.667,99.333,118.215,150.035c58.232,26.468,143.709,32.682,227.712,9.746
+			c65.734-17.949,157.25-59.039,248.65-31.973c91.4,27.067,187.02,115.61,153.447,285.896
+			c-26.814,135.999-143.348,204.275-218.115,247.487c-94.775,54.776-222.576,69.475-331.91,61.475s-131.357-67.642-135.133-94.829
+			c-5.534-39.838,23.961-30.963,33.616-26.729s41.182,28.31,44.47,81.551c3.047,49.341-19.031,74.498-47.019,98.527
+			c-38.779,33.294-51.746,40.429-105.67,78.155c-60.021,41.993-94.866,128.796-68.264,217.991
+			c11.333,38,55.333,141.334,205.333,185.334c79.366,23.28,172,67,140.667,178c-13.687,48.485-31.667,73-31.667,73"/>
+		</svg>
+	</div>
 
 
 	<!-- scene8 : garden terrace -->
@@ -250,7 +272,7 @@
 		<div class="parassol02"></div>
 		<div class="parassol01"></div>
 
-			<div class="slide-bg bg01"></div>
+		<div class="bg01"></div>
 <!--
 		<div class="slick-slider">
 			<div class="slide-bg bg01"></div>
@@ -275,6 +297,31 @@
 	</div>
 
 
+
+
+	<!-- popup -->
+	<aside id="popup-garden" class="popup">
+		<p><img src="../assets/images/popup/popup01.jpg" alt=""></p>
+	</aside>
+
+	<script>
+	$(window.document).ready(function(){
+		// mfp-hide
+		$('.btn-location').magnificPopup({
+			fixedContentPos: true,
+			mainClass: 'mfp-fade',
+			callbacks: {
+			    open: function() {
+			    	isOpenPopup = true;
+			    },
+			    close: function() {
+			    	isOpenPopup = false;
+			    }
+			}
+		});
+
+	});
+	</script>
 
 
 </body>

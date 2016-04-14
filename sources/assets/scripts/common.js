@@ -5,9 +5,12 @@ $(document).ready(function (e) {
 	Launch.init();
 	Path.init();
 	Market.init();
+	// Popup.init();
+
 });
 
 
+var isOpenPopup = false;
 var controller = new ScrollMagic.Controller();
 var sceneData = [
 	{
@@ -62,13 +65,21 @@ var sceneData = [
 		}
 	},
 	{
+		id: '#exzone',
+		title: "Experience Zone",
+		animation: null,
+		scroll: 'exzone',
+		timeAnimation: null
+	},
+	{
 		id: '#garden',
 		title: "Garden Terrace",
 		animation: null,
 		scroll: 'auto',
+		upScroll: 'exzone',
 		timeAnimation: null,
 		timeLayer: {
-			target: '.time08'
+			target: '.time07'
 		}
 	},
 	{
@@ -172,7 +183,7 @@ var Scene = (function ($) {
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 0;
+			_currentScene = 5;
 			_isAnimating = false;
 
 
@@ -236,7 +247,10 @@ var Scene = (function ($) {
 
 		/* scene : arrived outlet */
 		var arrivedAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[2], onComplete:finishAnimation, onCompleteParams:[2]})
-			.from('.scene.arrived .title-time', 0.5, {delay: 1.2, opacity: 0})
+			.add([
+				TweenMax.from('.scene.arrived .title-time', 0.5, {delay: 0.5, opacity: 0}),
+				TweenMax.from('.scene.arrived .btn-location', 0.5, {delay: 0.5, opacity: 0})
+			])
 			.from('.scene.arrived .wally', 0.5, {delay: 1, opacity: 0, x: -30})
 			.from('.scene.arrived .txt01', 0.5, {opacity: 0});
 		var sceneArrived = new ScrollMagic.Scene({
@@ -302,6 +316,19 @@ var Scene = (function ($) {
 
 
 
+		/* scene : ex zone */
+		var exAnimation = new TimelineMax({delay:0})
+			.to('#exzonesvg path#e1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
+		sceneExzone = new ScrollMagic.Scene({
+			triggerElement: ".scene.exzone",
+			duration: "3379px",
+			offset: 800
+		})
+		.setTween(exAnimation)
+		.addTo(controller);
+
+
+
 		/* scene : garden terrace */
 		var parassolAnimation = new TimelineMax({})
 			.add([
@@ -316,7 +343,7 @@ var Scene = (function ($) {
 		.setTween(parassolAnimation)
 		.addTo(controller);
 
-		var gardenAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[6], onComplete:finishAnimation, onCompleteParams:[6]})
+		var gardenAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[7], onComplete:finishAnimation, onCompleteParams:[7]})
 			.add([
 				TweenMax.from('.scene.garden .title-time', 0.5, {delay: 0.5, opacity: 0}),
 				TweenMax.from('.scene.garden .btn-pub', 0.5, {delay: 0.5, opacity: 0})
@@ -330,12 +357,12 @@ var Scene = (function ($) {
 		})
 		.setTween(gardenAnimation)
 		.addTo(controller);
-		sceneData[6].animation = gardenAnimation;
+		sceneData[7].animation = gardenAnimation;
 
 
 
 		/* scene : ending */
-		var endingAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[7], onComplete:finishAnimation, onCompleteParams:[7]})
+		var endingAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[8], onComplete:finishAnimation, onCompleteParams:[8]})
 			.from('.scene.ending .title-time', 0.5, {opacity: 0})
 			.from('.scene.ending .people', 0.5, {delay: 1, opacity: 0, x: -30})
 			.from('.scene.ending .txt01', 0.5, {delay: 1, opacity: 0})
@@ -348,7 +375,7 @@ var Scene = (function ($) {
 		})
 		.setTween(endingAnimation)
 		.addTo(controller);
-		sceneData[7].animation = endingAnimation;
+		sceneData[8].animation = endingAnimation;
 
 
 		sceneData[0].animation.restart();
@@ -366,34 +393,46 @@ var Scene = (function ($) {
 			next();
 		});
 
+
 		/* wheel event */
 		var lethargy = new Lethargy();
 		$(window).bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e){
-			
-			var scene = sceneData[_currentScene];
+			if( !isOpenPopup ) {
+				var scene = sceneData[_currentScene];
 
-			var launchTop = $('#launch').offset().top;
-			var launchHeight = $('#launch').height();
-			var windowTop = $(window).scrollTop();
+				var launchTop = $('#launch').offset().top;
+				var launchHeight = $('#launch').height();
+
+				var exzoneTop = $('#exzone').offset().top;
+				var exzoneHeight = $('#exzone').height();
+
+				var windowTop = $(window).scrollTop();
 
 
-			if( launchTop-10 <= windowTop && windowTop < launchTop+launchHeight-_viewHeight ) {
-				// 런치
-			} else {
-				e.preventDefault();
-				e.stopPropagation();
+				if( launchTop-30 <= windowTop && windowTop < launchTop+launchHeight-(_viewHeight+50) ) {
+					// 런치
+					console.log("런치 : " + windowTop + ", " + (launchTop+launchHeight-(_viewHeight+50)));
+				
+				} else if( exzoneTop-30 <= windowTop && windowTop < exzoneTop+exzoneHeight-(_viewHeight+50) ) {
+					// 체험존
+					console.log("체험존 : " + windowTop + ", " + (exzoneTop+exzoneHeight-(_viewHeight+50)));
+				
+				} else {
+					e.preventDefault();
+					e.stopPropagation();
 
-				results = lethargy.check(e);
-				if( results !== false ) {
-					if( results < 0 ) {
-						next();
-					} else {
-						prev();
+					results = lethargy.check(e);
+					if( results !== false ) {
+						if( results < 0 ) {
+							next();
+						} else {
+							prev();
+						}
 					}
 				}
+
 			}
 		});
-
 
 
 		$(window).bind('resize', function(){
@@ -519,13 +558,18 @@ var Scene = (function ($) {
 
 				var index = _currentScene-1 < 0 ? 1 : _currentScene;
 				var fix01 = 0;
+				var fix02 = 0;
 				if( _currentScene > 4 ) {
-					index = _currentScene - 1;
+					index = index - 1;
 					fix01 = 4230;
 				}
-				var calcposy = index * _viewHeight + fix01;
+				if( _currentScene > 6 ) {
+					index = index - 1;
+					fix02 = 4230;
+				}
+				var calcposy = index * _viewHeight + fix01 + fix02;
 
-				console.log("scroll position top : " + calcposy);
+				console.log("[" + index + "] scroll position top : " + calcposy);
 
 				_isAnimating = true;
 				console.log("start Auto Scroll : " + _currentScene);
@@ -547,7 +591,9 @@ var Scene = (function ($) {
 				animationScene(nextScene.animation);
 				_currentScene++;
 
+
 			} else if( scene.scroll == "launch" ) {
+				// launch
 				console.log("scene.scroll : launch");
 
 				var calcposy_launch = 3 * _viewHeight + 4230;
@@ -559,6 +605,29 @@ var Scene = (function ($) {
 				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy_launch}, ease:Quad.easeInOut, onComplete: function() {
 
 					console.log('finish Launch Scroll : ' + _currentScene);
+
+					if( nextScene.animation === null ) {
+						_isAnimating = false;
+					} else {
+						animationScene(nextScene.animation);
+					}
+					_currentScene++;
+				}});
+
+
+			} else if( scene.scroll == "exzone" ) {
+				// exzone
+				console.log("scene.scroll : exzone");
+
+				var calcposy_exzone = 4 * _viewHeight + (4230*2);
+
+				console.log("scroll position top : " + calcposy_exzone);
+
+				_isAnimating = true;
+				console.log("start exzone Scroll : " + _currentScene);
+				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy_exzone}, ease:Quad.easeInOut, onComplete: function() {
+
+					console.log('finish exzone Scroll : ' + _currentScene);
 
 					if( nextScene.animation === null ) {
 						_isAnimating = false;
@@ -580,7 +649,6 @@ var Scene = (function ($) {
 			return;
 		}
 
-
 		var scene = sceneData[_currentScene];
 		
 		var prevScene = sceneData[_currentScene-1];
@@ -592,16 +660,26 @@ var Scene = (function ($) {
 
 		var index = _currentScene <= 2 ? 0 : _currentScene-2;
 		var fix01 = 0;
+		var fix02 = 0;
 		if( _currentScene >= 6 ) {
 			index--;
 			fix01 = 4230;
 		}
-		var calcposy = index * _viewHeight + fix01;
+		if( _currentScene >= 8 ) {
+			index--;
+			fix02 = 4230;
+		}
+		var calcposy = index * _viewHeight + fix01 + fix02;
 
 
 		if( scene.upScroll == "launch" ) {
 			console.log("scene.upScroll : launch");
 			calcposy = parseInt(2*_viewHeight) + 4230 - 100;
+		}
+			
+		if( scene.upScroll == "exzone" ) {
+			console.log("scene.upScroll : exzone");
+			calcposy = parseInt(3*_viewHeight) + (4230*2) - 100;
 		}
 			
 		console.log('index : ' + index + ", calcposy : " + calcposy);
@@ -820,4 +898,51 @@ var Market = (function ($) {
 	};
 }(jQuery));
 
+
+
+
+
+
+/* Popup */
+/*
+var Popup = (function ($) {
+	var scope,
+		init = function () {
+
+			initLayout();
+			initEvent();
+		};//end init
+
+	function initLayout() {
+		$.magnificPopup({
+			callbacks: {
+			    open: function() {
+			    	isOpenPopup = true;
+			    },
+			    close: function() {
+			    	isOpenPopup = false;
+			    }
+			}
+		});
+
+		// 임시
+		$('.btn-location').magnificPopup({
+			fixedContentPos: true,
+			mainClass: 'mfp-fade'
+		});
+
+	}
+
+	function initEvent() {
+	}
+
+	return {
+		init: function () {
+			scope = this;
+
+			init();
+		}
+	};
+}(jQuery));
+*/
 

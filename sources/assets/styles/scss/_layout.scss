@@ -9,7 +9,7 @@ body { overflow-x: hidden; overflow-y: auto; padding-right: 50px; }
 
 
 /* time layer */
-.time-layer { display: block; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: rgba(16, 20, 53, 0.8); opacity: 0;
+.time-layer { display: block; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: rgba(14, 19, 55, 0.8); opacity: 0;
 	.time { display: block; position: absolute; top: 50%; margin-top: -129px; width: 100%; text-indent: -9999px;
 		> .now { display: block; margin: 0 auto; opacity: 0; }
 		> .now-txt { display: block; margin: 50px auto 0 auto; opacity: 0; }
@@ -23,8 +23,8 @@ body { overflow-x: hidden; overflow-y: auto; padding-right: 50px; }
 			> .now-txt { @include sprite($s-time-1100-txt); }
 		}
 		&.time03 {
-			> .now { @include sprite($s-time-1100); }
-			> .now-txt { @include sprite($s-time-1100-txt); }
+			> .now { @include sprite($s-time-1300); }
+			> .now-txt { @include sprite($s-time-1300-txt); }
 		}
 		&.time05 {
 			> .now { @include sprite($s-time-1100); }
@@ -136,3 +136,12 @@ body { overflow-x: hidden; overflow-y: auto; padding-right: 50px; }
 		}
 	}	
 }
+
+
+/* popup */
+.popup { position: relative; padding: 100px; background-color: #fff;
+	.mfp-close { display: block; position: absolute; top: 10px; right: 10px; @include sprite($s-btn-close01); }
+	p { display: block; width: 900px; margin: 0 auto; }
+}
+
+

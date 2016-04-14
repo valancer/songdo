@@ -35,11 +35,16 @@
 .scene.arrived { overflow: hidden; background: #3e5c9b url('../images/scene_arrived/bg_last.jpg') center center no-repeat; background-size: cover;
 	.title-time { @include sprite($s-title-1030); }
 
+	.btn-location { display: block; position: absolute; top: 166px; left: 28px; text-indent: -9999px; @include sprite($s-scene03-btn-location); opacity: 1; }
+
 	/* init */
 	.bg01 { display: block; position: absolute; bottom: 0; left: 50%; margin-left: -$s-scene03-bg01-width/2; @include sprite($s-scene03-bg01); }
 	.wally { display: block; position: absolute; bottom: 0; left: 0; @include sprite($s-scene03-wally); opacity: 1; }
-	.txt01 { display: block; position: absolute; bottom: $s-scene03-wally-height - 102; left: $s-scene03-wally-width - 260; text-indent: -9999px; @include sprite($s-scene03-txt01); opacity: 1; }
+	.txt01 { display: block; position: absolute; bottom: $s-scene03-wally-height - 141; left: $s-scene03-wally-width - 190; text-indent: -9999px; @include sprite($s-scene03-txt01); opacity: 1; }
 }
+
+
+
 
 /* scene - outlet brand */
 .scene.brand { overflow: hidden; background: #8ca6d6 url('../images/scene_brand/bg_last.png') center center no-repeat;
@@ -156,13 +161,20 @@
 
 
 
+/* scene - exzone */
+.scene.exzone { overflow: hidden; height: 4230px; background-image: url('../images/scene_exzone/bg_last.jpg'); background-position: center top; background-repeat: no-repeat;
+	svg#exzonesvg { position: absolute; top: 871px; left: calc(50% - 457px); }
+}
+
+
+
 
 
 /* secen - garden terrace */
 .scene.garden {
 	.title-time { z-index: z("default"); @include sprite($s-title-1900); }
 
-	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 0; }
+	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 1; }
 
 	.wilma { display: block; position: absolute; bottom: 0; left: calc(50% - 516px); text-indent: -9999px; @include sprite($s-scene08-wilma); opacity: 1; }
 	.wally { display: block; position: absolute; bottom: 0; left: calc(50% + 20px); text-indent: -9999px; @include sprite($s-scene08-wally); opacity: 1; }
