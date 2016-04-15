@@ -174,13 +174,13 @@
 .scene.market { overflow: hidden; background: url('../images/scene_market/bg01.jpg') center center no-repeat; background-size: cover;
 	.title-time { z-index: z("default"); @include sprite($s-title-1500); }
 
-	.btn-market { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-btn-market); opacity: 1;
+	.btn-market { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default") + 1; text-indent: -9999px; @include sprite($s-scene06-btn-market); opacity: 1;
 		&:hover { animation-name: tada; animation-duration: 1s; }
 	}
 
-	.wally { display: block; position: absolute; bottom: 0; left: calc(50% - 570px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-wally); opacity: 1; }
-	.odlaw { display: block; position: absolute; bottom: 0; left: calc(50% + 65px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-odlaw); opacity: 1; }
-	.wizard { display: block; position: absolute; bottom: 0; left: calc(50% - 142px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-wizard); opacity: 1; }
+	.wally { display: block; position: absolute; bottom: 0; left: calc(50% - 570px); z-index: z("default") + 1; text-indent: -9999px; @include sprite($s-scene06-wally); opacity: 1; }
+	.odlaw { display: block; position: absolute; bottom: 0; left: calc(50% + 65px); z-index: z("default") + 1; text-indent: -9999px; @include sprite($s-scene06-odlaw); opacity: 1; }
+	.wizard { display: block; position: absolute; bottom: 0; left: calc(50% - 142px); z-index: z("default") + 1; text-indent: -9999px; @include sprite($s-scene06-wizard); opacity: 1; }
 
 	.slick-slider { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 1; }
 	.slick-list, .slick-track { height: 100%; width: 100%; }

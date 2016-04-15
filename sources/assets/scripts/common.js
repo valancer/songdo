@@ -6,6 +6,30 @@ if (isAndroid || isIOS)	{
 	location.href = '/songdo/m/';
 }
 
+// console 객체가 없을 경우
+if (!window.console) {
+	window.console = {
+		log : function(){},
+		dir : function(){}
+	};
+} else if (!window.console.dir){
+	window.console.dir = function(){};
+}
+
+(function(){
+	$(document).ready(function(){
+		var agents = [/(opr|opera)/gim,/(chrome)/gim,/(firefox)/gim,/(safari)/gim,/(msie[\s]+[\d]+)/gim,/(trident).*rv:(\d+)/gim];
+		var agent = navigator.userAgent.toLocaleLowerCase();
+		for(var ag in agents){
+			if(agent.match(agents[ag])){
+				$(document.body).addClass(String(RegExp.$1+RegExp.$2).replace(/opr/,'opera').replace(/trident/,'msie').replace(/\s+/,''));
+				break;
+			}
+		}
+	});
+})();
+
+
 
 $(document).ready(function (e) {
 	Navigation.init();
@@ -655,8 +679,7 @@ var Scene = (function ($) {
 
 		// scene - market rolling bg
 		if( fromValue == 5 ) {
-			sceneData[4].animation.pause(0, true);
-			// RollingBG.rollingMarket();
+			RollingBG.rollingMarket();
 		}
 
 		// scene - ex zone
@@ -666,8 +689,7 @@ var Scene = (function ($) {
 
 		// scene - garden rolling bg
 		if( fromValue == 7 ) {
-			sceneData[6].animation.pause(0, true);
-			// RollingBG.rollingGarden();
+			RollingBG.rollingGarden();
 		}
 
 		// scene - end
@@ -868,6 +890,10 @@ var Scene = (function ($) {
 		}
 	}
 
+	function _moveCurrentScene() {
+		controller.scrollTo(sceneData[_currentScene].id);
+	}
+
 	return {
 		init: function () {
 			scope = this;
@@ -879,6 +905,9 @@ var Scene = (function ($) {
 		},
 		updateCurrentScene: function(uid) {
 			updateCurrentScene(uid);
+		},
+		moveCurrentScene: function() {
+			_moveCurrentScene();
 		}
 	};
 }(jQuery));
@@ -1129,21 +1158,19 @@ var Popup = (function ($) {
 
 	function initEvent() {
 		$popups.magnificPopup({
-			type: 'image',
+			type: 'ajax',
+			fixedContentPos: true,
 			mainClass: 'mfp-fade',
-			image: {
-				markup: '<aside class="popup">'+
-							'<div class="mfp-close"></div>'+
-							'<div class="mfp-img"></div>'+
-						'</aside>',
-				verticalFit: false
-			},
+			closeOnContentClick: true,
+			closeOnBgClick: true,
 			callbacks: {
 			    open: function() {
 			    	isOpenPopup = true;
+			    	$('body').addClass('o-hidden');
 			    },
 			    close: function() {
 			    	isOpenPopup = false;
+			    	$('body').removeClass('o-hidden');
 			    }
 			}
 		});
