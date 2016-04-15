@@ -678,7 +678,9 @@ The `sprites` mixin generates identical output to the CSS template
 
 /* secen - premium market */
 .scene.market {
-  overflow: hidden; }
+  overflow: hidden;
+  background: url("../images/scene_market/bg01.jpg") center center no-repeat;
+  background-size: cover; }
   .scene.market .title-time {
     z-index: 1;
     background-image: url(../images/sprites.png);
@@ -690,6 +692,7 @@ The `sprites` mixin generates identical output to the CSS template
     position: absolute;
     top: 204px;
     left: 42px;
+    z-index: 1;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
     background-position: -1043px -2235px;
@@ -701,6 +704,7 @@ The `sprites` mixin generates identical output to the CSS template
     position: absolute;
     bottom: 0;
     left: calc(50% - 570px);
+    z-index: 1;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
     background-position: -2188px -1024px;
@@ -712,6 +716,7 @@ The `sprites` mixin generates identical output to the CSS template
     position: absolute;
     bottom: 0;
     left: calc(50% + 65px);
+    z-index: 1;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
     background-position: -1733px -594px;
@@ -723,6 +728,7 @@ The `sprites` mixin generates identical output to the CSS template
     position: absolute;
     bottom: 0;
     left: calc(50% - 142px);
+    z-index: 1;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
     background-position: -2704px 0px;
@@ -736,8 +742,7 @@ The `sprites` mixin generates identical output to the CSS template
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: -1;
-    background-color: #000; }
+    z-index: 0; }
   .scene.market .slick-list, .scene.market .slick-track {
     height: 100%;
     width: 100%; }
@@ -947,101 +952,108 @@ The `sprites` mixin generates identical output to the CSS template
   .scene.exzone svg#dashsvg {
     position: absolute;
     top: 862px;
-    left: calc(50% - 453px); }
+    left: calc(50% - 460px); }
 
 /* secen - garden terrace */
-.scene.garden .title-time {
-  z-index: 1;
-  background-image: url(../images/sprites.png);
-  background-position: -616px -2061px;
-  width: 901px;
-  height: 30px; }
-.scene.garden .btn-pub {
-  display: block;
-  position: absolute;
-  top: 204px;
-  left: 42px;
-  text-indent: -9999px;
-  background-image: url(../images/sprites.png);
-  background-position: -2188px -1899px;
-  width: 461px;
-  height: 167px;
-  opacity: 1; }
-.scene.garden .wilma {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: calc(50% - 516px);
-  text-indent: -9999px;
-  background-image: url(../images/sprites.png);
-  background-position: -2188px 0px;
-  width: 511px;
-  height: 496px;
-  opacity: 1; }
-.scene.garden .wally {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: calc(50% + 20px);
-  text-indent: -9999px;
-  background-image: url(../images/sprites.png);
-  background-position: -985px -1068px;
-  width: 519px;
-  height: 501px;
-  opacity: 1; }
-.scene.garden .parassol01 {
-  display: block;
-  position: absolute;
-  top: -300px;
-  left: calc(50% + 59px);
-  text-indent: -9999px;
-  background-image: url(../images/sprites.png);
-  background-position: -544px -466px;
-  width: 525px;
-  height: 576px; }
-.scene.garden .parassol02 {
-  display: block;
-  position: absolute;
-  top: -105px;
-  left: calc(50% + 390px);
-  text-indent: -9999px;
-  background-image: url(../images/sprites.png);
-  background-position: 0px -2104px;
-  width: 515px;
-  height: 433px; }
-.scene.garden .slick-slider {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  background-color: #000; }
-.scene.garden .slick-list, .scene.garden .slick-track {
-  height: 100%;
-  width: 100%; }
-.scene.garden .bg01 {
-  display: block;
-  height: 100%;
-  width: 100%;
+.scene.garden {
   background: url("../images/scene_garden/bg01.jpg") center center no-repeat;
-  background-size: cover;
-  opacity: 1; }
-.scene.garden .bg02 {
-  display: block;
-  height: 100%;
-  width: 100%;
-  background: url("../images/scene_garden/bg02.jpg") center center no-repeat;
-  background-size: cover;
-  opacity: 1; }
-.scene.garden .bg03 {
-  display: block;
-  height: 100%;
-  width: 100%;
-  background: url("../images/scene_garden/bg03.jpg") center center no-repeat;
-  background-size: cover;
-  opacity: 1; }
+  background-size: cover; }
+  .scene.garden .title-time {
+    z-index: 1;
+    background-image: url(../images/sprites.png);
+    background-position: -616px -2061px;
+    width: 901px;
+    height: 30px; }
+  .scene.garden .btn-pub {
+    display: block;
+    position: absolute;
+    top: 204px;
+    left: 42px;
+    z-index: 1;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -2188px -1899px;
+    width: 461px;
+    height: 167px;
+    opacity: 1; }
+  .scene.garden .wilma {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 516px);
+    z-index: 1;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -2188px 0px;
+    width: 511px;
+    height: 496px;
+    opacity: 1; }
+  .scene.garden .wally {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% + 20px);
+    z-index: 1;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -985px -1068px;
+    width: 519px;
+    height: 501px;
+    opacity: 1; }
+  .scene.garden .parassol01 {
+    display: block;
+    position: absolute;
+    top: -300px;
+    left: calc(50% + 59px);
+    z-index: 1;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -544px -466px;
+    width: 525px;
+    height: 576px; }
+  .scene.garden .parassol02 {
+    display: block;
+    position: absolute;
+    top: -105px;
+    left: calc(50% + 390px);
+    z-index: 1;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: 0px -2104px;
+    width: 515px;
+    height: 433px; }
+  .scene.garden .slick-slider {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0; }
+  .scene.garden .slick-list, .scene.garden .slick-track {
+    height: 100%;
+    width: 100%; }
+  .scene.garden .bg01 {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url("../images/scene_garden/bg01.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 1; }
+  .scene.garden .bg02 {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url("../images/scene_garden/bg02.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 1; }
+  .scene.garden .bg03 {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url("../images/scene_garden/bg03.jpg") center center no-repeat;
+    background-size: cover;
+    opacity: 1; }
 
 /* scene9 - ending */
 .scene.ending {
@@ -1089,7 +1101,7 @@ The `sprites` mixin generates identical output to the CSS template
     .scene.ending .people .txt03 {
       display: block;
       position: absolute;
-      top: -159px;
+      top: -130px;
       left: 706px;
       text-indent: -9999px;
       background-image: url(../images/sprites.png);
@@ -1106,6 +1118,9 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   padding-right: 50px; }
+
+button:focus {
+  outline: 0; }
 
 /* menus dimmed */
 .dimmed {
@@ -1311,7 +1326,18 @@ body {
       width: 80px;
       height: 107px; }
     .menus .open-menus .list-menus {
-      margin-top: 38px; }
+      margin-top: 38px;
+      /*
+      			&.is-hover {
+      				a {
+      					&.btn-home { @include sprite($s-btn-nav01-disabled); }
+      					&.btn-location { @include sprite($s-btn-nav02-disabled); }
+      					&.btn-floor { @include sprite($s-btn-nav03-disabled); }
+      					&.btn-membership { @include sprite($s-btn-nav04-disabled); }
+      					&.btn-coupon { @include sprite($s-btn-nav05-disabled); }
+      				}
+      			}
+      */ }
       .menus .open-menus .list-menus > li {
         padding: 15px 0; }
         .menus .open-menus .list-menus > li a {
@@ -1333,76 +1359,26 @@ body {
             background-position: -2961px -470px;
             width: 18px;
             height: 19px; }
-            .menus .open-menus .list-menus > li a.btn-home:hover {
-              background-image: url(../images/sprites.png);
-              background-position: -2961px -422px;
-              width: 18px;
-              height: 19px; }
           .menus .open-menus .list-menus > li a.btn-location {
             background-image: url(../images/sprites.png);
             background-position: -2921px -871px;
             width: 70px;
             height: 19px; }
-            .menus .open-menus .list-menus > li a.btn-location:hover {
-              background-image: url(../images/sprites.png);
-              background-position: -2921px -919px;
-              width: 70px;
-              height: 19px; }
           .menus .open-menus .list-menus > li a.btn-floor {
             background-image: url(../images/sprites.png);
             background-position: -2921px -943px;
             width: 70px;
             height: 19px; }
-            .menus .open-menus .list-menus > li a.btn-floor:hover {
-              background-image: url(../images/sprites.png);
-              background-position: -2882px -1003px;
-              width: 70px;
-              height: 19px; }
           .menus .open-menus .list-menus > li a.btn-membership {
             background-image: url(../images/sprites.png);
             background-position: -2934px -703px;
             width: 51px;
             height: 19px; }
-            .menus .open-menus .list-menus > li a.btn-membership:hover {
-              background-image: url(../images/sprites.png);
-              background-position: -2934px -751px;
-              width: 51px;
-              height: 19px; }
           .menus .open-menus .list-menus > li a.btn-coupon {
             background-image: url(../images/sprites.png);
             background-position: -2934px -775px;
             width: 53px;
             height: 18px; }
-            .menus .open-menus .list-menus > li a.btn-coupon:hover {
-              background-image: url(../images/sprites.png);
-              background-position: -2882px -1027px;
-              width: 53px;
-              height: 18px; }
-      .menus .open-menus .list-menus.is-hover a.btn-home {
-        background-image: url(../images/sprites.png);
-        background-position: -2961px -446px;
-        width: 18px;
-        height: 19px; }
-      .menus .open-menus .list-menus.is-hover a.btn-location {
-        background-image: url(../images/sprites.png);
-        background-position: -2921px -895px;
-        width: 70px;
-        height: 19px; }
-      .menus .open-menus .list-menus.is-hover a.btn-floor {
-        background-image: url(../images/sprites.png);
-        background-position: -2921px -967px;
-        width: 70px;
-        height: 19px; }
-      .menus .open-menus .list-menus.is-hover a.btn-membership {
-        background-image: url(../images/sprites.png);
-        background-position: -2934px -727px;
-        width: 51px;
-        height: 19px; }
-      .menus .open-menus .list-menus.is-hover a.btn-coupon {
-        background-image: url(../images/sprites.png);
-        background-position: -2934px -798px;
-        width: 53px;
-        height: 18px; }
     .menus .open-menus .banners a {
       display: block;
       margin-top: 20px;
@@ -1415,36 +1391,48 @@ body {
     top: 50%;
     left: 50%;
     margin-top: -179px;
-    margin-left: -2px;
-    width: 4px; }
+    margin-left: -15px;
+    width: 30px; }
     .menus .list-indicators > li {
       margin: 3px 0;
       height: 24px;
-      width: 4px;
-      background-color: #9a9a9a; }
+      width: 100%; }
       .menus .list-indicators > li.long {
         height: 70px; }
-      .menus .list-indicators > li.is-selected {
+      .menus .list-indicators > li.is-selected > a:before {
+        content: '  ';
         background-color: #000; }
-        .menus .list-indicators > li.is-selected > a span {
-          display: block;
-          opacity: 1; }
+      .menus .list-indicators > li.is-selected > a span {
+        display: block;
+        opacity: 1; }
       .menus .list-indicators > li > a {
         display: block;
         position: relative;
         height: 100%;
         width: 100%; }
-        .menus .list-indicators > li > a:hover {
+        .menus .list-indicators > li > a:before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 50%;
+          margin-left: -2px;
+          width: 4px;
+          background-color: #9a9a9a; }
+        .menus .list-indicators > li > a:hover:before {
+          content: ' ';
           background-color: #000; }
-          .menus .list-indicators > li > a:hover span {
-            display: block;
-            opacity: 1; }
+        .menus .list-indicators > li > a:hover span {
+          display: block;
+          opacity: 1; }
         .menus .list-indicators > li > a span {
+          pointer-events: none;
           display: block;
           box-sizing: border-box;
           position: absolute;
           top: -15px;
-          left: -207px;
+          left: -195px;
           padding-left: 20px;
           height: 48px;
           width: 184px;
@@ -1483,7 +1471,7 @@ body {
   background-color: #fff; }
   .popup .mfp-close {
     display: block;
-    position: absolute;
+    position: fixed;
     top: 10px;
     right: 10px;
     cursor: pointer !important;

@@ -142,16 +142,16 @@
 
 
 /* secen - premium market */
-.scene.market { overflow: hidden;
+.scene.market { overflow: hidden; background: url('../images/scene_market/bg01.jpg') center center no-repeat; background-size: cover;
 	.title-time { z-index: z("default"); @include sprite($s-title-1500); }
 
-	.btn-market { display: block; position: absolute; top: 204px; left: 42px; text-indent: -9999px; @include sprite($s-scene06-btn-market); opacity: 1; }
+	.btn-market { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-btn-market); opacity: 1; }
 
-	.wally { display: block; position: absolute; bottom: 0; left: calc(50% - 570px); text-indent: -9999px; @include sprite($s-scene06-wally); opacity: 1; }
-	.odlaw { display: block; position: absolute; bottom: 0; left: calc(50% + 65px); text-indent: -9999px; @include sprite($s-scene06-odlaw); opacity: 1; }
-	.wizard { display: block; position: absolute; bottom: 0; left: calc(50% - 142px); text-indent: -9999px; @include sprite($s-scene06-wizard); opacity: 1; }
+	.wally { display: block; position: absolute; bottom: 0; left: calc(50% - 570px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-wally); opacity: 1; }
+	.odlaw { display: block; position: absolute; bottom: 0; left: calc(50% + 65px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-odlaw); opacity: 1; }
+	.wizard { display: block; position: absolute; bottom: 0; left: calc(50% - 142px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-wizard); opacity: 1; }
 
-	.slick-slider { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: #000; }
+	.slick-slider { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 1; }
 	.slick-list, .slick-track { height: 100%; width: 100%; }
 	.bg01 { display: block; height: 100%; width: 100%; background: url('../images/scene_market/bg01.jpg') center center no-repeat; background-size: cover; opacity: 1; }
 	.bg02 { display: block; height: 100%; width: 100%; background: url('../images/scene_market/bg02.jpg') center center no-repeat; background-size: cover; opacity: 1; }
@@ -208,7 +208,7 @@
 	.woof { display: block; position: absolute; top: 2683px; right: 0; text-indent: -9999px; @include sprite($s-scene07-woof); pointer-events: none; }
 	.odlaw { display: block; position: absolute; top: 1040px; right: 0; text-indent: -9999px; @include sprite($s-scene07-odlaw); pointer-events: none; }
 
-	svg#dashsvg { position: absolute; top: 862px; left: calc(50% - 453px); }
+	svg#dashsvg { position: absolute; top: 862px; left: calc(50% - 460px); }
 }
 
 
@@ -216,18 +216,18 @@
 
 
 /* secen - garden terrace */
-.scene.garden {
+.scene.garden { background: url('../images/scene_garden/bg01.jpg') center center no-repeat; background-size: cover; 
 	.title-time { z-index: z("default"); @include sprite($s-title-1900); }
 
-	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 1; }
+	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 1; }
 
-	.wilma { display: block; position: absolute; bottom: 0; left: calc(50% - 516px); text-indent: -9999px; @include sprite($s-scene08-wilma); opacity: 1; }
-	.wally { display: block; position: absolute; bottom: 0; left: calc(50% + 20px); text-indent: -9999px; @include sprite($s-scene08-wally); opacity: 1; }
+	.wilma { display: block; position: absolute; bottom: 0; left: calc(50% - 516px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-wilma); opacity: 1; }
+	.wally { display: block; position: absolute; bottom: 0; left: calc(50% + 20px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-wally); opacity: 1; }
 
-	.parassol01 { display: block; position: absolute; top: -300px; left: calc(50% + 59px); text-indent: -9999px; @include sprite($s-scene08-parassol01); }
-	.parassol02 { display: block; position: absolute; top: -105px; left: calc(50% + 390px); text-indent: -9999px; @include sprite($s-scene08-parassol02); }
+	.parassol01 { display: block; position: absolute; top: -300px; left: calc(50% + 59px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-parassol01); }
+	.parassol02 { display: block; position: absolute; top: -105px; left: calc(50% + 390px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-parassol02); }
 
-	.slick-slider { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: #000; }
+	.slick-slider { display: block; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 1; }
 	.slick-list, .slick-track { height: 100%; width: 100%; }
 	.bg01 { display: block; height: 100%; width: 100%; background: url('../images/scene_garden/bg01.jpg') center center no-repeat; background-size: cover; opacity: 1; }
 	.bg02 { display: block; height: 100%; width: 100%; background: url('../images/scene_garden/bg02.jpg') center center no-repeat; background-size: cover; opacity: 1; }
@@ -244,7 +244,7 @@
 	.people { display: block; position: absolute; bottom: 10px; left: 65px; text-indent: -9999px; @include sprite($s-scene09-people); opacity: 1;
 		.txt01 { display: block; position: absolute; top: -90px; left: 300px; text-indent: -9999px; @include sprite($s-scene09-txt01); opacity: 1; }
 		.txt02 { display: block; position: absolute; top: -67px; left: 100px; text-indent: -9999px; @include sprite($s-scene09-txt02); opacity: 1; }
-		.txt03 { display: block; position: absolute; top: -159px; left: 706px; text-indent: -9999px; @include sprite($s-scene09-txt03); opacity: 1; }
+		.txt03 { display: block; position: absolute; top: -130px; left: 706px; text-indent: -9999px; @include sprite($s-scene09-txt03); opacity: 1; }
 	}
 }
 

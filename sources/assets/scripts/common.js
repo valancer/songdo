@@ -1,3 +1,12 @@
+/* mobile check */
+var isAndroid = (navigator.userAgent.indexOf("Android") > -1);
+var isIOS = ((navigator.userAgent.indexOf("iPhone") > -1) || (navigator.userAgent.indexOf("iPad") > -1));
+
+if (isAndroid || isIOS)	{
+	location.href = '/songdo/m/';
+}
+
+
 $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
@@ -150,6 +159,7 @@ var Navigation = (function ($) {
 		});
 
 		/* menus */
+/*
 		$menusContainer.on('mouseenter', function(e) {
 			$menusContainer.addClass('is-hover');
 		});
@@ -157,12 +167,16 @@ var Navigation = (function ($) {
 		$menusContainer.on('mouseleave', function(e) {
 			$menusContainer.removeClass('is-hover');
 		});
+*/
 
 		/* menu click */
 		$anchors.on('click', function(e) {
 			e.preventDefault();
 
-			_updateAnchor($(this).attr('href'));
+			var target = $(this).attr('href');
+			_updateAnchor(target);
+			Scene.updateCurrentScene(target);
+			controller.scrollTo(target);
 		});
 	}
 
@@ -172,8 +186,6 @@ var Navigation = (function ($) {
 		$selected = $('.list-indicators [href="' + target + '"]');
 		$selected.closest('li').addClass("is-selected");
 
-		Scene.updateCurrentScene(target);
-		controller.scrollTo(target);
 		_lastSelected = target;
 	}
 
@@ -239,7 +251,6 @@ var Scene = (function ($) {
 
 		/* scene : after home */
 		var afterHomeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[1], onComplete:finishAnimation, onCompleteParams:[1]})
-			.set('.time-layer', {css: {zIndex:2000}})
 			.to('.scene.home .btn-start', 0.5, {opacity: 0})
 			.add([
 				TweenMax.to('.scene.home .moon, .scene.home .wally, .scene.home .title, .scene.home .description', 0.5, {opacity: 0, y: -60}),
@@ -250,10 +261,11 @@ var Scene = (function ($) {
 				TweenMax.to('.scene.home .mountain', 4 , {delay: 1.8, y: "-170%"}),
 				TweenMax.to('.scene.home .sea', 2, {delay: 2.1, y: "-100%"}),
 				TweenMax.to('.scene.home .day-building', 2, {delay: 2, y: "-100%"}),
-				TweenMax.to('.scene.home .day-building', 1, {delay: 5, y: "-115%"}),
+				TweenMax.to('.scene.home .day-building', 2, {delay: 4, y: "-115%"}),
 				TweenMax.to('.scene.home .outlet', 3, {delay: 3, y: "-100%"}),
 				TweenMax.to('.scene.home', 6, {})
 			])
+			.set('.time-layer', {css: {zIndex:2000}})
 			.to('.time-layer', 0.5, {delay: 1.5, opacity: 1})
 			.add([
 				TweenMax.fromTo('.time01 .now', 0.3, {y: 30}, {opacity: 1, y: 0}),
@@ -263,7 +275,8 @@ var Scene = (function ($) {
 			.add([
 				TweenMax.to('.time01 .now', 0.1, {opacity: 0}),
 				TweenMax.to('.time01 .now-txt', 0.1, {opacity: 0})
-			]);
+			])
+			.set('.time-layer', {css: {zIndex:-1}});
 		sceneData[1].animation = afterHomeAnimation;
 
 
@@ -405,6 +418,7 @@ var Scene = (function ($) {
 		// start
 		controller.scrollTo(0);
 		sceneData[_currentScene].animation.restart();
+		Navigation.updateAnchor(sceneData[_currentScene].id);
 	}
 
 
@@ -464,6 +478,8 @@ var Scene = (function ($) {
 		$(window).bind('resize', function(){
 			_viewHeight = $(window).height();
 			controller.update(true);
+
+			controller.scrollTo(sceneData[_currentScene].id);
 		});
 
 
@@ -517,12 +533,48 @@ var Scene = (function ($) {
 
 
 		if( fromValue == "4" ||  fromValue == "6" ) {
-			RollingBG.stopMarket();
+			// RollingBG.stopMarket();
 		}
 
 		if( fromValue == "6" ||  fromValue == "8" ) {
-			RollingBG.stopGarden();
+			// RollingBG.stopGarden();
 		}
+
+		// scene - brand
+		if( fromValue == 2 ) {
+			Navigation.updateAnchor(sceneData[2].id);
+		}
+
+		// scene - brand
+		if( fromValue == 3 ) {
+			Navigation.updateAnchor(sceneData[3].id);
+		}
+
+		// scene - ex zone
+		if( fromValue == 4 ) {
+			Navigation.updateAnchor(sceneData[4].id);
+		}
+
+		// scene - market rolling bg
+		if( fromValue == 5 ) {
+			Navigation.updateAnchor(sceneData[5].id);
+		}
+
+		// scene - ex zone
+		if( fromValue == 6 ) {
+			Navigation.updateAnchor(sceneData[6].id);
+		}
+
+		// scene - garden rolling bg
+		if( fromValue == 7 ) {
+			Navigation.updateAnchor(sceneData[7].id);
+		}
+
+		// scene - end
+		if( fromValue == 8 ) {
+			Navigation.updateAnchor(sceneData[8].id);
+		}
+
 	}
 
 	function finishAnimation(fromValue) {
@@ -549,9 +601,27 @@ var Scene = (function ($) {
 			next();
 		}
 
+		// scene - outlet
+		if( fromValue == 2 ) {
+			sceneData[1].animation.pause(0, true);
+			// sceneData[1].animation.remove();
+		}
+
+		// scene - brand
+		if( fromValue == 3 ) {
+		}
+
+		// scene - ex zone
+		if( fromValue == 4 ) {
+		}
+
 		// scene - market rolling bg
 		if( fromValue == 5 ) {
 			RollingBG.rollingMarket();
+		}
+
+		// scene - ex zone
+		if( fromValue == 6 ) {
 		}
 
 		// scene - garden rolling bg
@@ -559,10 +629,8 @@ var Scene = (function ($) {
 			RollingBG.rollingGarden();
 		}
 
-		// scene - outlet
-		if( fromValue == 2 ) {
-			sceneData[1].animation.pause(0, true);
-			sceneData[1].animation.remove();
+		// scene - end
+		if( fromValue == 8 ) {
 		}
 	}
 
@@ -619,6 +687,7 @@ var Scene = (function ($) {
 					console.log('finish Auto Scroll : ' + _currentScene);
 
 					if( nextScene.animation === null ) {
+						Navigation.updateAnchor(sceneData[_currentScene+1].id);
 						_isAnimating = false;
 					} else {
 						animationScene(nextScene.animation);
@@ -646,7 +715,6 @@ var Scene = (function ($) {
 				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy_launch}, ease:Quad.easeInOut, onComplete: function() {
 
 					console.log('finish Launch Scroll : ' + _currentScene);
-
 					if( nextScene.animation === null ) {
 						_isAnimating = false;
 					} else {
@@ -669,7 +737,6 @@ var Scene = (function ($) {
 				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy_exzone}, ease:Quad.easeInOut, onComplete: function() {
 
 					console.log('finish exzone Scroll : ' + _currentScene);
-
 					if( nextScene.animation === null ) {
 						_isAnimating = false;
 					} else {
@@ -944,8 +1011,7 @@ var RollingBG = (function ($) {
 				fade: true,
 				slidesToShow: 1,
 				slidesToScroll: 1,
-				cssEase: 'linear',
-				lazyLoad: 'progressive'
+				cssEase: 'linear'
 			};
 
 			initLayout();
