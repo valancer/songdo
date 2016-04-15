@@ -158,6 +158,38 @@ The `sprites` mixin generates identical output to the CSS template
 /**
  * import
  */
+@-webkit-keyframes tada {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  10%, 20% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg); }
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg); }
+  40%, 60%, 80% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); } }
+@keyframes tada {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  10%, 20% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg); }
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg); }
+  40%, 60%, 80% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); } }
 /* scene */
 .scene {
   display: block;
@@ -197,7 +229,8 @@ The `sprites` mixin generates identical output to the CSS template
     background-image: url(../images/sprites.png);
     background-position: 0px -2542px;
     width: 317px;
-    height: 317px; }
+    height: 317px;
+    opacity: 1; }
   .scene.home .title {
     display: block;
     position: absolute;
@@ -207,7 +240,8 @@ The `sprites` mixin generates identical output to the CSS template
     background-image: url(../images/sprites.png);
     background-position: -1043px -2104px;
     width: 421px;
-    height: 126px; }
+    height: 126px;
+    opacity: 1; }
   .scene.home .description {
     display: block;
     position: absolute;
@@ -217,7 +251,8 @@ The `sprites` mixin generates identical output to the CSS template
     background-image: url(../images/sprites.png);
     background-position: -908px -2371px;
     width: 317px;
-    height: 109px; }
+    height: 109px;
+    opacity: 1; }
   .scene.home .wally {
     display: block;
     position: absolute;
@@ -227,7 +262,8 @@ The `sprites` mixin generates identical output to the CSS template
     background-image: url(../images/sprites.png);
     background-position: -1733px -1016px;
     width: 435px;
-    height: 350px; }
+    height: 350px;
+    opacity: 1; }
   .scene.home .btn-start {
     display: block;
     position: absolute;
@@ -238,7 +274,8 @@ The `sprites` mixin generates identical output to the CSS template
     background-image: url(../images/sprites.png);
     background-position: -2921px -823px;
     width: 74px;
-    height: 43px; }
+    height: 43px;
+    opacity: 1; }
   .scene.home .bg-animation {
     height: 100vh; }
   .scene.home .dark-city {
@@ -313,6 +350,11 @@ The `sprites` mixin generates identical output to the CSS template
     width: 335px;
     height: 134px;
     opacity: 1; }
+    .scene.arrived .btn-location:hover {
+      -webkit-animation-name: tada;
+              animation-name: tada;
+      -webkit-animation-duration: 1s;
+              animation-duration: 1s; }
   .scene.arrived .bg01 {
     display: block;
     position: absolute;
@@ -699,6 +741,11 @@ The `sprites` mixin generates identical output to the CSS template
     width: 385px;
     height: 129px;
     opacity: 1; }
+    .scene.market .btn-market:hover {
+      -webkit-animation-name: tada;
+              animation-name: tada;
+      -webkit-animation-duration: 1s;
+              animation-duration: 1s; }
   .scene.market .wally {
     display: block;
     position: absolute;
@@ -976,6 +1023,11 @@ The `sprites` mixin generates identical output to the CSS template
     width: 461px;
     height: 167px;
     opacity: 1; }
+    .scene.garden .btn-pub:hover {
+      -webkit-animation-name: tada;
+              animation-name: tada;
+      -webkit-animation-duration: 1s;
+              animation-duration: 1s; }
   .scene.garden .wilma {
     display: block;
     position: absolute;
@@ -1058,7 +1110,8 @@ The `sprites` mixin generates identical output to the CSS template
 /* scene9 - ending */
 .scene.ending {
   overflow: hidden;
-  background: url("../images/scene_ending/bg_last.jpg") center bottom no-repeat; }
+  background: url("../images/scene_ending/bg_last.jpg") center bottom no-repeat;
+  background-size: cover; }
   .scene.ending .title-time {
     z-index: 1;
     background-image: url(../images/sprites.png);
@@ -1244,6 +1297,18 @@ button:focus {
   z-index: 900;
   width: 50px;
   background-color: #fff; }
+  .menus span.txt-menu {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 43px;
+    left: 50%;
+    margin-left: -13.5px;
+    text-indent: -9999px;
+    background-image: url(../images/sprites.png);
+    background-position: -2961px -523px;
+    width: 25px;
+    height: 7px; }
   .menus .title-area {
     display: block;
     position: fixed;
@@ -1366,12 +1431,12 @@ button:focus {
             height: 19px; }
           .menus .open-menus .list-menus > li a.btn-floor {
             background-image: url(../images/sprites.png);
-            background-position: -2921px -943px;
+            background-position: -2882px -1003px;
             width: 70px;
             height: 19px; }
           .menus .open-menus .list-menus > li a.btn-membership {
             background-image: url(../images/sprites.png);
-            background-position: -2934px -703px;
+            background-position: -2934px -751px;
             width: 51px;
             height: 19px; }
           .menus .open-menus .list-menus > li a.btn-coupon {
@@ -1472,8 +1537,8 @@ button:focus {
   .popup .mfp-close {
     display: block;
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 30px;
+    right: 30px;
     cursor: pointer !important;
     text-align: left;
     text-indent: -9999px;

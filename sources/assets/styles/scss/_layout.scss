@@ -53,6 +53,7 @@ button:focus { outline: 0; }
 
 /* memus */
 .menus { display: block; position: fixed; top: 0px; right: 0px; bottom: 0px; z-index: z("modaless"); width: 50px; background-color: #fff;
+	span.txt-menu { content: ''; display: block; position: absolute; top: 43px; left: 50%; margin-left: -$s-txt-menu-width/2 - 1; text-indent: -9999px; @include sprite($s-txt-menu); }
 
 	.title-area { display: block; position: fixed; top: 30px; left: 30px;
 		.sondgo { display: block; text-indent: -9999px; @include sprite($s-title-songdo); }
@@ -169,7 +170,7 @@ button:focus { outline: 0; }
 
 /* popup */
 .popup { position: relative; box-sizing: border-box; padding: 100px; height: 100vh; background-color: #fff;
-	.mfp-close { display: block; position: fixed; top: 10px; right: 10px; cursor: pointer !important; text-align: left; text-indent: -9999px; @include sprite($s-btn-close01); }
+	.mfp-close { display: block; position: fixed; top: 30px; right: 30px; cursor: pointer !important; text-align: left; text-indent: -9999px; @include sprite($s-btn-close01); }
 	p { display: block; width: 900px; margin: 0 auto; }
 }
 

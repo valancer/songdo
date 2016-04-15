@@ -1,3 +1,30 @@
+@keyframes tada {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1)
+    }
+
+    10%, 20% {
+        -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+        transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg)
+    }
+
+    30%, 50%, 70%, 90% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg)
+    }
+
+    40%, 60%, 80% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg)
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1)
+    }
+}
+
 
 
 /* scene */
@@ -11,13 +38,13 @@
 	> .inner { display: block; position: absolute; top: 0; left: 50%; margin-left: -600px; height: 100%; width: 1200px; background: url('../images/scene_home/bg_constellation.png') center center no-repeat; }
 
 	/* init */
-	.moon { display: block; position: absolute; top: 7.87037037037%; left: 50%; margin-left: -$s-scene01-moon-width/2; @include sprite($s-scene01-moon); }
-	.title { display: block; position: absolute; top: 49.814814814815%; left: 50%; margin-left: -$s-scene01-txt01-width/2; @include sprite($s-scene01-txt01); }
-	.description { display: block; position: absolute; top: 67.962962962963%; left: 50%; margin-left: -$s-scene01-txt02-width/2; @include sprite($s-scene01-txt02); }
-	.wally { display: block; position: absolute; top: 12.037037037037%; left: 50%; margin-left: -$s-scene01-wally-width/1.8; @include sprite($s-scene01-wally); }
+	.moon { display: block; position: absolute; top: 7.87037037037%; left: 50%; margin-left: -$s-scene01-moon-width/2; @include sprite($s-scene01-moon); opacity: 1; }
+	.title { display: block; position: absolute; top: 49.814814814815%; left: 50%; margin-left: -$s-scene01-txt01-width/2; @include sprite($s-scene01-txt01); opacity: 1; }
+	.description { display: block; position: absolute; top: 67.962962962963%; left: 50%; margin-left: -$s-scene01-txt02-width/2; @include sprite($s-scene01-txt02); opacity: 1; }
+	.wally { display: block; position: absolute; top: 12.037037037037%; left: 50%; margin-left: -$s-scene01-wally-width/1.8; @include sprite($s-scene01-wally); opacity: 1; }
 
 	/* scroll start */
-	.btn-start { display: block; position: absolute; bottom: 8.148148148148%; left: 50%; margin-left: -$s-scene01-start-width/2; text-indent: -9999px; @include sprite($s-scene01-start); }
+	.btn-start { display: block; position: absolute; bottom: 8.148148148148%; left: 50%; margin-left: -$s-scene01-start-width/2; text-indent: -9999px; @include sprite($s-scene01-start); opacity: 1; }
 
 	/* after motion */
 	.bg-animation { height: 100vh; }
@@ -35,7 +62,9 @@
 .scene.arrived { overflow: hidden; background: #3e5c9b url('../images/scene_arrived/bg_last.jpg') center center no-repeat; background-size: cover;
 	.title-time { @include sprite($s-title-1030); }
 
-	.btn-location { display: block; position: absolute; top: 166px; left: 28px; text-indent: -9999px; @include sprite($s-scene03-btn-location); opacity: 1; }
+	.btn-location { display: block; position: absolute; top: 166px; left: 28px; text-indent: -9999px; @include sprite($s-scene03-btn-location); opacity: 1;
+		&:hover { animation-name: tada; animation-duration: 1s; }
+	}
 
 	/* init */
 	.bg01 { display: block; position: absolute; bottom: 0; left: 50%; margin-left: -$s-scene03-bg01-width/2; @include sprite($s-scene03-bg01); }
@@ -145,7 +174,9 @@
 .scene.market { overflow: hidden; background: url('../images/scene_market/bg01.jpg') center center no-repeat; background-size: cover;
 	.title-time { z-index: z("default"); @include sprite($s-title-1500); }
 
-	.btn-market { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-btn-market); opacity: 1; }
+	.btn-market { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-btn-market); opacity: 1;
+		&:hover { animation-name: tada; animation-duration: 1s; }
+	}
 
 	.wally { display: block; position: absolute; bottom: 0; left: calc(50% - 570px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-wally); opacity: 1; }
 	.odlaw { display: block; position: absolute; bottom: 0; left: calc(50% + 65px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene06-odlaw); opacity: 1; }
@@ -219,7 +250,9 @@
 .scene.garden { background: url('../images/scene_garden/bg01.jpg') center center no-repeat; background-size: cover; 
 	.title-time { z-index: z("default"); @include sprite($s-title-1900); }
 
-	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 1; }
+	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 1;
+		&:hover { animation-name: tada; animation-duration: 1s; }
+	}
 
 	.wilma { display: block; position: absolute; bottom: 0; left: calc(50% - 516px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-wilma); opacity: 1; }
 	.wally { display: block; position: absolute; bottom: 0; left: calc(50% + 20px); z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-wally); opacity: 1; }
@@ -238,7 +271,7 @@
 
 
 /* scene9 - ending */
-.scene.ending { overflow: hidden; background: url('../images/scene_ending/bg_last.jpg') center bottom no-repeat;
+.scene.ending { overflow: hidden; background: url('../images/scene_ending/bg_last.jpg') center bottom no-repeat; background-size: cover;
 	.title-time { z-index: z("default"); @include sprite($s-title-2100); }
 
 	.people { display: block; position: absolute; bottom: 10px; left: 65px; text-indent: -9999px; @include sprite($s-scene09-people); opacity: 1;
