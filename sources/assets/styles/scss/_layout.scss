@@ -169,9 +169,12 @@ button:focus { outline: 0; }
 
 
 /* popup */
-.popup { position: relative; box-sizing: border-box; padding: 100px; height: 100vh; background-color: #fff;
-	.mfp-close { display: block; position: fixed; top: 30px; right: 30px; cursor: pointer !important; text-align: left; text-indent: -9999px; @include sprite($s-btn-close01); }
-	p { display: block; width: 900px; margin: 0 auto; }
+.popup { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("modal"); overflow-y: scroll; box-sizing: border-box; padding: 100px; background-color: #fff;
+	.btn-close { display: block; position: fixed; top: 30px; right: 30px; cursor: pointer !important; text-align: left; text-indent: -9999px; @include sprite($s-btn-close01); }
+
+	p { display: block; max-width: 900px; width: 100%; margin: 0 auto;
+		img { width: 100%; }
+	}
 }
 
 

@@ -380,7 +380,8 @@ var Scene = (function ($) {
 			.to('#tracesvg path#p1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
 		sceneLaunch = new ScrollMagic.Scene({
 			triggerElement: ".scene.launch",
-			duration: "3379px",
+			// duration: "3379px",
+			duration: "3000px",
 			offset: 800
 		})
 		.setTween(traceAnimation)
@@ -414,7 +415,8 @@ var Scene = (function ($) {
 			.to('#dashsvg path#e1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
 		sceneExzone = new ScrollMagic.Scene({
 			triggerElement: ".scene.exzone",
-			duration: "3424px",
+			// duration: "3424px",
+			duration: "3000px",
 			offset: 800
 		})
 		.setTween(exAnimation)
@@ -1144,9 +1146,15 @@ var RollingBG = (function ($) {
 /* Popup */
 var Popup = (function ($) {
 	var scope,
+		$popupContainer,
+		$popupContent,
 		$popups,
+		$btnClose,
 		init = function () {
 			$popups = $('a.va-btn-popup');
+			$btnClose = $('.popup .btn-close');
+			$popupContainer = $('#popup');
+			$popupContent = $popupContainer.find('.popup-contents');
 
 			initLayout();
 			initEvent();
@@ -1157,22 +1165,26 @@ var Popup = (function ($) {
 	}
 
 	function initEvent() {
-		$popups.magnificPopup({
-			type: 'ajax',
-			fixedContentPos: true,
-			mainClass: 'mfp-fade',
-			closeOnContentClick: true,
-			closeOnBgClick: true,
-			callbacks: {
-			    open: function() {
-			    	isOpenPopup = true;
-			    	$('body').addClass('o-hidden');
-			    },
-			    close: function() {
-			    	isOpenPopup = false;
-			    	$('body').removeClass('o-hidden');
-			    }
-			}
+		if( $btnClose.length > 0 ) {
+			$btnClose.on('click', function(e) {
+				var target = $(this).data('target');
+				$(target).hide();
+
+				$popupContent.html('');
+				isOpenPopup = false;
+				$('body').removeClass('o-hidden');
+			});
+		}
+
+
+		$popups.on('click', function(e) {
+			e.preventDefault();
+
+			isOpenPopup = true;
+			$('body').addClass('o-hidden');
+
+			$popupContent.html('<img src="' + $(this).attr('href') + '" alit=""/>');
+			$popupContainer.toggle();
 		});
 	}
 

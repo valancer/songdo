@@ -34,8 +34,7 @@ a:hover { text-decoration: underline; }
 .visible-hidden { visibility: hidden !important; }
 .clear { clear: both; }
 .txt-center { text-align: center !important; }
-.msie11.o-hidden { overflow: hidden !important; }
-.msie10.o-hidden { overflow: hidden !important; }
+.o-hidden { overflow: hidden !important; }
 
 /* forms */
 fieldset { appearance: none; }

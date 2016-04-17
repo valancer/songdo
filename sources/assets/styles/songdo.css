@@ -109,10 +109,7 @@ a:hover {
 .txt-center {
   text-align: center !important; }
 
-.msie11.o-hidden {
-  overflow: hidden !important; }
-
-.msie10.o-hidden {
+.o-hidden {
   overflow: hidden !important; }
 
 /* forms */
@@ -1534,12 +1531,18 @@ button:focus {
 
 /* popup */
 .popup {
-  position: relative;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3000;
+  overflow-y: scroll;
   box-sizing: border-box;
   padding: 100px;
-  height: 100vh;
   background-color: #fff; }
-  .popup .mfp-close {
+  .popup .btn-close {
     display: block;
     position: fixed;
     top: 30px;
@@ -1553,5 +1556,8 @@ button:focus {
     height: 52px; }
   .popup p {
     display: block;
-    width: 900px;
+    max-width: 900px;
+    width: 100%;
     margin: 0 auto; }
+    .popup p img {
+      width: 100%; }
