@@ -62,9 +62,10 @@
 .scene.arrived { overflow: hidden; background: #3e5c9b url('../images/scene_arrived/bg_last.jpg') center center no-repeat; background-size: cover;
 	.title-time { @include sprite($s-title-1030); }
 
-	.btn-location { display: block; position: absolute; top: 166px; left: 28px; text-indent: -9999px; @include sprite($s-scene03-btn-location); opacity: 1;
+	.btn-location { display: block; position: absolute; top: 166px; left: 28px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene03-btn-location); opacity: 1;
 		&:hover { animation-name: tada; animation-duration: 1s; }
 	}
+
 
 	/* init */
 	.bg01 { display: block; position: absolute; bottom: 0; left: 50%; margin-left: -$s-scene03-bg01-width/2; @include sprite($s-scene03-bg01); }

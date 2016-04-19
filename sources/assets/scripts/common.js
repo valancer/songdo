@@ -34,11 +34,11 @@ if (!window.console) {
 $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
+	Brand.init();
 	ManualScroll.init();
 	Path.init();
 	RollingBG.init();
 	Popup.init();
-
 });
 
 
@@ -262,7 +262,7 @@ var Scene = (function ($) {
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 2;
+			_currentScene = 0;
 			_isAnimating = false;
 
 
@@ -370,8 +370,7 @@ var Scene = (function ($) {
 			.to('#tracesvg path#p1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
 		sceneLaunch = new ScrollMagic.Scene({
 			triggerElement: ".scene.launch",
-			// duration: "3379px",
-			duration: "3000px",
+			duration: "3379px",
 			offset: 800
 		})
 		.setTween(traceAnimation)
@@ -385,7 +384,7 @@ var Scene = (function ($) {
 				TweenMax.from('.scene.market .title-time', 0.5, {delay: 0.5, opacity: 0}),
 				TweenMax.from('.scene.market .btn-market', 0.5, {delay: 0.5, opacity: 0})
 			])
-			.from('.scene.market .wally', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.market .wally', 0.5, {delay: 1, opacity: 0, x: 20})
 			.from('.scene.market .odlaw', 0.5, {delay: 0.5, opacity: 0})
 			.from('.scene.market .wizard', 0.5, {delay: 0.5, opacity: 0, x: -30});
 
@@ -405,8 +404,7 @@ var Scene = (function ($) {
 			.to('#dashsvg path#e1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
 		sceneExzone = new ScrollMagic.Scene({
 			triggerElement: ".scene.exzone",
-			// duration: "3424px",
-			duration: "3000px",
+			duration: "3424px",
 			offset: 800
 		})
 		.setTween(exAnimation)
@@ -464,7 +462,6 @@ var Scene = (function ($) {
 
 
 		// start
-		controller.scrollTo(0);
 		sceneData[_currentScene].animation.restart();
 		Navigation.updateAnchor(sceneData[_currentScene].id);
 	}
@@ -534,7 +531,6 @@ var Scene = (function ($) {
 
 		$(window).bind('scroll', function(e) {
 		});
-
 	}
 
 
@@ -564,8 +560,6 @@ var Scene = (function ($) {
 	}
 
 
-
-
 	function startAnimation(fromValue) {
 		console.log("fromValue : " + fromValue + ", _currentScene : " + _currentScene);
 		if( fromValue == "T" ) {
@@ -580,26 +574,34 @@ var Scene = (function ($) {
 		console.log('[startAnimation] : ' + _currentScene);
 
 
-		if( fromValue == "4" ||  fromValue == "6" ) {
-			// RollingBG.stopMarket();
+		if( fromValue != 5 ) {
+			RollingBG.stopMarket();
 		}
 
-		if( fromValue == "6" ||  fromValue == "8" ) {
-			// RollingBG.stopGarden();
+		if( fromValue != 7 ) {
+			RollingBG.stopGarden();
 		}
 
-		// scene - brand
+		// scene - home
+		if( fromValue === 0 ) {
+			Navigation.updateAnchor(sceneData[0].id);
+		}
+
+		// scene - arrived outlet
 		if( fromValue == 2 ) {
+			sceneData[1].animation.pause(0, true);
 			Navigation.updateAnchor(sceneData[2].id);
 		}
 
 		// scene - brand
 		if( fromValue == 3 ) {
+			sceneData[2].animation.pause(0, true);
 			Navigation.updateAnchor(sceneData[3].id);
 		}
 
-		// scene - ex zone
+		// scene - launch
 		if( fromValue == 4 ) {
+			sceneData[3].animation.pause(0, true);
 			Navigation.updateAnchor(sceneData[4].id);
 		}
 
@@ -610,6 +612,7 @@ var Scene = (function ($) {
 
 		// scene - ex zone
 		if( fromValue == 6 ) {
+			sceneData[5].animation.pause(0, true);
 			Navigation.updateAnchor(sceneData[6].id);
 		}
 
@@ -620,6 +623,7 @@ var Scene = (function ($) {
 
 		// scene - end
 		if( fromValue == 8 ) {
+			sceneData[7].animation.pause(0, true);
 			Navigation.updateAnchor(sceneData[8].id);
 		}
 
@@ -662,7 +666,6 @@ var Scene = (function ($) {
 		// scene - brand
 		if( fromValue == 3 ) {
 			sceneData[2].animation.pause(0, true);
-			Brand.init();
 		}
 
 		// scene - ex zone
@@ -866,20 +869,24 @@ var Scene = (function ($) {
 	}
 
 
-	function updateCurrentScene(uid) {
-		var currentScene = null;
+	function _updateCurrentScene(uid) {
+		var current = null;
+
+		if( sceneData[_currentScene] !== null && sceneData[_currentScene].hasOwnProperty("animation") && sceneData[_currentScene].animation !== null ) {
+			sceneData[_currentScene].animation.pause(0, true);
+		}
 
 		for( var i=0; i<sceneData.length; i++ ) {
 			var scene = sceneData[i];
 			if( scene.id == uid ) {
-				currentScene = scene;
+				current = scene;
 				_currentScene = i;
 			}
 		}
 
-		console.log(currentScene);
-		if( currentScene !== null && currentScene.hasOwnProperty("animation") && currentScene.animation !== null ) {
-			animationScene(currentScene.animation);
+		console.log("[_updateCurrentScene] : " + current);
+		if( current !== null && current.hasOwnProperty("animation") && current.animation !== null ) {
+			animationScene(current.animation);
 		}
 	}
 
@@ -897,7 +904,7 @@ var Scene = (function ($) {
 			return _isAnimating;
 		},
 		updateCurrentScene: function(uid) {
-			updateCurrentScene(uid);
+			_updateCurrentScene(uid);
 		},
 		moveCurrentScene: function() {
 			_moveCurrentScene();

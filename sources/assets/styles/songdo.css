@@ -347,6 +347,7 @@ The `sprites` mixin generates identical output to the CSS template
     position: absolute;
     top: 166px;
     left: 28px;
+    z-index: 1;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
     background-position: -322px -2542px;
