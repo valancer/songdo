@@ -34,7 +34,6 @@ if (!window.console) {
 $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
-	Brand.init();
 	ManualScroll.init();
 	Path.init();
 	RollingBG.init();
@@ -199,17 +198,6 @@ var Navigation = (function ($) {
 
 		});
 
-		/* menus */
-/*
-		$menusContainer.on('mouseenter', function(e) {
-			$menusContainer.addClass('is-hover');
-		});
-
-		$menusContainer.on('mouseleave', function(e) {
-			$menusContainer.removeClass('is-hover');
-		});
-*/
-
 		/* */
 		$menusContainer.on('click', function(e) {
 			$btnToggleMenu.trigger('click');
@@ -274,7 +262,7 @@ var Scene = (function ($) {
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 0;
+			_currentScene = 2;
 			_isAnimating = false;
 
 
@@ -322,6 +310,7 @@ var Scene = (function ($) {
 				TweenMax.to('.scene.home', 6, {})
 			])
 			.set('.time-layer', {css: {zIndex:2000}})
+			.set('.time-layer', {backgroundColor: 'rgba(43, 49, 110, 0.8)'})
 			.to('.time-layer', 0.5, {delay: 1.5, opacity: 1})
 			.add([
 				TweenMax.fromTo('.time01 .now', 0.3, {y: 30}, {opacity: 1, y: 0}),
@@ -352,6 +341,7 @@ var Scene = (function ($) {
 		.setTween(arrivedAnimation)
 		.addTo(controller);
 		sceneData[2].animation = arrivedAnimation;
+
 
 
 		/* scene : outlet brand */
@@ -395,7 +385,7 @@ var Scene = (function ($) {
 				TweenMax.from('.scene.market .title-time', 0.5, {delay: 0.5, opacity: 0}),
 				TweenMax.from('.scene.market .btn-market', 0.5, {delay: 0.5, opacity: 0})
 			])
-			.from('.scene.market .wally', 0.5, {delay: 1, opacity: 0, x: 20})
+			.from('.scene.market .wally', 0.5, {delay: 1, opacity: 0})
 			.from('.scene.market .odlaw', 0.5, {delay: 0.5, opacity: 0})
 			.from('.scene.market .wizard', 0.5, {delay: 0.5, opacity: 0, x: -30});
 
@@ -672,6 +662,7 @@ var Scene = (function ($) {
 		// scene - brand
 		if( fromValue == 3 ) {
 			sceneData[2].animation.pause(0, true);
+			Brand.init();
 		}
 
 		// scene - ex zone
@@ -943,17 +934,23 @@ var Brand = (function ($) {
 		});
 
 		$brandContainer.on('mouseleave', function(e) {
-			TweenMax.to('.scene.brand .btn > span', 0.5, {delay: 0.3, opacity: 1});
+			if( Scene.getIsAnimating() ) return;
+			TweenMax.to('.scene.brand .btn > span', 0.5, {delay: 0.5, opacity: 1});
 		});
+
+
 		/* menus */
 		$btns.on('mouseenter', function(e) {
 			if( Scene.getIsAnimating() ) return;
 
 			var $targetBG = $($(this).data('target'));
 			TweenMax.to($targetBG, 0.5, {opacity: 1});
+			TweenMax.to('.scene.brand .btn > span', 0.5, {opacity: 0});
 		});
 
 		$btns.on('mouseleave', function(e) {
+			if( Scene.getIsAnimating() ) return;
+
 			var $targetBG = $($(this).data('target'));
 			TweenMax.to($targetBG, 0.5, {delay: 0.5, opacity: 0});
 		});

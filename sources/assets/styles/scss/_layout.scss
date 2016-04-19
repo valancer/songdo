@@ -11,9 +11,6 @@ button:focus { outline: 0; }
 
 /* time layer */
 .time-layer { display: block; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("default") - 2; background-color: rgba(43, 49, 110, 0.8); opacity: 0;
-	.bg-time04 { background-color: rgba(33, 20, 15, 0.8); }
-	.bg-time06 { background-color: rgba(15, 33, 33, 0.8); }
-
 	.time { display: block; position: absolute; top: 50%; margin-top: -129px; width: 100%; text-indent: -9999px;
 		> .now { display: block; margin: 0 auto; opacity: 0; }
 		> .now-txt { display: block; margin: 50px auto 0 auto; opacity: 0; }

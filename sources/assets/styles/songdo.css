@@ -435,32 +435,32 @@ The `sprites` mixin generates identical output to the CSS template
       .scene.brand .outlet-brand .btn.luxury:before {
         background-image: url("../images/scene_brand/menu_box01.png"); }
       .scene.brand .outlet-brand .btn.luxury > span {
-        top: 36px;
-        left: -31px;
+        top: 40px;
+        left: -18px;
         height: 128px;
         width: 232px;
         background-image: url("../images/scene_brand/menu_object01.png"); }
       .scene.brand .outlet-brand .btn.sport-factory:before {
         background-image: url("../images/scene_brand/menu_box02.png"); }
       .scene.brand .outlet-brand .btn.sport-factory > span {
-        top: 100px;
-        left: 52px;
+        top: 110px;
+        left: 76px;
         height: 237px;
         width: 217px;
         background-image: url("../images/scene_brand/menu_object02.png"); }
       .scene.brand .outlet-brand .btn.fashion:before {
         background-image: url("../images/scene_brand/menu_box03.png"); }
       .scene.brand .outlet-brand .btn.fashion > span {
-        top: -69px;
-        left: 68px;
+        top: -60px;
+        left: 88px;
         height: 271px;
         width: 200px;
         background-image: url("../images/scene_brand/menu_object03.png"); }
       .scene.brand .outlet-brand .btn.handsome:before {
         background-image: url("../images/scene_brand/menu_box04.png"); }
       .scene.brand .outlet-brand .btn.handsome > span {
-        top: 80px;
-        left: 24px;
+        top: 96px;
+        left: 44px;
         height: 197px;
         width: 246px;
         background-image: url("../images/scene_brand/menu_object04.png"); }
@@ -723,9 +723,7 @@ The `sprites` mixin generates identical output to the CSS template
 
 /* secen - premium market */
 .scene.market {
-  overflow: hidden;
-  background: url("../images/scene_market/bg01.jpg") center center no-repeat;
-  background-size: cover; }
+  overflow: hidden; }
   .scene.market .title-time {
     z-index: 1;
     background-image: url(../images/sprites.png);
@@ -754,19 +752,19 @@ The `sprites` mixin generates identical output to the CSS template
     position: absolute;
     bottom: 0;
     left: calc(50% - 570px);
-    z-index: 2;
+    z-index: 1;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
     background-position: -2188px -1024px;
     width: 451px;
     height: 449px;
-    opacity: 1; }
+    opacity: 2; }
   .scene.market .odlaw {
     display: block;
     position: absolute;
     bottom: 0;
     left: calc(50% + 65px);
-    z-index: 2;
+    z-index: 1;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
     background-position: -1733px -594px;
@@ -778,7 +776,7 @@ The `sprites` mixin generates identical output to the CSS template
     position: absolute;
     bottom: 0;
     left: calc(50% - 142px);
-    z-index: 2;
+    z-index: 1;
     text-indent: -9999px;
     background-image: url(../images/sprites.png);
     background-position: -2704px 0px;
@@ -792,7 +790,9 @@ The `sprites` mixin generates identical output to the CSS template
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 0; }
+    z-index: -1;
+    background: url("../images/scene_market/bg01.jpg") center center no-repeat;
+    background-size: cover; }
   .scene.market .slick-list, .scene.market .slick-track {
     height: 100%;
     width: 100%; }
@@ -1005,110 +1005,109 @@ The `sprites` mixin generates identical output to the CSS template
     left: calc(50% - 460px); }
 
 /* secen - garden terrace */
-.scene.garden {
+.scene.garden .title-time {
+  z-index: 1;
+  background-image: url(../images/sprites.png);
+  background-position: -616px -2061px;
+  width: 901px;
+  height: 30px; }
+.scene.garden .btn-pub {
+  display: block;
+  position: absolute;
+  top: 204px;
+  left: 42px;
+  z-index: 1;
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: -2188px -1899px;
+  width: 461px;
+  height: 167px;
+  opacity: 1; }
+  .scene.garden .btn-pub:hover {
+    -webkit-animation-name: tada;
+            animation-name: tada;
+    -webkit-animation-duration: 1s;
+            animation-duration: 1s; }
+.scene.garden .wilma {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 516px);
+  z-index: 1;
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: -2188px 0px;
+  width: 511px;
+  height: 496px;
+  opacity: 1; }
+.scene.garden .wally {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: calc(50% + 20px);
+  z-index: 1;
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: -985px -1068px;
+  width: 519px;
+  height: 501px;
+  opacity: 1; }
+.scene.garden .parassol01 {
+  display: block;
+  position: absolute;
+  top: -300px;
+  left: calc(50% + 59px);
+  z-index: 1;
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: -544px -466px;
+  width: 525px;
+  height: 576px; }
+.scene.garden .parassol02 {
+  display: block;
+  position: absolute;
+  top: -105px;
+  left: calc(50% + 390px);
+  z-index: 1;
+  text-indent: -9999px;
+  background-image: url(../images/sprites.png);
+  background-position: 0px -2104px;
+  width: 515px;
+  height: 433px; }
+.scene.garden .slick-slider {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
   background: url("../images/scene_garden/bg01.jpg") center center no-repeat;
   background-size: cover; }
-  .scene.garden .title-time {
-    z-index: 1;
-    background-image: url(../images/sprites.png);
-    background-position: -616px -2061px;
-    width: 901px;
-    height: 30px; }
-  .scene.garden .btn-pub {
-    display: block;
-    position: absolute;
-    top: 204px;
-    left: 42px;
-    z-index: 1;
-    text-indent: -9999px;
-    background-image: url(../images/sprites.png);
-    background-position: -2188px -1899px;
-    width: 461px;
-    height: 167px;
-    opacity: 1; }
-    .scene.garden .btn-pub:hover {
-      -webkit-animation-name: tada;
-              animation-name: tada;
-      -webkit-animation-duration: 1s;
-              animation-duration: 1s; }
-  .scene.garden .wilma {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: calc(50% - 516px);
-    z-index: 1;
-    text-indent: -9999px;
-    background-image: url(../images/sprites.png);
-    background-position: -2188px 0px;
-    width: 511px;
-    height: 496px;
-    opacity: 1; }
-  .scene.garden .wally {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: calc(50% + 20px);
-    z-index: 1;
-    text-indent: -9999px;
-    background-image: url(../images/sprites.png);
-    background-position: -985px -1068px;
-    width: 519px;
-    height: 501px;
-    opacity: 1; }
-  .scene.garden .parassol01 {
-    display: block;
-    position: absolute;
-    top: -300px;
-    left: calc(50% + 59px);
-    z-index: 1;
-    text-indent: -9999px;
-    background-image: url(../images/sprites.png);
-    background-position: -544px -466px;
-    width: 525px;
-    height: 576px; }
-  .scene.garden .parassol02 {
-    display: block;
-    position: absolute;
-    top: -105px;
-    left: calc(50% + 390px);
-    z-index: 1;
-    text-indent: -9999px;
-    background-image: url(../images/sprites.png);
-    background-position: 0px -2104px;
-    width: 515px;
-    height: 433px; }
-  .scene.garden .slick-slider {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 0; }
-  .scene.garden .slick-list, .scene.garden .slick-track {
-    height: 100%;
-    width: 100%; }
-  .scene.garden .bg01 {
-    display: block;
-    height: 100%;
-    width: 100%;
-    background: url("../images/scene_garden/bg01.jpg") center center no-repeat;
-    background-size: cover;
-    opacity: 1; }
-  .scene.garden .bg02 {
-    display: block;
-    height: 100%;
-    width: 100%;
-    background: url("../images/scene_garden/bg02.jpg") center center no-repeat;
-    background-size: cover;
-    opacity: 1; }
-  .scene.garden .bg03 {
-    display: block;
-    height: 100%;
-    width: 100%;
-    background: url("../images/scene_garden/bg03.jpg") center center no-repeat;
-    background-size: cover;
-    opacity: 1; }
+.scene.garden .slick-list, .scene.garden .slick-track {
+  height: 100%;
+  width: 100%; }
+.scene.garden .bg01 {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: url("../images/scene_garden/bg01.jpg") center center no-repeat;
+  background-size: cover;
+  opacity: 1; }
+.scene.garden .bg02 {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: url("../images/scene_garden/bg02.jpg") center center no-repeat;
+  background-size: cover;
+  opacity: 1; }
+.scene.garden .bg03 {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: url("../images/scene_garden/bg03.jpg") center center no-repeat;
+  background-size: cover;
+  opacity: 1; }
 
 /* scene9 - ending */
 .scene.ending {
@@ -1200,10 +1199,6 @@ button:focus {
   z-index: -1;
   background-color: rgba(43, 49, 110, 0.8);
   opacity: 0; }
-  .time-layer .bg-time04 {
-    background-color: rgba(33, 20, 15, 0.8); }
-  .time-layer .bg-time06 {
-    background-color: rgba(15, 33, 33, 0.8); }
   .time-layer .time {
     display: block;
     position: absolute;
