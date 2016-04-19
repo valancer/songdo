@@ -251,7 +251,7 @@
 .scene.garden {
 	.title-time { z-index: z("default"); @include sprite($s-title-1900); }
 
-	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default"); text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 1;
+	.btn-pub { display: block; position: absolute; top: 204px; left: 42px; z-index: z("default") + 1; text-indent: -9999px; @include sprite($s-scene08-btn-pub); opacity: 1;
 		&:hover { animation-name: tada; animation-duration: 1s; }
 	}
 

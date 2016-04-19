@@ -262,7 +262,7 @@ var Scene = (function ($) {
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 3;
+			_currentScene = 0;
 			_isAnimating = false;
 
 
@@ -486,7 +486,7 @@ var Scene = (function ($) {
 
 		/* wheel event */
 		var lethargy = new Lethargy();
-		$(window).bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e){
+		$(window).bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e, delta){
 			if( !isOpenPopup ) {
 				var scene = sceneData[_currentScene];
 
@@ -499,19 +499,59 @@ var Scene = (function ($) {
 				var windowTop = $(window).scrollTop();
 
 
-				if( launchTop-30 <= windowTop && windowTop < launchTop+launchHeight-(_viewHeight+50) ) {
+				results = lethargy.check(e);
+				if( launchTop <= windowTop && windowTop < launchTop+launchHeight ) {
 					// 런치
-					console.log("런치 : " + windowTop + ", " + (launchTop+launchHeight-(_viewHeight+50)));
+					if( windowTop < launchTop+(_viewHeight*0.9) ) {
+						// console.log("런치 top");
+						if( delta !== undefined ) {
+							if( delta > 0 ) {
+								prev();
+							}
+						}
+					} else if( windowTop > launchTop+launchHeight-(_viewHeight*0.95) ) {
+						// console.log("런치 bottom");
+						if( delta !== undefined ) {
+							e.preventDefault();
+							e.stopPropagation();
+							if( delta < 0 ) {
+								next();
+							}
+						}
+					}
+
 				
-				} else if( exzoneTop-30 <= windowTop && windowTop < exzoneTop+exzoneHeight-(_viewHeight+10) ) {
+				} else if( exzoneTop <= windowTop && windowTop < exzoneTop+exzoneHeight ) {
 					// 체험존
-					console.log("체험존 : " + windowTop + ", " + (exzoneTop+exzoneHeight-(_viewHeight+10)));
-				
+					if( windowTop < exzoneTop+(_viewHeight*0.9) ) {
+						// console.log("체험존 top");
+						if( delta !== undefined ) {
+							if( delta > 0 ) {
+								prev();
+							}
+						}
+					} else if( windowTop > exzoneTop+exzoneHeight-(_viewHeight*0.95) ) {
+						// console.log("체험존 bottom");
+						if( delta !== undefined ) {
+							e.preventDefault();
+							e.stopPropagation();
+							if( delta < 0 ) {
+								next();
+							}
+						}
+					}
 				} else {
 					e.preventDefault();
 					e.stopPropagation();
 
-					results = lethargy.check(e);
+					if( delta !== undefined ) {
+						if( delta > 0 ) {
+							prev();
+						} else {
+							next();
+						}
+					}
+/*
 					if( results !== false ) {
 						if( results < 0 ) {
 							next();
@@ -519,6 +559,7 @@ var Scene = (function ($) {
 							prev();
 						}
 					}
+*/
 				}
 
 			}
@@ -533,9 +574,11 @@ var Scene = (function ($) {
 		});
 
 
+		$(window).on('beforeunload', function() {
+			$(window).scrollTop(0);
 
-		$(window).bind('scroll', function(e) {
 		});
+
 	}
 
 
@@ -743,15 +786,17 @@ var Scene = (function ($) {
 				}
 				var calcposy = index * _viewHeight + fix01 + fix02;
 
-				console.log("[" + index + "] scroll position top : " + calcposy);
 
-				_isAnimating = true;
-				console.log("start Auto Scroll : " + _currentScene);
-				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
+				TweenMax.to(window, 1.2, {onStart: function() {
+					console.log("[" + index + "] scroll position top : " + calcposy);
+					_isAnimating = true;
+					console.log("start Auto Scroll : " + _currentScene);
+				}, scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
 
 					console.log('finish Auto Scroll : ' + _currentScene);
 
 					if( nextScene.animation === null ) {
+						sceneData[_currentScene].animation.pause(0, true);
 						Navigation.updateAnchor(sceneData[_currentScene+1].id);
 						_isAnimating = false;
 					} else {
@@ -855,13 +900,20 @@ var Scene = (function ($) {
 			calcposy = parseInt(3*_viewHeight) + (4230*2) - 100;
 		}
 			
-		console.log('index : ' + index + ", calcposy : " + calcposy);
 		TweenMax.to(window, 1.2, {onStart: function() {
-			_isAnimating = true;
+			console.log('index : ' + index + ", calcposy : " + calcposy);
+			// _isAnimating = true;
 		}, scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
+			if( scene.upScroll == "launch" ) {
+				Navigation.updateAnchor(sceneData[4].id);
+			}
+
+			if( scene.upScroll == "exzone" ) {
+				Navigation.updateAnchor(sceneData[6].id);
+			}
 
 			if( prevScene.animation === null ) {
-				_isAnimating = false;
+				// _isAnimating = false;
 			} else {
 				animationScene(prevScene.animation);
 			}
