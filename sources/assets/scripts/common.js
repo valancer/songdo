@@ -262,7 +262,7 @@ var Scene = (function ($) {
 
 		_timeArrivedAnimation,
 		init = function () {
-			_currentScene = 0;
+			_currentScene = 3;
 			_isAnimating = false;
 
 
@@ -346,10 +346,15 @@ var Scene = (function ($) {
 
 		/* scene : outlet brand */
 		var brandAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[3]})
+			.set('.scene.brand .btn', {display: "none"})
 			.from('.scene.brand .title-time', 0.5, {delay: 1.2, opacity: 0})
+			.set('.scene.brand .btn.luxury', {display: "block"})
 			.from('.scene.brand .btn.luxury', 0.3, {delay: 0, opacity: 0, y: -30})
+			.set('.scene.brand .btn.sport-factory', {display: "block"})
 			.from('.scene.brand .btn.sport-factory', 0.3, {delay: 0, opacity: 0, y: 30})
+			.set('.scene.brand .btn.fashion', {display: "block"})
 			.from('.scene.brand .btn.fashion', 0.3, {delay: 0, opacity: 0, y: -30})
+			.set('.scene.brand .btn.handsome', {display: "block"})
 			.from('.scene.brand .btn.handsome', 0.3, {delay: 0, opacity: 0, y: 30, onComplete:finishAnimation, onCompleteParams:[3]})
 			.from('.scene.brand .wilma', 0.5, {delay: 1, opacity: 0})
 			.from('.scene.brand .wally', 0.5, {delay: 1, opacity: 0});
