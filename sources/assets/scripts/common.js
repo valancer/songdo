@@ -543,7 +543,7 @@ var Scene = (function ($) {
 				} else {
 					e.preventDefault();
 					e.stopPropagation();
-
+/*
 					if( delta !== undefined ) {
 						if( delta > 0 ) {
 							prev();
@@ -551,7 +551,7 @@ var Scene = (function ($) {
 							next();
 						}
 					}
-/*
+*/
 					if( results !== false ) {
 						if( results < 0 ) {
 							next();
@@ -559,7 +559,7 @@ var Scene = (function ($) {
 							prev();
 						}
 					}
-*/
+
 				}
 
 			}
