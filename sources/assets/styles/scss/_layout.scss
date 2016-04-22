@@ -148,7 +148,7 @@ button:focus { outline: 0; }
 
 				&:hover {
 					&:before { content: ' '; background-color: #000; }
-					span { display: block; opacity: 1; }
+					span { display: block; z-index: z("default"); opacity: 1; }
 				}
 
 				span { pointer-events: none; display: block; box-sizing: border-box; position: absolute; top: -15px; left: -195px; padding-left: 20px; height: 48px; width: 184px; font-size: 14px; color: #fff; line-height: 48px; text-decoration: none; background-color: #000;

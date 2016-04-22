@@ -10,7 +10,6 @@
 
 	<script src="./assets/scripts/libs/lethargy.min.js"></script>
 	<script src="./assets/scripts/libs/EventEmitter.min.js"></script>
-	<script src="./assets/scripts/smartscroll.js"></script>
 
 	<script src="./assets/scripts/libs/TweenMax.min.js?v=1.18.2"></script>
 	<script src="./assets/scripts/libs/ScrollMagic.js"></script>
@@ -20,6 +19,7 @@
 	<script src="./assets/scripts/libs/slick.min.js"></script>
 
 	<!-- custom -->
+	<script src="./assets/scripts/smartscroll.custom.js"></script>
 	<script src="./assets/scripts/common.js"></script>
 	<link rel="stylesheet" href="./assets/styles/songdo.css">
 </head>
@@ -28,7 +28,7 @@
 
 <div class="section-wrapper">
 	<!-- scene1 : home -->
-	<section data-hash="home" class="scene home">
+	<section id="home" data-hash="home" class="scene home">
 		<div class="inner">
 			<div class="moon"></div>
 			<div class="wally"></div>
@@ -49,7 +49,7 @@
 
 
 	<!-- scene3 : outlet -->
-	<section data-hash="arrived" class="scene arrived">
+	<section id="arrived" data-hash="arrived" class="scene arrived">
 		<p id="arrived-title-time" class="title-time">10:30 현대프리미엄아울렛 도착</p>
 
 		<a href="./assets/images/popup/popup_location.jpg" class="btn-location va-btn-popup">오시는 방법 알려드릴께요</a>
@@ -62,7 +62,7 @@
 
 
 	<!-- scene4 : outlet brand -->
-	<section data-hash="brand" class="scene brand">
+	<section id="brand" data-hash="brand" class="scene brand">
 		<p id="brand-title-time" class="title-time">11:00 쇼핑타임! 트렌디한 패션 아이템들의 퍼레이드</p>
 		
 		<div class="outlet-brand">
@@ -84,7 +84,7 @@
 
 
 	<!-- scene5 : Launch -->
-	<section data-hash="launch" class="scene launch">
+	<section id="launch" data-hash="launch" class="scene launch">
 		<header class="header">
 			<p>딜리셔스 13:00 런치타임</p>
 		</header>
@@ -147,7 +147,7 @@
 
 
 	<!-- scene6 : premium market -->
-	<section data-hash="market" class="scene market">
+	<section id="market" data-hash="market" class="scene market">
 		<p id="market-title-time" class="title-time">15:00 장바구니에 담긴 유럽의 일상, 오들로는 너무 많이 담은거 아닌가요?</p>
 		
 		<a href="./assets/images/popup/popup_market.jpg" class="btn-market va-btn-popup">신선하고 다양한 식재료, 프리미엄마켓을 만나세요</a>
@@ -166,7 +166,7 @@
 
 
 	<!-- scene7 : ex zone -->
-	<section data-hash="exzone" class="scene exzone">
+	<section id="exzone" data-hash="exzone" class="scene exzone">
 		<header class="header">
 			<p>17:00 색다른 체험</p>
 			<p>다이내믹 쇼퍼테이먼트의 모든 것</p>
@@ -225,7 +225,7 @@
 
 
 	<!-- scene8 : garden terrace -->
-	<section data-hash="garden" class="scene garden">
+	<section id="garden" data-hash="garden" class="scene garden">
 		<p id="garden-title-time" class="title-time">19:00 유럽의 정취와 아름다운 별자리, 월리와 웬다는 낭만에 푹 빠졌네요.</p>
 		
 		<a href="./assets/images/popup/popup_garden_terrace.jpg" class="btn-pub va-btn-popup">이국적인 레스토랑과 다이닝펍을 확인하세요</a>

@@ -1486,6 +1486,7 @@ button:focus {
           background-color: #000; }
         .menus .list-indicators > li > a:hover span {
           display: block;
+          z-index: 1;
           opacity: 1; }
         .menus .list-indicators > li > a span {
           pointer-events: none;

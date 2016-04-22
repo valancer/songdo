@@ -202,6 +202,15 @@
 			}
 		}
 
+		// scroll to target
+		var scrollToTarget = function (target) {
+			var matchedObject = $('[data-hash="' + target.substr(1) + '"]');
+			// If there is a matched element, scroll to the first element at time 0 (immediately)
+			if(matchedObject.length > 0) {
+				scrollToPixel(matchedObject[0].offsetTop + sectionWrapperTop, options.animationSpeed);
+			}
+		}
+
 		// Update the values for `sections`
 		var calculateSectionBottoms = function () {
 			var tmpSections = [];
@@ -341,7 +350,6 @@
 					newHash = options.headerHash;
 				}
 
-				console.log("newHash : " + newHash);
 				if(!options.keepHistory) {
 					window.location.replace(window.location.href.split('#')[0] + '#' + newHash);
 				} else {
@@ -519,7 +527,20 @@
 			}
 			$(window).on('keydown', handleKeydown);
 		}
-		return this;
+		return {
+			unbindScroll: function() {
+				unbindScroll();
+			},
+			bindScroll: function() {
+				bindScroll();
+			},
+			scrollToTarget: function(target) {
+				scrollToTarget(target);
+			},
+			getHash: function() {
+				return window.location.hash;
+			}
+		}
 	}
 
 	// Set default options
