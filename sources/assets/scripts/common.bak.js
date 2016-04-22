@@ -31,22 +31,18 @@ if (!window.console) {
 
 
 
-
 $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
-	Popup.init();
+	Brand.init();
 	ManualScroll.init();
+	Path.init();
 	RollingBG.init();
+	Popup.init();
 });
 
 
-
-
-
 var isOpenPopup = false;
-var isBeforeAnimating = false;
-var smartscroll;
 var controller = new ScrollMagic.Controller();
 controller.scrollTo(function (newpos) {
 	TweenMax.to(window, 1.2, {scrollTo: {y: newpos}});
@@ -55,17 +51,21 @@ var sceneData = [
 	{
 		id: '#home',
 		title: 'Home',
-		animation: null
+		animation: null,
+		scroll: 'direct'
 	},
 	{
 		id: '#after-home',
 		title: "After Home",
 		animation: null,
+		scroll: 'auto',
 		timeAnimation: null
 	},
 	{
 		id: '#arrived',
 		title: "Arrvied Outlet",
+		animation: null,
+		scroll: 'auto',
 		timeAnimation: null,
 		timeLayer: {
 			target: '.time02',
@@ -75,6 +75,8 @@ var sceneData = [
 	{
 		id: '#brand',
 		title: "Outlet Brand",
+		animation: null,
+		scroll: 'auto',
 		timeAnimation: null,
 		timeLayer: {
 			target: '.time03',
@@ -84,6 +86,8 @@ var sceneData = [
 	{
 		id: '#launch',
 		title: "Launch",
+		animation: null,
+		scroll: 'launch',
 		timeAnimation: null,
 		timeLayer: {
 			target: '.time04',
@@ -93,6 +97,9 @@ var sceneData = [
 	{
 		id: '#market',
 		title: "Premium Market",
+		animation: null,
+		scroll: 'auto',
+		upScroll: 'launch',
 		timeAnimation: null,
 		timeLayer: {
 			target: '.time05',
@@ -102,6 +109,8 @@ var sceneData = [
 	{
 		id: '#exzone',
 		title: "Experience Zone",
+		animation: null,
+		scroll: 'exzone',
 		timeAnimation: null,
 		timeLayer: {
 			target: '.time06',
@@ -111,6 +120,9 @@ var sceneData = [
 	{
 		id: '#garden',
 		title: "Garden Terrace",
+		animation: null,
+		scroll: 'auto',
+		upScroll: 'exzone',
 		timeAnimation: null,
 		timeLayer: {
 			target: '.time07',
@@ -120,8 +132,8 @@ var sceneData = [
 	{
 		id: '#ending',
 		title: "Ending",
-		scroll: 'none',
 		animation: null,
+		scroll: 'none',
 		timeAnimation: null
 	}
 ];
@@ -197,7 +209,8 @@ var Navigation = (function ($) {
 
 			var target = $(this).attr('href');
 			_updateAnchor(target);
-
+			Scene.updateCurrentScene(target);
+			controller.scrollTo(target);
 		});
 
 		/* menu click */
@@ -206,7 +219,8 @@ var Navigation = (function ($) {
 
 			var target = $(this).attr('href');
 			_updateAnchor(target);
-			smartscroll.scrollToTarget(target);
+			Scene.updateCurrentScene(target);
+			controller.scrollTo(target);
 		});
 	}
 
@@ -241,7 +255,11 @@ var Scene = (function ($) {
 	var scope,
 		_currentScene,
 		_isAnimating,
+
 		_viewHeight,
+		_sectionHeights,
+		_sectionScrollTop,
+
 		_timeArrivedAnimation,
 		init = function () {
 			_currentScene = 0;
@@ -256,268 +274,27 @@ var Scene = (function ($) {
 
 	function initLayout() {
 		_viewHeight = $(window).height();
-		Path.init();
 	}
 
 
 
 	function initMotion() {
 		/* scene : home */
-		var homeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["home"]})
+		var homeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[0]})
 			.from('.scene.home .moon', 0.5, {delay: 1, opacity: 0, y: -30})
 			.from('.scene.home .title', 0.5, {opacity: 0, y: 30})
 			.from('.scene.home .description', 0.5, {opacity: 0, y: 30})
 			.from('.scene.home .wally', 0.5, {opacity: 0, y: 30})
 			.add([
 				TweenMax.from('.scene.home .wally', 1, {y: 10, ease: Quad.easeInOut, repeat: -1, yoyo: true}),
-				TweenMax.from('.scene.home .btn-start', 0.5, {opacity: 0, y: -30, onComplete:finishAnimation, onCompleteParams:["home"]})
+				TweenMax.from('.scene.home .btn-start', 0.5, {opacity: 0, y: -30, onComplete:finishAnimation, onCompleteParams:[0]})
 			]);
-		var sceneHome = new ScrollMagic.Scene({
-			triggerElement: ".scene.home",
-			triggerHook: 'onLeave'
-		})
-		.setTween(homeAnimation)
-		.addTo(controller);
 		sceneData[0].animation = homeAnimation;
 
 
-		/* scene : arrived outlet */
-		var arrivedAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["arrived"], onComplete:finishAnimation, onCompleteParams:["arrived"]})
-			.add([
-				TweenMax.from('.scene.arrived .title-time', 0.5, {delay: 0.5, opacity: 0}),
-				TweenMax.from('.scene.arrived .btn-location', 0.5, {delay: 0.5, opacity: 0})
-			])
-			.from('.scene.arrived .wally', 0.5, {delay: 1, opacity: 0, x: -30})
-			.from('.scene.arrived .txt01', 0.5, {opacity: 0});
-		var sceneArrived = new ScrollMagic.Scene({
-			triggerElement: ".scene.arrived",
-			triggerHook: 'onLeave'
-		})
-		.setTween(arrivedAnimation)
-		.addTo(controller);
 
-
-		/* scene : outlet brand */
-		var brandAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["brand"]})
-			.set('.scene.brand .btn', {display: "none"})
-			.from('.scene.brand .title-time', 0.5, {delay: 1.2, opacity: 0})
-			.set('.scene.brand .btn.luxury', {display: "block"})
-			.from('.scene.brand .btn.luxury', 0.3, {delay: 0, opacity: 0, y: -30})
-			.set('.scene.brand .btn.sport-factory', {display: "block"})
-			.from('.scene.brand .btn.sport-factory', 0.3, {delay: 0, opacity: 0, y: 30})
-			.set('.scene.brand .btn.fashion', {display: "block"})
-			.from('.scene.brand .btn.fashion', 0.3, {delay: 0, opacity: 0, y: -30})
-			.set('.scene.brand .btn.handsome', {display: "block"})
-			.from('.scene.brand .btn.handsome', 0.3, {delay: 0, opacity: 0, y: 30, onComplete:finishAnimation, onCompleteParams:["brand"]})
-			.from('.scene.brand .wilma', 0.5, {delay: 1, opacity: 0})
-			.from('.scene.brand .wally', 0.5, {delay: 1, opacity: 0});
-
-		var sceneBrand = new ScrollMagic.Scene({
-			triggerElement: ".scene.brand",
-			triggerHook: 'onLeave'
-		})
-		.setTween(brandAnimation)
-		.addTo(controller);
-	
-
-		/* scene : launch */
-		var traceAnimation = new TimelineMax({delay:0})
-			.to('#tracesvg path#p1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
-		sceneLaunch = new ScrollMagic.Scene({
-			triggerElement: ".scene.launch",
-			duration: "3379px",
-			offset: 800
-		})
-		.setTween(traceAnimation)
-		.addTo(controller);
-
-
-
-		/* scene : premium market */
-		var marketAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["market"], onComplete:finishAnimation, onCompleteParams:["market"]})
-			.add([
-				TweenMax.from('.scene.market .title-time', 0.5, {delay: 0.5, opacity: 0}),
-				TweenMax.from('.scene.market .btn-market', 0.5, {delay: 0.5, opacity: 0})
-			])
-			.from('.scene.market .wally', 0.5, {delay: 1, opacity: 0, x: 20})
-			.from('.scene.market .odlaw', 0.5, {delay: 0.5, opacity: 0})
-			.from('.scene.market .wizard', 0.5, {delay: 0.5, opacity: 0, x: -30});
-
-		var sceneMarket = new ScrollMagic.Scene({
-			triggerElement: ".scene.market",
-			triggerHook: 'onLeave'
-		})
-		.setTween(marketAnimation)
-		.addTo(controller);
-
-
-		/* scene : ex zone */
-		var exAnimation = new TimelineMax({delay:0})
-			.to('#dashsvg path#e1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
-		sceneExzone = new ScrollMagic.Scene({
-			triggerElement: ".scene.exzone",
-			// duration: "3424px",
-			duration: "3024px",
-			offset: 800
-		})
-		.setTween(exAnimation)
-		.addTo(controller);
-
-
-
-		/* scene : garden terrace */
-		var parassolAnimation = new TimelineMax({})
-			.add([
-				TweenMax.from('.scene.garden .parassol01', 1.3, {x:-470, y:326, rotation:-45, ease:Power1.easeInOut}),
-				TweenMax.from('.scene.garden .parassol02', 1.3, {x:-470, y:153, rotation:-45, ease:Power1.easeInOut})
-			]);
-		var sceneParassol = new ScrollMagic.Scene({
-			triggerElement: ".scene.garden",
-			triggerHook: 'onEnter',
-			duration: "100%"
-		})
-		.setTween(parassolAnimation)
-		.addTo(controller);
-
-		var gardenAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["garden"], onComplete:finishAnimation, onCompleteParams:["garden"]})
-			.add([
-				TweenMax.from('.scene.garden .title-time', 0.5, {delay: 0.5, opacity: 0}),
-				TweenMax.from('.scene.garden .btn-pub', 0.5, {delay: 0.5, opacity: 0})
-			])
-			.from('.scene.garden .wilma', 0.5, {delay: 1, opacity: 0})
-			.from('.scene.garden .wally', 0.5, {delay: 0.5, opacity: 0});
-			
-		var sceneGarden = new ScrollMagic.Scene({
-			triggerElement: ".scene.garden",
-			triggerHook: 'onLeave'
-		})
-		.setTween(gardenAnimation)
-		.addTo(controller);
-
-
-		/* scene : ending */
-		var endingAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["ending"], onComplete:finishAnimation, onCompleteParams:["ending"]})
-			.from('.scene.ending .title-time', 0.5, {opacity: 0})
-			.from('.scene.ending .people', 0.5, {delay: 1, opacity: 0, x: -30})
-			.from('.scene.ending .txt01', 0.5, {delay: 1, opacity: 0})
-			.from('.scene.ending .txt02', 0.5, {delay: 1, opacity: 0})
-			.from('.scene.ending .txt03', 1, {delay: 1, opacity: 0});
-
-		var sceneEnding = new ScrollMagic.Scene({
-			triggerElement: ".scene.garden",
-			triggerHook: 'onLeave'
-		})
-		.setTween(endingAnimation)
-		.addTo(controller);
-		sceneData[8].animation = endingAnimation;
-	}
-
-
-
-	function initEvent() {
-		var ee = new EventEmitter();
-		var scrollOptions = {
-			mode: "set",
-			autoHash: true,
-			sectionScroll: true,
-			initialScroll: false,
-			keepHistory: false,
-			sectionWrapperSelector: ".section-wrapper",
-			sectionClass: "scene",
-			sectionSelector: '.scene',
-			animationSpeed: 1200,
-		    headerHash: "home",
-			hashContinuousUpdate: false,
-			breakpoint: null,
-			eventEmitter: ee,
-			dynamicHeight: false
-		};
-
-		ee.addListener('scrollDonwBefore', scrollDownBeforeListener);
-		ee.addListener('scrollStart', scrollStartListener);
-		ee.addListener('scrollEnd', scrollEndListener);
-
-		smartscroll = $.smartscroll(scrollOptions);	
-		Navigation.updateAnchor(smartscroll.getHash());
-
-		/* home - start */
-		$('.scene.home .btn-start').on('click', function(e) {
-			e.preventDefault();
-		});
-
-
-		$(window).bind('resize', function(){
-			_viewHeight = $(window).height();
-			controller.update(true);
-
-			controller.scrollTo(smartscroll.getHash());
-			Navigation.updateAnchor(smartscroll.getHash());
-		});
-
-		$(window).scroll($.debounce( 250, function(){
-			var windowTop = smartscroll.getWindowTop();
-			var slideIndex = smartscroll.getSectionIndexAt(windowTop+1);
-			var target = '#' + $('.scene:nth-of-type(' + (slideIndex) + ')').data('hash');
-			Navigation.updateAnchor(target);
-			smartscroll.autoHash();
-		}));
-	}
-
-
-
-	function scrollDownBeforeListener(slideNumber, callback) {
-		if( isBeforeAnimating ) return;
-		var index = slideNumber - 1;
-		var scene = sceneData[index];
-
-		if( index == 1 ) {
-			isBeforeAnimating = true;
-			afterHomeAnimation(function() {
-				callback();
-				isBeforeAnimating = false;
-			});
-		}
-
-		if( scene.hasOwnProperty('timeLayer') ) {
-			isBeforeAnimating = true;
-			timeLayerAnimation(scene, function() {
-				callback();
-				isBeforeAnimating = false;
-			});
-		}
-	}
-
-	function scrollStartListener(slideNumber) {
-		if( smartscroll.getHash() != "#ending" ) {
-			sceneData[8].animation.pause(0, true);
-		}
-	}
-
-	function scrollEndListener() {
-		if( sceneData[1].animation ) {
-			sceneData[1].animation.pause(0, true);
-		}
-		Navigation.updateAnchor(smartscroll.getHash());
-
-		if( smartscroll.getHash() != "#home" ) {
-			sceneData[0].animation.pause(0, true);
-		}
-
-		if( smartscroll.getHash() == "#home" ) {
-			sceneData[0].animation.restart();
-		}
-		if( smartscroll.getHash() == "#ending" ) {
-			sceneData[8].animation.restart();
-		}
-	}
-
-
-	/* after home animation */
-	function afterHomeAnimation(callback) {
-		var afterHomeAnimation = new TimelineMax({onStart:function() {
-		}, onComplete:function() {
-			callback();
-		}})
+		/* scene : after home */
+		var afterHomeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[1], onComplete:finishAnimation, onCompleteParams:[1]})
 			.to('.scene.home .btn-start', 0.5, {opacity: 0})
 			.add([
 				TweenMax.to('.scene.home .moon, .scene.home .wally, .scene.home .title, .scene.home .description', 0.5, {opacity: 0, y: -60}),
@@ -545,20 +322,277 @@ var Scene = (function ($) {
 				TweenMax.to('.time01 .now-txt', 0.1, {opacity: 0})
 			])
 			.set('.time-layer', {css: {zIndex:-1}});
+		sceneData[1].animation = afterHomeAnimation;
 
-			sceneData[1].animation = afterHomeAnimation;
+
+
+		/* scene : arrived outlet */
+		var arrivedAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[2], onComplete:finishAnimation, onCompleteParams:[2]})
+			.add([
+				TweenMax.from('.scene.arrived .title-time', 0.5, {delay: 0.5, opacity: 0}),
+				TweenMax.from('.scene.arrived .btn-location', 0.5, {delay: 0.5, opacity: 0})
+			])
+			.from('.scene.arrived .wally', 0.5, {delay: 1, opacity: 0, x: -30})
+			.from('.scene.arrived .txt01', 0.5, {opacity: 0});
+		var sceneArrived = new ScrollMagic.Scene({
+			triggerElement: ".scene.arrived",
+			triggerHook: 'onLeave'
+		})
+		.setTween(arrivedAnimation)
+		.addTo(controller);
+		sceneData[2].animation = arrivedAnimation;
+
+
+
+		/* scene : outlet brand */
+		var brandAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[3]})
+			.set('.scene.brand .btn', {display: "none"})
+			.from('.scene.brand .title-time', 0.5, {delay: 1.2, opacity: 0})
+			.set('.scene.brand .btn.luxury', {display: "block"})
+			.from('.scene.brand .btn.luxury', 0.3, {delay: 0, opacity: 0, y: -30})
+			.set('.scene.brand .btn.sport-factory', {display: "block"})
+			.from('.scene.brand .btn.sport-factory', 0.3, {delay: 0, opacity: 0, y: 30})
+			.set('.scene.brand .btn.fashion', {display: "block"})
+			.from('.scene.brand .btn.fashion', 0.3, {delay: 0, opacity: 0, y: -30})
+			.set('.scene.brand .btn.handsome', {display: "block"})
+			.from('.scene.brand .btn.handsome', 0.3, {delay: 0, opacity: 0, y: 30, onComplete:finishAnimation, onCompleteParams:[3]})
+			.from('.scene.brand .wilma', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.brand .wally', 0.5, {delay: 1, opacity: 0});
+
+		var sceneBrand = new ScrollMagic.Scene({
+			triggerElement: ".scene.brand",
+			triggerHook: 'onLeave'
+		})
+		.setTween(brandAnimation)
+		.addTo(controller);
+		sceneData[3].animation = brandAnimation;
+
+
+
+
+		/* scene : launch */
+		var traceAnimation = new TimelineMax({delay:0})
+			.to('#tracesvg path#p1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
+		sceneLaunch = new ScrollMagic.Scene({
+			triggerElement: ".scene.launch",
+			duration: "3379px",
+			offset: 800
+		})
+		.setTween(traceAnimation)
+		.addTo(controller);
+
+
+
+		/* scene : premium market */
+		var marketAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[5], onComplete:finishAnimation, onCompleteParams:[5]})
+			.add([
+				TweenMax.from('.scene.market .title-time', 0.5, {delay: 0.5, opacity: 0}),
+				TweenMax.from('.scene.market .btn-market', 0.5, {delay: 0.5, opacity: 0})
+			])
+			.from('.scene.market .wally', 0.5, {delay: 1, opacity: 0, x: 20})
+			.from('.scene.market .odlaw', 0.5, {delay: 0.5, opacity: 0})
+			.from('.scene.market .wizard', 0.5, {delay: 0.5, opacity: 0, x: -30});
+
+		var sceneMarket = new ScrollMagic.Scene({
+			triggerElement: ".scene.market",
+			triggerHook: 'onLeave'
+		})
+		.setTween(marketAnimation)
+		.addTo(controller);
+		sceneData[5].animation = marketAnimation;
+
+
+
+
+		/* scene : ex zone */
+		var exAnimation = new TimelineMax({delay:0})
+			.to('#dashsvg path#e1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
+		sceneExzone = new ScrollMagic.Scene({
+			triggerElement: ".scene.exzone",
+			duration: "3424px",
+			offset: 800
+		})
+		.setTween(exAnimation)
+		.addTo(controller);
+
+
+
+		/* scene : garden terrace */
+		var parassolAnimation = new TimelineMax({})
+			.add([
+				TweenMax.from('.scene.garden .parassol01', 1.3, {x:-470, y:576, rotation:-45, ease:Power1.easeInOut}),
+				TweenMax.from('.scene.garden .parassol02', 1.3, {x:-470, y:433, rotation:-45, ease:Power1.easeInOut})
+			]);
+		var sceneParassol = new ScrollMagic.Scene({
+			triggerElement: ".scene.garden",
+			triggerHook: 'onEnter',
+			duration: "100%"
+		})
+		.setTween(parassolAnimation)
+		.addTo(controller);
+
+		var gardenAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[7], onComplete:finishAnimation, onCompleteParams:[7]})
+			.add([
+				TweenMax.from('.scene.garden .title-time', 0.5, {delay: 0.5, opacity: 0}),
+				TweenMax.from('.scene.garden .btn-pub', 0.5, {delay: 0.5, opacity: 0})
+			])
+			.from('.scene.garden .wilma', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.garden .wally', 0.5, {delay: 0.5, opacity: 0});
+			
+		var sceneGarden = new ScrollMagic.Scene({
+			triggerElement: ".scene.garden",
+			triggerHook: 'onLeave'
+		})
+		.setTween(gardenAnimation)
+		.addTo(controller);
+		sceneData[7].animation = gardenAnimation;
+
+
+
+		/* scene : ending */
+		var endingAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[8], onComplete:finishAnimation, onCompleteParams:[8]})
+			.from('.scene.ending .title-time', 0.5, {opacity: 0})
+			.from('.scene.ending .people', 0.5, {delay: 1, opacity: 0, x: -30})
+			.from('.scene.ending .txt01', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.ending .txt02', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.ending .txt03', 1, {delay: 1, opacity: 0});
+
+		var sceneEnding = new ScrollMagic.Scene({
+			triggerElement: ".scene.garden",
+			triggerHook: 'onLeave'
+		})
+		.setTween(endingAnimation)
+		.addTo(controller);
+		sceneData[8].animation = endingAnimation;
+
+
+		// start
+		sceneData[_currentScene].animation.restart();
+		Navigation.updateAnchor(sceneData[_currentScene].id);
 	}
 
+
+
+
+
+
+	function initEvent() {
+		/* home - start */
+		$('.scene.home .btn-start').on('click', function(e) {
+			e.preventDefault();
+			next();
+		});
+
+
+		/* wheel event */
+		var lethargy = new Lethargy();
+		$(window).bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e, delta){
+			if( !isOpenPopup ) {
+				var scene = sceneData[_currentScene];
+
+				var launchTop = $('#launch').offset().top;
+				var launchHeight = $('#launch').height();
+
+				var exzoneTop = $('#exzone').offset().top;
+				var exzoneHeight = $('#exzone').height();
+
+				var windowTop = $(window).scrollTop();
+
+
+				results = lethargy.check(e);
+				if( launchTop <= windowTop && windowTop < launchTop+launchHeight ) {
+					// 런치
+					if( windowTop < launchTop+(_viewHeight*0.9) ) {
+						// console.log("런치 top");
+						if( delta !== undefined ) {
+							if( delta > 0 ) {
+								prev();
+							}
+						}
+					} else if( windowTop > launchTop+launchHeight-(_viewHeight*0.95) ) {
+						// console.log("런치 bottom");
+						if( delta !== undefined ) {
+							e.preventDefault();
+							e.stopPropagation();
+							if( delta < 0 ) {
+								next();
+							}
+						}
+					}
+
+				
+				} else if( exzoneTop <= windowTop && windowTop < exzoneTop+exzoneHeight ) {
+					// 체험존
+					if( windowTop < exzoneTop+(_viewHeight*0.9) ) {
+						// console.log("체험존 top");
+						if( delta !== undefined ) {
+							if( delta > 0 ) {
+								prev();
+							}
+						}
+					} else if( windowTop > exzoneTop+exzoneHeight-(_viewHeight*0.95) ) {
+						// console.log("체험존 bottom");
+						if( delta !== undefined ) {
+							e.preventDefault();
+							e.stopPropagation();
+							if( delta < 0 ) {
+								next();
+							}
+						}
+					}
+				} else {
+					e.preventDefault();
+					e.stopPropagation();
+/*
+					if( delta !== undefined ) {
+						if( delta > 0 ) {
+							prev();
+						} else {
+							next();
+						}
+					}
+*/
+					if( results !== false ) {
+						if( results < 0 ) {
+							next();
+						} else {
+							prev();
+						}
+					}
+
+				}
+
+			}
+		});
+
+
+		$(window).bind('resize', function(){
+			_viewHeight = $(window).height();
+			controller.update(true);
+
+			controller.scrollTo(sceneData[_currentScene].id);
+		});
+
+
+		$(window).on('beforeunload', function() {
+			$(window).scrollTop(0);
+
+		});
+
+	}
+
+
+
+
+
 	/* time layer */
-	function timeLayerAnimation(scene, callback) {
+	function timeLayerAnimation(scene) {
 		var now = scene.timeLayer.target + " .now";
 		var nowTxt = scene.timeLayer.target + " .now-txt";
 		var bgc = scene.timeLayer.bgColor;
 
 		/* scene : time layer */
-		var timeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["T"], onComplete:function () {
-			callback();
-		}})
+		var timeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["T"], onComplete:finishAnimation, onCompleteParams:["T"]})
 			.set('.time-layer', {css: {zIndex:2000}})
 			.set('.time-layer', {backgroundColor: bgc})
 			.to('.time-layer', 0.5, {delay: 0, opacity: 1})
@@ -570,42 +604,367 @@ var Scene = (function ($) {
 			.add([
 				TweenMax.to(now, 0.1, {opacity: 0}),
 				TweenMax.to(nowTxt, 0.1, {opacity: 0})
-			])
-			.set('.time-layer', {css: {zIndex:-1}});
+			]);
 	}
 
 
 	function startAnimation(fromValue) {
-		console.log("startAnimation");
-		if( fromValue == "market" ) {
+		console.log("fromValue : " + fromValue + ", _currentScene : " + _currentScene);
+		if( fromValue == "T" ) {
+			console.log('[start TimeLayer] : ' + _currentScene);
+			_isAnimating = true;
+		} else if( fromValue != _currentScene ) {
+			console.log("not this screen");
+			return;
+		}
+
+		_isAnimating = true;
+		console.log('[startAnimation] : ' + _currentScene);
+
+
+		if( fromValue != 5 ) {
 			RollingBG.stopMarket();
 		}
-		if( fromValue == "garden" ) {
+
+		if( fromValue != 7 ) {
 			RollingBG.stopGarden();
 		}
+
+		// scene - home
+		if( fromValue === 0 ) {
+			Navigation.updateAnchor(sceneData[0].id);
+		}
+
+		// scene - arrived outlet
+		if( fromValue == 2 ) {
+			sceneData[1].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[2].id);
+		}
+
+		// scene - brand
+		if( fromValue == 3 ) {
+			sceneData[2].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[3].id);
+		}
+
+		// scene - launch
+		if( fromValue == 4 ) {
+			sceneData[3].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[4].id);
+		}
+
+		// scene - market rolling bg
+		if( fromValue == 5 ) {
+			Navigation.updateAnchor(sceneData[5].id);
+		}
+
+		// scene - ex zone
+		if( fromValue == 6 ) {
+			sceneData[5].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[6].id);
+		}
+
+		// scene - garden rolling bg
+		if( fromValue == 7 ) {
+			Navigation.updateAnchor(sceneData[7].id);
+		}
+
+		// scene - end
+		if( fromValue == 8 ) {
+			sceneData[7].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[8].id);
+		}
+
 	}
 
 	function finishAnimation(fromValue) {
-		console.log("finishAnimation");
+		console.log("fromValue : " + fromValue + ", _currentScene : " + _currentScene);
 
-		if( fromValue == "brand" ) {
-			Brand.init();
+		if( fromValue == "T" ) {
+			_isAnimating = false;
+
+			TweenMax.set('.time-layer', {css: {zIndex:-1}});
+			next(true);
+			console.log('[finish Timelayer] : ' + _currentScene);
+			return;
+		} else if( fromValue != _currentScene ) {
+			console.log("not this screen");
+			return;
 		}
 
-		if( fromValue == "market" ) {
+		_isAnimating = false;
+		console.log('[finishAnimation] : ' + _currentScene);
+
+		// scene - after motion
+		if( _currentScene == 1 ) {
+			TweenMax.set('.time-layer', {css: {zIndex:-1}});
+			next();
+		}
+
+		// scene - outlet
+		if( fromValue == 2 ) {
+			sceneData[1].animation.pause(0, true);
+			TweenMax.set('.scene.home .moon', {opacity: 0, y: -99999});
+			TweenMax.set('.scene.home .title', {opacity: 0, y: -99999});
+			TweenMax.set('.scene.home .description', {opacity: 0, y: -99999});
+			TweenMax.set('.scene.home .wally', {opacity: 0, y: -99999});
+			TweenMax.set('.scene.home .btn-start', {opacity: 0, y: -99999});
+		}
+
+		// scene - brand
+		if( fromValue == 3 ) {
+			sceneData[2].animation.pause(0, true);
+		}
+
+		// scene - ex zone
+		if( fromValue == 4 ) {
+			sceneData[3].animation.pause(0, true);
+		}
+
+		// scene - market rolling bg
+		if( fromValue == 5 ) {
 			RollingBG.rollingMarket();
 		}
-		if( fromValue == "garden" ) {
+
+		// scene - ex zone
+		if( fromValue == 6 ) {
+			sceneData[5].animation.pause(0, true);
+		}
+
+		// scene - garden rolling bg
+		if( fromValue == 7 ) {
 			RollingBG.rollingGarden();
+		}
+
+		// scene - end
+		if( fromValue == 8 ) {
+			sceneData[7].animation.pause(0, true);
 		}
 	}
 
+	/* animationScene */
+	function animationScene(animation) {
+		animation.restart();
+	}
+
+
+
+
+	/* next Scene */
+	function next(afterTimeLayer) {
+		if( _isAnimating ) {
+			console.log("======== Cancel NEXT");
+			return;
+		}
+
+		var scene = sceneData[_currentScene];
+		var nextScene = sceneData[_currentScene+1];
+		if( nextScene === undefined ) return;
+
+		console.log('[next] currentScene [' + _currentScene + ']');
+		console.log(scene);
+
+
+		if( !afterTimeLayer && scene.hasOwnProperty('timeLayer') ) {
+			console.log("afterTimeLayer : " + afterTimeLayer);
+			timeLayerAnimation(scene);
+		} else {
+			if( scene.scroll == "auto" ) {
+				console.log("scene.scroll : auto");
+
+
+				var index = _currentScene-1 < 0 ? 1 : _currentScene;
+				var fix01 = 0;
+				var fix02 = 0;
+				if( _currentScene > 4 ) {
+					index = index - 1;
+					fix01 = 4230;
+				}
+				if( _currentScene > 6 ) {
+					index = index - 1;
+					fix02 = 4230;
+				}
+				var calcposy = index * _viewHeight + fix01 + fix02;
+
+
+				TweenMax.to(window, 1.2, {onStart: function() {
+					console.log("[" + index + "] scroll position top : " + calcposy);
+					_isAnimating = true;
+					console.log("start Auto Scroll : " + _currentScene);
+				}, scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
+
+					console.log('finish Auto Scroll : ' + _currentScene);
+
+					if( nextScene.animation === null ) {
+						sceneData[_currentScene].animation.pause(0, true);
+						Navigation.updateAnchor(sceneData[_currentScene+1].id);
+						_isAnimating = false;
+					} else {
+						animationScene(nextScene.animation);
+					}
+					_currentScene++;
+				}});
+			} else if( scene.scroll == "direct" ) {
+				console.log("scene.scroll : direct");
+
+				_isAnimating = true;
+				animationScene(nextScene.animation);
+				_currentScene++;
+
+
+			} else if( scene.scroll == "launch" ) {
+				// launch
+				console.log("scene.scroll : launch");
+
+				var calcposy_launch = 3 * _viewHeight + 4230;
+
+				console.log("scroll position top : " + calcposy_launch);
+
+				_isAnimating = true;
+				console.log("start Launch Scroll : " + _currentScene);
+				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy_launch}, ease:Quad.easeInOut, onComplete: function() {
+
+					console.log('finish Launch Scroll : ' + _currentScene);
+					if( nextScene.animation === null ) {
+						_isAnimating = false;
+					} else {
+						animationScene(nextScene.animation);
+					}
+					_currentScene++;
+				}});
+
+
+			} else if( scene.scroll == "exzone" ) {
+				// exzone
+				console.log("scene.scroll : exzone");
+
+				var calcposy_exzone = 4 * _viewHeight + (4230*2);
+
+				console.log("scroll position top : " + calcposy_exzone);
+
+				_isAnimating = true;
+				console.log("start exzone Scroll : " + _currentScene);
+				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy_exzone}, ease:Quad.easeInOut, onComplete: function() {
+
+					console.log('finish exzone Scroll : ' + _currentScene);
+					if( nextScene.animation === null ) {
+						_isAnimating = false;
+					} else {
+						animationScene(nextScene.animation);
+					}
+					_currentScene++;
+				}});
+			}
+		}
+
+
+	}
+
+	/* prev Scene */
+	function prev() {
+		if( _isAnimating ) {
+			console.log("======== Cancel PREV");
+			return;
+		}
+
+		var scene = sceneData[_currentScene];
+		
+		var prevScene = sceneData[_currentScene-1];
+		if( _currentScene === 2 ) {
+			prevScene = sceneData[_currentScene-2];
+		}
+		if( prevScene === undefined ) return;
+
+
+		var index = _currentScene <= 2 ? 0 : _currentScene-2;
+		var fix01 = 0;
+		var fix02 = 0;
+		if( _currentScene >= 6 ) {
+			index--;
+			fix01 = 4230;
+		}
+		if( _currentScene >= 8 ) {
+			index--;
+			fix02 = 4230;
+		}
+		var calcposy = index * _viewHeight + fix01 + fix02;
+
+
+		if( scene.upScroll == "launch" ) {
+			console.log("scene.upScroll : launch");
+			calcposy = parseInt(2*_viewHeight) + 4230 - 100;
+		}
+			
+		if( scene.upScroll == "exzone" ) {
+			console.log("scene.upScroll : exzone");
+			calcposy = parseInt(3*_viewHeight) + (4230*2) - 100;
+		}
+			
+		TweenMax.to(window, 1.2, {onStart: function() {
+			console.log('index : ' + index + ", calcposy : " + calcposy);
+			// _isAnimating = true;
+		}, scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
+			if( scene.upScroll == "launch" ) {
+				Navigation.updateAnchor(sceneData[4].id);
+			}
+
+			if( scene.upScroll == "exzone" ) {
+				Navigation.updateAnchor(sceneData[6].id);
+			}
+
+			if( prevScene.animation === null ) {
+				// _isAnimating = false;
+			} else {
+				animationScene(prevScene.animation);
+			}
+			if( _currentScene === 2 ) {
+				_currentScene = _currentScene - 2;
+			} else {
+				_currentScene = _currentScene - 1;
+			}
+		}});
+	}
+
+
+	function _updateCurrentScene(uid) {
+		var current = null;
+
+		if( sceneData[_currentScene] !== null && sceneData[_currentScene].hasOwnProperty("animation") && sceneData[_currentScene].animation !== null ) {
+			sceneData[_currentScene].animation.pause(0, true);
+		}
+
+		for( var i=0; i<sceneData.length; i++ ) {
+			var scene = sceneData[i];
+			if( scene.id == uid ) {
+				current = scene;
+				_currentScene = i;
+			}
+		}
+
+		console.log("[_updateCurrentScene] : " + current);
+		if( current !== null && current.hasOwnProperty("animation") && current.animation !== null ) {
+			animationScene(current.animation);
+		}
+	}
+
+	function _moveCurrentScene() {
+		controller.scrollTo(sceneData[_currentScene].id);
+	}
 
 	return {
 		init: function () {
 			scope = this;
 
 			init();
+		},
+		getIsAnimating: function() {
+			return _isAnimating;
+		},
+		updateCurrentScene: function(uid) {
+			_updateCurrentScene(uid);
+		},
+		moveCurrentScene: function() {
+			_moveCurrentScene();
 		}
 	};
 }(jQuery));
@@ -634,22 +993,28 @@ var Brand = (function ($) {
 
 	function initEvent() {
 		$brandContainer.on('mouseenter', function(e) {
+			if( Scene.getIsAnimating() ) return;
 			TweenMax.to('.scene.brand .btn > span', 0.5, {opacity: 0});
 		});
 
 		$brandContainer.on('mouseleave', function(e) {
+			if( Scene.getIsAnimating() ) return;
 			TweenMax.to('.scene.brand .btn > span', 0.5, {delay: 0.5, opacity: 1});
 		});
 
 
 		/* menus */
 		$btns.on('mouseenter', function(e) {
+			if( Scene.getIsAnimating() ) return;
+
 			var $targetBG = $($(this).data('target'));
 			TweenMax.to($targetBG, 0.5, {opacity: 1});
 			TweenMax.to('.scene.brand .btn > span', 0.5, {opacity: 0});
 		});
 
 		$btns.on('mouseleave', function(e) {
+			if( Scene.getIsAnimating() ) return;
+
 			var $targetBG = $($(this).data('target'));
 			TweenMax.to($targetBG, 0.5, {delay: 0.5, opacity: 0});
 		});
@@ -868,7 +1233,6 @@ var Popup = (function ($) {
 
 				$popupContent.html('');
 				isOpenPopup = false;
-				smartscroll.bindScroll();
 				$('body').removeClass('o-hidden');
 			});
 		}
@@ -879,8 +1243,6 @@ var Popup = (function ($) {
 
 			isOpenPopup = true;
 			$('body').addClass('o-hidden');
-
-			smartscroll.unbindScroll();
 
 			$popupContent.html('<img src="' + $(this).attr('href') + '" alit=""/>');
 			$popupContainer.toggle();

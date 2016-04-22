@@ -17,7 +17,8 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 
 body {
   position: relative;
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
   font-size: 100%;
   line-height: 1em;
   font-family: sans-serif;
@@ -27,9 +28,6 @@ body {
 
 header, h1 {
   font-size: 100%; }
-
-html, body {
-  height: 100%; }
 
 caption, legend {
   position: absolute;
@@ -197,7 +195,6 @@ The `sprites` mixin generates identical output to the CSS template
 .scene {
   display: block;
   position: relative;
-  box-sizing: border-box;
   height: 100vh; }
   .scene .title-time {
     display: block;
@@ -1077,6 +1074,7 @@ The `sprites` mixin generates identical output to the CSS template
   height: 433px; }
 .scene.garden .slick-slider {
   display: block;
+  overflow: hidden;
   position: absolute;
   top: 0;
   right: 0;
@@ -1488,6 +1486,7 @@ button:focus {
           background-color: #000; }
         .menus .list-indicators > li > a:hover span {
           display: block;
+          z-index: 1;
           opacity: 1; }
         .menus .list-indicators > li > a span {
           pointer-events: none;
