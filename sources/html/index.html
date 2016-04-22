@@ -8,105 +8,27 @@
 	<meta name="format-detection" content="telephone=no">
 	<script src="./assets/scripts/libs/jquery-1.11.1.min.js"></script>
 
+	<script src="./assets/scripts/libs/lethargy.min.js"></script>
+	<script src="./assets/scripts/libs/EventEmitter.min.js"></script>
+	<script src="./assets/scripts/smartscroll.js"></script>
+
 	<script src="./assets/scripts/libs/TweenMax.min.js?v=1.18.2"></script>
 	<script src="./assets/scripts/libs/ScrollMagic.js"></script>
 	<script src="./assets/scripts/libs/debug.addIndicators.min.js"></script>
 	<script src="./assets/scripts/libs/animation.gsap.min.js"></script>
 	<script src="./assets/scripts/libs/ScrollToPlugin.min.js"></script>
-	<script src="./assets/scripts/libs/lethargy.min.js"></script>
-	<script src="./assets/scripts/libs/jquery.mousewheel.min.js"></script>
 	<script src="./assets/scripts/libs/slick.min.js"></script>
-	<script src="./assets/scripts/libs/jquery.magnific-popup.min.js"></script>
 
 	<!-- custom -->
 	<script src="./assets/scripts/common.js"></script>
 	<link rel="stylesheet" href="./assets/styles/songdo.css">
 </head>
 <body>
-	<div class="dimmed"></div>
-
-	<div class="menus">
-		<button type="button" class="btn-toggle-menu">
-			<span class="lines"></span>
-		</button>
-		<span class="txt-menu">MENU</span>
-
-		<!-- 오픈 메뉴 -->
-		<nav class="open-menus">
-			<span class="logo">현대백화점 송도아울렛</span>
-			<ul class="list-menus">
-				<li><a href="#home" class="btn-home">홈</a></li>
-				<li><a href="./p_test.html" class="btn-location va-btn-popup">오시는길</a></li>
-				<li><a href="http://www.ehyundai.com/newPortal/outlet/DP/FG/FG000000_V.do?branchCd=B00174000" target="_blank" class="btn-floor">층별안내</a></li>
-				<li><a href="http://www.ehyundai.com/newPortal/card/outlet/OU000001_V.do" target="_blank" class="btn-membership">멤버십</a></li>
-				<!-- <li><a href="#" class="btn-coupon">쿠폰북</a></li> -->
-			</ul>
-
-			<p class="banners" style="display: none;">
-				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Rewards &amp; Gift"></a>
-				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Fever Festival"></a>
-				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Grand Event"></a>
-			</p>
-		</nav>
-
-		<div class="title-area">
-			<h1>
-				<span class="sondgo">현대프리미엄아울렛 송도점</span>
-			</h1>
-		</div>
-
-		<!-- indicators -->
-		<ul class="list-indicators">
-			<li class="long"><a href="#home"><span>여행을 시작해</span></a></li>
-			<li><a href="#arrived"><span>아울렛에 도착 <time>10:30</time></span></a></li>
-			<li><a href="#brand"><span>즐거운 쇼핑타임 <time>11:00</time></span></a></li>
-			<li class="long"><a href="#launch"><span>딜리셔스 타임 <time>13:00</time></span></a></li>
-			<li><a href="#market"><span>프리미엄마켓 <time>15:00</time></span></a></li>
-			<li class="long"><a href="#exzone"><span>색다른 체험 <time>17:00</time></span></a></li>
-			<li><a href="#garden"><span>가든테라스 <time>19:00</time></span></a></li>
-			<li><a href="#ending"><span>마지막 여정 <time>21:00</time></span></a></li>
-		</ul>
-	</div>
 
 
-
-
-	<!-- Time Container -->
-	<div class="scene time-layer">
-		<p class="time time01">
-			<span class="now">10시30분</span>
-			<span class="now-txt">아울렛에 도착</span>
-		</p>
-		<p class="time time02">
-			<span class="now">11시</span>
-			<span class="now-txt">즐거운 쇼핑타임</span>
-		</p>
-		<p class="time time03">
-			<span class="now">13시</span>
-			<span class="now-txt">딜리셔스 런치타임</span>
-		</p>
-		<p class="time time04">
-			<span class="now">15시</span>
-			<span class="now-txt">프리미엄 마켓</span>
-		</p>
-		<p class="time time05">
-			<span class="now">17시</span>
-			<span class="now-txt">색다른 체험</span>
-		</p>
-		<p class="time time06">
-			<span class="now">19시</span>
-			<span class="now-txt">가든 테라스</span>
-		</p>
-		<p class="time time07">
-			<span class="now">21시</span>
-			<span class="now-txt">마지막 여정</span>
-		</p>
-	</div>
-
-
-
+<div class="section-wrapper">
 	<!-- scene1 : home -->
-	<section id="home" class="scene home">
+	<section data-hash="home" class="scene home">
 		<div class="inner">
 			<div class="moon"></div>
 			<div class="wally"></div>
@@ -126,10 +48,8 @@
 	</section>
 
 
-
-
 	<!-- scene3 : outlet -->
-	<section id="arrived" class="scene arrived">
+	<section data-hash="arrived" class="scene arrived">
 		<p id="arrived-title-time" class="title-time">10:30 현대프리미엄아울렛 도착</p>
 
 		<a href="./assets/images/popup/popup_location.jpg" class="btn-location va-btn-popup">오시는 방법 알려드릴께요</a>
@@ -141,9 +61,8 @@
 
 
 
-
 	<!-- scene4 : outlet brand -->
-	<section id="brand" class="scene brand">
+	<section data-hash="brand" class="scene brand">
 		<p id="brand-title-time" class="title-time">11:00 쇼핑타임! 트렌디한 패션 아이템들의 퍼레이드</p>
 		
 		<div class="outlet-brand">
@@ -164,9 +83,8 @@
 	</section>
 
 
-
 	<!-- scene5 : Launch -->
-	<section id="launch" class="scene launch">
+	<section data-hash="launch" class="scene launch">
 		<header class="header">
 			<p>딜리셔스 13:00 런치타임</p>
 		</header>
@@ -228,9 +146,8 @@
 	</section>
 
 
-
 	<!-- scene6 : premium market -->
-	<div id="market" class="scene market">
+	<section data-hash="market" class="scene market">
 		<p id="market-title-time" class="title-time">15:00 장바구니에 담긴 유럽의 일상, 오들로는 너무 많이 담은거 아닌가요?</p>
 		
 		<a href="./assets/images/popup/popup_market.jpg" class="btn-market va-btn-popup">신선하고 다양한 식재료, 프리미엄마켓을 만나세요</a>
@@ -245,11 +162,11 @@
 			<div class="slide-bg bg03"></div>
 			<div class="slide-bg bg04"></div>
 		</div>
-	</div>
+	</section>
 
 
 	<!-- scene7 : ex zone -->
-	<div id="exzone" class="scene exzone">
+	<section data-hash="exzone" class="scene exzone">
 		<header class="header">
 			<p>17:00 색다른 체험</p>
 			<p>다이내믹 쇼퍼테이먼트의 모든 것</p>
@@ -304,11 +221,11 @@
 		<div class="wilma"></div>
 		<div class="woof"></div>
 		<div class="odlaw"></div>
-	</div>
+	</section>
 
 
 	<!-- scene8 : garden terrace -->
-	<div id="garden" class="scene garden">
+	<section data-hash="garden" class="scene garden">
 		<p id="garden-title-time" class="title-time">19:00 유럽의 정취와 아름다운 별자리, 월리와 웬다는 낭만에 푹 빠졌네요.</p>
 		
 		<a href="./assets/images/popup/popup_garden_terrace.jpg" class="btn-pub va-btn-popup">이국적인 레스토랑과 다이닝펍을 확인하세요</a>
@@ -324,13 +241,11 @@
 			<div class="slide-bg bg02"></div>
 			<div class="slide-bg bg03"></div>
 		</div>
-	</div>
-
-
+	</section>
 
 
 	<!-- scene9 : ending -->
-	<div id="ending" class="scene ending">
+	<section id="ending" data-hash="ending" class="scene ending">
 		<p id="ending-title-time" class="title-time">19:00 유럽의 정취와 아름다운 별자리, 월리와 웬다는 낭만에 푹 빠졌네요.</p>
 		
 		<div class="people">
@@ -338,8 +253,87 @@
 			<div class="txt02"></div>
 			<div class="txt03"></div>
 		</div>
+	</section>
+</div>
+
+
+	<div class="dimmed"></div>
+
+	<div class="menus">
+		<button type="button" class="btn-toggle-menu">
+			<span class="lines"></span>
+		</button>
+		<span class="txt-menu">MENU</span>
+
+		<!-- 오픈 메뉴 -->
+		<nav class="open-menus">
+			<span class="logo">현대백화점 송도아울렛</span>
+			<ul class="list-menus">
+				<li><a href="#home" class="btn-home">홈</a></li>
+				<li><a href="./p_test.html" class="btn-location va-btn-popup">오시는길</a></li>
+				<li><a href="http://www.ehyundai.com/newPortal/outlet/DP/FG/FG000000_V.do?branchCd=B00174000" target="_blank" class="btn-floor">층별안내</a></li>
+				<li><a href="http://www.ehyundai.com/newPortal/card/outlet/OU000001_V.do" target="_blank" class="btn-membership">멤버십</a></li>
+				<!-- <li><a href="#" class="btn-coupon">쿠폰북</a></li> -->
+			</ul>
+
+			<p class="banners" style="display: none;">
+				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Rewards &amp; Gift"></a>
+				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Fever Festival"></a>
+				<a href="#"><img src="./assets/images/@temp/banner01.png" alt="Grand Event"></a>
+			</p>
+		</nav>
+
+		<div class="title-area">
+			<h1>
+				<span class="sondgo">현대프리미엄아울렛 송도점</span>
+			</h1>
+		</div>
+
+		<!-- indicators -->
+		<ul class="list-indicators">
+			<li class="long"><a href="#home"><span>여행을 시작해</span></a></li>
+			<li><a href="#arrived"><span>아울렛에 도착 <time>10:30</time></span></a></li>
+			<li><a href="#brand"><span>즐거운 쇼핑타임 <time>11:00</time></span></a></li>
+			<li class="long"><a href="#launch"><span>딜리셔스 타임 <time>13:00</time></span></a></li>
+			<li><a href="#market"><span>프리미엄마켓 <time>15:00</time></span></a></li>
+			<li class="long"><a href="#exzone"><span>색다른 체험 <time>17:00</time></span></a></li>
+			<li><a href="#garden"><span>가든테라스 <time>19:00</time></span></a></li>
+			<li><a href="#ending"><span>마지막 여정 <time>21:00</time></span></a></li>
+		</ul>
 	</div>
 
+
+	<!-- Time Container -->
+	<div class="scene time-layer">
+		<p class="time time01">
+			<span class="now">10시30분</span>
+			<span class="now-txt">아울렛에 도착</span>
+		</p>
+		<p class="time time02">
+			<span class="now">11시</span>
+			<span class="now-txt">즐거운 쇼핑타임</span>
+		</p>
+		<p class="time time03">
+			<span class="now">13시</span>
+			<span class="now-txt">딜리셔스 런치타임</span>
+		</p>
+		<p class="time time04">
+			<span class="now">15시</span>
+			<span class="now-txt">프리미엄 마켓</span>
+		</p>
+		<p class="time time05">
+			<span class="now">17시</span>
+			<span class="now-txt">색다른 체험</span>
+		</p>
+		<p class="time time06">
+			<span class="now">19시</span>
+			<span class="now-txt">가든 테라스</span>
+		</p>
+		<p class="time time07">
+			<span class="now">21시</span>
+			<span class="now-txt">마지막 여정</span>
+		</p>
+	</div>
 
 
 	<aside id="popup" class="popup">
@@ -347,7 +341,6 @@
 		
 		<p class="popup-contents"></p>
 	</aside>
-
 
 
 </body>

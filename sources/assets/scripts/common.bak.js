@@ -34,19 +34,15 @@ if (!window.console) {
 $(document).ready(function (e) {
 	Navigation.init();
 	Scene.init();
-/*
 	Brand.init();
 	ManualScroll.init();
 	Path.init();
 	RollingBG.init();
 	Popup.init();
-*/
 });
 
 
 var isOpenPopup = false;
-var isBeforeAnimating = false;
-var smartscroll;
 var controller = new ScrollMagic.Controller();
 controller.scrollTo(function (newpos) {
 	TweenMax.to(window, 1.2, {scrollTo: {y: newpos}});
@@ -259,7 +255,11 @@ var Scene = (function ($) {
 	var scope,
 		_currentScene,
 		_isAnimating,
+
 		_viewHeight,
+		_sectionHeights,
+		_sectionScrollTop,
+
 		_timeArrivedAnimation,
 		init = function () {
 			_currentScene = 0;
@@ -274,14 +274,13 @@ var Scene = (function ($) {
 
 	function initLayout() {
 		_viewHeight = $(window).height();
-		Path.init();
 	}
 
 
 
 	function initMotion() {
 		/* scene : home */
-		var homeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:[0]})
+		var homeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[0]})
 			.from('.scene.home .moon', 0.5, {delay: 1, opacity: 0, y: -30})
 			.from('.scene.home .title', 0.5, {opacity: 0, y: 30})
 			.from('.scene.home .description', 0.5, {opacity: 0, y: 30})
@@ -295,7 +294,6 @@ var Scene = (function ($) {
 
 
 		/* scene : after home */
-/*
 		var afterHomeAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[1], onComplete:finishAnimation, onCompleteParams:[1]})
 			.to('.scene.home .btn-start', 0.5, {opacity: 0})
 			.add([
@@ -325,12 +323,11 @@ var Scene = (function ($) {
 			])
 			.set('.time-layer', {css: {zIndex:-1}});
 		sceneData[1].animation = afterHomeAnimation;
-*/
 
 
 
 		/* scene : arrived outlet */
-		var arrivedAnimation = new TimelineMax({onStart:startAnimation, onStartParams:[2], onComplete:finishAnimation, onCompleteParams:[2]})
+		var arrivedAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[2], onComplete:finishAnimation, onCompleteParams:[2]})
 			.add([
 				TweenMax.from('.scene.arrived .title-time', 0.5, {delay: 0.5, opacity: 0}),
 				TweenMax.from('.scene.arrived .btn-location', 0.5, {delay: 0.5, opacity: 0})
@@ -348,7 +345,7 @@ var Scene = (function ($) {
 
 
 		/* scene : outlet brand */
-		var brandAnimation = new TimelineMax({onStart:startAnimation, onStartParams:[3]})
+		var brandAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[3]})
 			.set('.scene.brand .btn', {display: "none"})
 			.from('.scene.brand .title-time', 0.5, {delay: 1.2, opacity: 0})
 			.set('.scene.brand .btn.luxury', {display: "block"})
@@ -387,7 +384,7 @@ var Scene = (function ($) {
 
 
 		/* scene : premium market */
-		var marketAnimation = new TimelineMax({onStart:startAnimation, onStartParams:[5], onComplete:finishAnimation, onCompleteParams:[5]})
+		var marketAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[5], onComplete:finishAnimation, onCompleteParams:[5]})
 			.add([
 				TweenMax.from('.scene.market .title-time', 0.5, {delay: 0.5, opacity: 0}),
 				TweenMax.from('.scene.market .btn-market', 0.5, {delay: 0.5, opacity: 0})
@@ -412,8 +409,7 @@ var Scene = (function ($) {
 			.to('#dashsvg path#e1', 20, {strokeDashoffset: 0, ease:Linear.easeNone});
 		sceneExzone = new ScrollMagic.Scene({
 			triggerElement: ".scene.exzone",
-			// duration: "3424px",
-			duration: "3024px",
+			duration: "3424px",
 			offset: 800
 		})
 		.setTween(exAnimation)
@@ -435,7 +431,7 @@ var Scene = (function ($) {
 		.setTween(parassolAnimation)
 		.addTo(controller);
 
-		var gardenAnimation = new TimelineMax({onStart:startAnimation, onStartParams:[7], onComplete:finishAnimation, onCompleteParams:[7]})
+		var gardenAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[7], onComplete:finishAnimation, onCompleteParams:[7]})
 			.add([
 				TweenMax.from('.scene.garden .title-time', 0.5, {delay: 0.5, opacity: 0}),
 				TweenMax.from('.scene.garden .btn-pub', 0.5, {delay: 0.5, opacity: 0})
@@ -454,7 +450,7 @@ var Scene = (function ($) {
 
 
 		/* scene : ending */
-		var endingAnimation = new TimelineMax({onStart:startAnimation, onStartParams:[8], onComplete:finishAnimation, onCompleteParams:[8]})
+		var endingAnimation = new TimelineMax({paused: true, onStart:startAnimation, onStartParams:[8], onComplete:finishAnimation, onCompleteParams:[8]})
 			.from('.scene.ending .title-time', 0.5, {opacity: 0})
 			.from('.scene.ending .people', 0.5, {delay: 1, opacity: 0, x: -30})
 			.from('.scene.ending .txt01', 0.5, {delay: 1, opacity: 0})
@@ -481,35 +477,95 @@ var Scene = (function ($) {
 
 
 	function initEvent() {
-		var ee = new EventEmitter();
-		var scrollOptions = {
-			mode: "set",
-			autoHash: true,
-			sectionScroll: true,
-			initialScroll: false,
-			keepHistory: false,
-			sectionWrapperSelector: ".section-wrapper",
-			sectionClass: "scene",
-			sectionSelector: '.scene',
-			animationSpeed: 1200,
-		    headerHash: "home",
-			breakpoint: null,
-			eventEmitter: ee,
-			dynamicHeight: false
-		};
-
-		ee.addListener('scrollDonwBefore', scrollDownBeforeListener);
-		ee.addListener('scrollStart', scrollStartListener);
-		ee.addListener('scrollEnd', scrollEndListener);
-
-		smartscroll = $.smartscroll(scrollOptions);	
-
 		/* home - start */
 		$('.scene.home .btn-start').on('click', function(e) {
 			e.preventDefault();
+			next();
 		});
 
+
+		/* wheel event */
+		var lethargy = new Lethargy();
+		$(window).bind('mousewheel DOMMouseScroll wheel MozMousePixelScroll',function(e, delta){
+			if( !isOpenPopup ) {
+				var scene = sceneData[_currentScene];
+
+				var launchTop = $('#launch').offset().top;
+				var launchHeight = $('#launch').height();
+
+				var exzoneTop = $('#exzone').offset().top;
+				var exzoneHeight = $('#exzone').height();
+
+				var windowTop = $(window).scrollTop();
+
+
+				results = lethargy.check(e);
+				if( launchTop <= windowTop && windowTop < launchTop+launchHeight ) {
+					// 런치
+					if( windowTop < launchTop+(_viewHeight*0.9) ) {
+						// console.log("런치 top");
+						if( delta !== undefined ) {
+							if( delta > 0 ) {
+								prev();
+							}
+						}
+					} else if( windowTop > launchTop+launchHeight-(_viewHeight*0.95) ) {
+						// console.log("런치 bottom");
+						if( delta !== undefined ) {
+							e.preventDefault();
+							e.stopPropagation();
+							if( delta < 0 ) {
+								next();
+							}
+						}
+					}
+
+				
+				} else if( exzoneTop <= windowTop && windowTop < exzoneTop+exzoneHeight ) {
+					// 체험존
+					if( windowTop < exzoneTop+(_viewHeight*0.9) ) {
+						// console.log("체험존 top");
+						if( delta !== undefined ) {
+							if( delta > 0 ) {
+								prev();
+							}
+						}
+					} else if( windowTop > exzoneTop+exzoneHeight-(_viewHeight*0.95) ) {
+						// console.log("체험존 bottom");
+						if( delta !== undefined ) {
+							e.preventDefault();
+							e.stopPropagation();
+							if( delta < 0 ) {
+								next();
+							}
+						}
+					}
+				} else {
+					e.preventDefault();
+					e.stopPropagation();
 /*
+					if( delta !== undefined ) {
+						if( delta > 0 ) {
+							prev();
+						} else {
+							next();
+						}
+					}
+*/
+					if( results !== false ) {
+						if( results < 0 ) {
+							next();
+						} else {
+							prev();
+						}
+					}
+
+				}
+
+			}
+		});
+
+
 		$(window).bind('resize', function(){
 			_viewHeight = $(window).height();
 			controller.update(true);
@@ -520,81 +576,23 @@ var Scene = (function ($) {
 
 		$(window).on('beforeunload', function() {
 			$(window).scrollTop(0);
+
 		});
-*/
+
 	}
 
 
 
-	function scrollDownBeforeListener(slideNumber, callback) {
-		if( isBeforeAnimating ) return;
-		var index = slideNumber - 1;
-		var scene = sceneData[index];
-
-		if( index == 1 ) {
-			var afterHomeAnimation = new TimelineMax({onStart:function() {
-				isBeforeAnimating = true;
-			}, onComplete:function() {
-				callback();
-				isBeforeAnimating = false;
-			}})
-				.to('.scene.home .btn-start', 0.5, {opacity: 0})
-				.add([
-					TweenMax.to('.scene.home .moon, .scene.home .wally, .scene.home .title, .scene.home .description', 0.5, {opacity: 0, y: -60}),
-					TweenMax.to('.scene.home .inner', 1, {css: {backgroundPosition: "0px -30px", opacity: 0}}),
-					TweenMax.to('.scene.home .dark-city', 4, {y: "-200%"}),
-					TweenMax.to('.scene.home .empirebuilding', 3.5, {delay: 0.3, y: "-200%"}),
-					TweenMax.to('.scene.home .cloud-big', 4, {delay: 1.3, y: "-200%"}),
-					TweenMax.to('.scene.home .mountain', 4 , {delay: 1.8, y: "-170%"}),
-					TweenMax.to('.scene.home .sea', 2, {delay: 2.1, y: "-100%"}),
-					TweenMax.to('.scene.home .day-building', 2, {delay: 2, y: "-100%"}),
-					TweenMax.to('.scene.home .day-building', 2, {delay: 4, y: "-115%"}),
-					TweenMax.to('.scene.home .outlet', 3, {delay: 3, y: "-100%"}),
-					TweenMax.to('.scene.home', 6, {})
-				])
-				.set('.time-layer', {css: {zIndex:2000}})
-				.set('.time-layer', {backgroundColor: 'rgba(43, 49, 110, 0.8)'})
-				.to('.time-layer', 0.5, {delay: 1.5, opacity: 1})
-				.add([
-					TweenMax.fromTo('.time01 .now', 0.3, {y: 30}, {opacity: 1, y: 0}),
-					TweenMax.fromTo('.time01 .now-txt', 0.3, {y: 30}, {delay: 0.2, opacity: 1, y:0})
-				])
-				.to('.time-layer', 0.5, {delay: 1.5, opacity: 0})
-				.add([
-					TweenMax.to('.time01 .now', 0.1, {opacity: 0}),
-					TweenMax.to('.time01 .now-txt', 0.1, {opacity: 0})
-				])
-				.set('.time-layer', {css: {zIndex:-1}});
-		}
-
-		if( scene.hasOwnProperty('timeLayer') ) {
-			isBeforeAnimating = true;
-			timeLayerAnimation(scene, function() {
-				callback();
-				isBeforeAnimating = false;
-			});
-		}
-	}
-
-	function scrollStartListener(slideNumber) {
-		console.log("Scrolling to " + slideNumber);
-	}
-
-	function scrollEndListener() {
-		console.log("Scrolling End");
-	}
 
 
 	/* time layer */
-	function timeLayerAnimation(scene, callback) {
+	function timeLayerAnimation(scene) {
 		var now = scene.timeLayer.target + " .now";
 		var nowTxt = scene.timeLayer.target + " .now-txt";
 		var bgc = scene.timeLayer.bgColor;
 
 		/* scene : time layer */
-		var timeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["T"], onComplete:function () {
-			callback();
-		}})
+		var timeAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["T"], onComplete:finishAnimation, onCompleteParams:["T"]})
 			.set('.time-layer', {css: {zIndex:2000}})
 			.set('.time-layer', {backgroundColor: bgc})
 			.to('.time-layer', 0.5, {delay: 0, opacity: 1})
@@ -611,11 +609,137 @@ var Scene = (function ($) {
 
 
 	function startAnimation(fromValue) {
-		console.log("startAnimation");
+		console.log("fromValue : " + fromValue + ", _currentScene : " + _currentScene);
+		if( fromValue == "T" ) {
+			console.log('[start TimeLayer] : ' + _currentScene);
+			_isAnimating = true;
+		} else if( fromValue != _currentScene ) {
+			console.log("not this screen");
+			return;
+		}
+
+		_isAnimating = true;
+		console.log('[startAnimation] : ' + _currentScene);
+
+
+		if( fromValue != 5 ) {
+			RollingBG.stopMarket();
+		}
+
+		if( fromValue != 7 ) {
+			RollingBG.stopGarden();
+		}
+
+		// scene - home
+		if( fromValue === 0 ) {
+			Navigation.updateAnchor(sceneData[0].id);
+		}
+
+		// scene - arrived outlet
+		if( fromValue == 2 ) {
+			sceneData[1].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[2].id);
+		}
+
+		// scene - brand
+		if( fromValue == 3 ) {
+			sceneData[2].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[3].id);
+		}
+
+		// scene - launch
+		if( fromValue == 4 ) {
+			sceneData[3].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[4].id);
+		}
+
+		// scene - market rolling bg
+		if( fromValue == 5 ) {
+			Navigation.updateAnchor(sceneData[5].id);
+		}
+
+		// scene - ex zone
+		if( fromValue == 6 ) {
+			sceneData[5].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[6].id);
+		}
+
+		// scene - garden rolling bg
+		if( fromValue == 7 ) {
+			Navigation.updateAnchor(sceneData[7].id);
+		}
+
+		// scene - end
+		if( fromValue == 8 ) {
+			sceneData[7].animation.pause(0, true);
+			Navigation.updateAnchor(sceneData[8].id);
+		}
+
 	}
 
 	function finishAnimation(fromValue) {
-		console.log("finishAnimation");
+		console.log("fromValue : " + fromValue + ", _currentScene : " + _currentScene);
+
+		if( fromValue == "T" ) {
+			_isAnimating = false;
+
+			TweenMax.set('.time-layer', {css: {zIndex:-1}});
+			next(true);
+			console.log('[finish Timelayer] : ' + _currentScene);
+			return;
+		} else if( fromValue != _currentScene ) {
+			console.log("not this screen");
+			return;
+		}
+
+		_isAnimating = false;
+		console.log('[finishAnimation] : ' + _currentScene);
+
+		// scene - after motion
+		if( _currentScene == 1 ) {
+			TweenMax.set('.time-layer', {css: {zIndex:-1}});
+			next();
+		}
+
+		// scene - outlet
+		if( fromValue == 2 ) {
+			sceneData[1].animation.pause(0, true);
+			TweenMax.set('.scene.home .moon', {opacity: 0, y: -99999});
+			TweenMax.set('.scene.home .title', {opacity: 0, y: -99999});
+			TweenMax.set('.scene.home .description', {opacity: 0, y: -99999});
+			TweenMax.set('.scene.home .wally', {opacity: 0, y: -99999});
+			TweenMax.set('.scene.home .btn-start', {opacity: 0, y: -99999});
+		}
+
+		// scene - brand
+		if( fromValue == 3 ) {
+			sceneData[2].animation.pause(0, true);
+		}
+
+		// scene - ex zone
+		if( fromValue == 4 ) {
+			sceneData[3].animation.pause(0, true);
+		}
+
+		// scene - market rolling bg
+		if( fromValue == 5 ) {
+			RollingBG.rollingMarket();
+		}
+
+		// scene - ex zone
+		if( fromValue == 6 ) {
+			sceneData[5].animation.pause(0, true);
+		}
+
+		// scene - garden rolling bg
+		if( fromValue == 7 ) {
+			RollingBG.rollingGarden();
+		}
+
+		// scene - end
+		if( fromValue == 8 ) {
+			sceneData[7].animation.pause(0, true);
+		}
 	}
 
 	/* animationScene */
@@ -625,6 +749,181 @@ var Scene = (function ($) {
 
 
 
+
+	/* next Scene */
+	function next(afterTimeLayer) {
+		if( _isAnimating ) {
+			console.log("======== Cancel NEXT");
+			return;
+		}
+
+		var scene = sceneData[_currentScene];
+		var nextScene = sceneData[_currentScene+1];
+		if( nextScene === undefined ) return;
+
+		console.log('[next] currentScene [' + _currentScene + ']');
+		console.log(scene);
+
+
+		if( !afterTimeLayer && scene.hasOwnProperty('timeLayer') ) {
+			console.log("afterTimeLayer : " + afterTimeLayer);
+			timeLayerAnimation(scene);
+		} else {
+			if( scene.scroll == "auto" ) {
+				console.log("scene.scroll : auto");
+
+
+				var index = _currentScene-1 < 0 ? 1 : _currentScene;
+				var fix01 = 0;
+				var fix02 = 0;
+				if( _currentScene > 4 ) {
+					index = index - 1;
+					fix01 = 4230;
+				}
+				if( _currentScene > 6 ) {
+					index = index - 1;
+					fix02 = 4230;
+				}
+				var calcposy = index * _viewHeight + fix01 + fix02;
+
+
+				TweenMax.to(window, 1.2, {onStart: function() {
+					console.log("[" + index + "] scroll position top : " + calcposy);
+					_isAnimating = true;
+					console.log("start Auto Scroll : " + _currentScene);
+				}, scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
+
+					console.log('finish Auto Scroll : ' + _currentScene);
+
+					if( nextScene.animation === null ) {
+						sceneData[_currentScene].animation.pause(0, true);
+						Navigation.updateAnchor(sceneData[_currentScene+1].id);
+						_isAnimating = false;
+					} else {
+						animationScene(nextScene.animation);
+					}
+					_currentScene++;
+				}});
+			} else if( scene.scroll == "direct" ) {
+				console.log("scene.scroll : direct");
+
+				_isAnimating = true;
+				animationScene(nextScene.animation);
+				_currentScene++;
+
+
+			} else if( scene.scroll == "launch" ) {
+				// launch
+				console.log("scene.scroll : launch");
+
+				var calcposy_launch = 3 * _viewHeight + 4230;
+
+				console.log("scroll position top : " + calcposy_launch);
+
+				_isAnimating = true;
+				console.log("start Launch Scroll : " + _currentScene);
+				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy_launch}, ease:Quad.easeInOut, onComplete: function() {
+
+					console.log('finish Launch Scroll : ' + _currentScene);
+					if( nextScene.animation === null ) {
+						_isAnimating = false;
+					} else {
+						animationScene(nextScene.animation);
+					}
+					_currentScene++;
+				}});
+
+
+			} else if( scene.scroll == "exzone" ) {
+				// exzone
+				console.log("scene.scroll : exzone");
+
+				var calcposy_exzone = 4 * _viewHeight + (4230*2);
+
+				console.log("scroll position top : " + calcposy_exzone);
+
+				_isAnimating = true;
+				console.log("start exzone Scroll : " + _currentScene);
+				TweenMax.to(window, 1.2, {scrollTo:{y:calcposy_exzone}, ease:Quad.easeInOut, onComplete: function() {
+
+					console.log('finish exzone Scroll : ' + _currentScene);
+					if( nextScene.animation === null ) {
+						_isAnimating = false;
+					} else {
+						animationScene(nextScene.animation);
+					}
+					_currentScene++;
+				}});
+			}
+		}
+
+
+	}
+
+	/* prev Scene */
+	function prev() {
+		if( _isAnimating ) {
+			console.log("======== Cancel PREV");
+			return;
+		}
+
+		var scene = sceneData[_currentScene];
+		
+		var prevScene = sceneData[_currentScene-1];
+		if( _currentScene === 2 ) {
+			prevScene = sceneData[_currentScene-2];
+		}
+		if( prevScene === undefined ) return;
+
+
+		var index = _currentScene <= 2 ? 0 : _currentScene-2;
+		var fix01 = 0;
+		var fix02 = 0;
+		if( _currentScene >= 6 ) {
+			index--;
+			fix01 = 4230;
+		}
+		if( _currentScene >= 8 ) {
+			index--;
+			fix02 = 4230;
+		}
+		var calcposy = index * _viewHeight + fix01 + fix02;
+
+
+		if( scene.upScroll == "launch" ) {
+			console.log("scene.upScroll : launch");
+			calcposy = parseInt(2*_viewHeight) + 4230 - 100;
+		}
+			
+		if( scene.upScroll == "exzone" ) {
+			console.log("scene.upScroll : exzone");
+			calcposy = parseInt(3*_viewHeight) + (4230*2) - 100;
+		}
+			
+		TweenMax.to(window, 1.2, {onStart: function() {
+			console.log('index : ' + index + ", calcposy : " + calcposy);
+			// _isAnimating = true;
+		}, scrollTo:{y:calcposy}, ease:Quad.easeInOut, onComplete: function() {
+			if( scene.upScroll == "launch" ) {
+				Navigation.updateAnchor(sceneData[4].id);
+			}
+
+			if( scene.upScroll == "exzone" ) {
+				Navigation.updateAnchor(sceneData[6].id);
+			}
+
+			if( prevScene.animation === null ) {
+				// _isAnimating = false;
+			} else {
+				animationScene(prevScene.animation);
+			}
+			if( _currentScene === 2 ) {
+				_currentScene = _currentScene - 2;
+			} else {
+				_currentScene = _currentScene - 1;
+			}
+		}});
+	}
 
 
 	function _updateCurrentScene(uid) {

@@ -157,7 +157,7 @@ module.exports = function(grunt) {
 
 			scripts: {
 				files: ['<%= jshint.files %>'],
-				tasks: ['newer:jshint', 'newer:copy:scripts'],
+				tasks: ['newer:copy:scripts'],
 				options: {
 					livereload: true
 				}
@@ -196,7 +196,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('sass-build', ['sprite', 'sass', 'autoprefixer']);
 	grunt.registerTask('sass-release', ['sprite', 'sass', 'autoprefixer']);
-	grunt.registerTask('scripts-build', ['newer:jshint']);
+	grunt.registerTask('scripts-build', []);
 	grunt.registerTask('html-build', ['includes']);
 	grunt.registerTask('build', ['clean', 'sass-build', 'scripts-build', 'html-build', 'copy:assets', 'connect', 'watch']);
 	grunt.registerTask('release', ['clean', 'sass-release', 'scripts-build', 'html-build', 'copy:assets', 'csscomb', 'copy:release']);
