@@ -414,9 +414,6 @@ var Scene = (function ($) {
 
 
 
-
-
-
 	function initEvent() {
 		var ee = new EventEmitter();
 		var scrollOptions = {
@@ -430,6 +427,7 @@ var Scene = (function ($) {
 			sectionSelector: '.scene',
 			animationSpeed: 1200,
 		    headerHash: "home",
+			hashContinuousUpdate: false,
 			breakpoint: null,
 			eventEmitter: ee,
 			dynamicHeight: false
@@ -456,6 +454,13 @@ var Scene = (function ($) {
 			Navigation.updateAnchor(smartscroll.getHash());
 		});
 
+		$(window).scroll($.debounce( 250, function(){
+			var windowTop = smartscroll.getWindowTop();
+			var slideIndex = smartscroll.getSectionIndexAt(windowTop+1);
+			var target = '#' + $('.scene:nth-of-type(' + (slideIndex) + ')').data('hash');
+			Navigation.updateAnchor(target);
+			smartscroll.autoHash();
+		}));
 	}
 
 
@@ -483,21 +488,12 @@ var Scene = (function ($) {
 	}
 
 	function scrollStartListener(slideNumber) {
-		console.log("Scrolling to " + slideNumber);
-
-		if( smartscroll.getHash() != "#market" ) {
-			RollingBG.stopMarket();
-		}
-		if( smartscroll.getHash() != "#garden" ) {
-			RollingBG.stopGarden();
-		}
 		if( smartscroll.getHash() != "#ending" ) {
 			sceneData[8].animation.pause(0, true);
 		}
 	}
 
 	function scrollEndListener() {
-		console.log("Scrolling End");
 		if( sceneData[1].animation ) {
 			sceneData[1].animation.pause(0, true);
 		}
@@ -581,10 +577,17 @@ var Scene = (function ($) {
 
 	function startAnimation(fromValue) {
 		console.log("startAnimation");
+		if( fromValue == "market" ) {
+			RollingBG.stopMarket();
+		}
+		if( fromValue == "garden" ) {
+			RollingBG.stopGarden();
+		}
 	}
 
 	function finishAnimation(fromValue) {
 		console.log("finishAnimation");
+
 		if( fromValue == "brand" ) {
 			Brand.init();
 		}

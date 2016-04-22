@@ -207,7 +207,7 @@
 			var matchedObject = $('[data-hash="' + target.substr(1) + '"]');
 			// If there is a matched element, scroll to the first element at time 0 (immediately)
 			if(matchedObject.length > 0) {
-				scrollToPixel(matchedObject[0].offsetTop + sectionWrapperTop, options.animationSpeed);
+				scrollToPixel(matchedObject[0].offsetTop + sectionWrapperTop + 1, options.animationSpeed);
 			}
 		}
 
@@ -381,7 +381,7 @@
 				// Fallback with binding scroll events.
 				// Many scroll events are fired and so is very resource-intensive
 				else {
-					$(window).bind('scroll', autoHash);
+					// $(window).bind('scroll', autoHash);
 				}
 			}
 
@@ -539,6 +539,15 @@
 			},
 			getHash: function() {
 				return window.location.hash;
+			},
+			getSectionIndexAt: function(position) {
+				return getSectionIndexAt(position);
+			},
+			getWindowTop: function() {
+				return getWindowTop();
+			},
+			autoHash: function() {
+				autoHash();
 			}
 		}
 	}
