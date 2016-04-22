@@ -197,7 +197,7 @@ var Navigation = (function ($) {
 
 			var target = $(this).attr('href');
 			_updateAnchor(target);
-
+			smartscroll.scrollToTarget(target);
 		});
 
 		/* menu click */
@@ -438,11 +438,19 @@ var Scene = (function ($) {
 		ee.addListener('scrollEnd', scrollEndListener);
 
 		smartscroll = $.smartscroll(scrollOptions);	
-		Navigation.updateAnchor(smartscroll.getHash());
+		
+		if( window.location.hash.length > 0 ) {
+			Navigation.updateAnchor(smartscroll.getHash());
+		} else {
+			Navigation.updateAnchor("#home");
+		}
 
 		/* home - start */
 		$('.scene.home .btn-start').on('click', function(e) {
 			e.preventDefault();
+			afterHomeAnimation(function() {
+				controller.scrollTo("#arrived");
+			});
 		});
 
 
