@@ -207,7 +207,8 @@
 			var matchedObject = $('[data-hash="' + target.substr(1) + '"]');
 			// If there is a matched element, scroll to the first element at time 0 (immediately)
 			if(matchedObject.length > 0) {
-				scrollToPixel(matchedObject[0].offsetTop + sectionWrapperTop + 1, options.animationSpeed);
+				var top = matchedObject[0].offsetTop + sectionWrapperTop + 1;
+				scrollToPixel(top, options.animationSpeed);
 			}
 		}
 
@@ -345,13 +346,14 @@
 					newHash = $(options.sectionSelector + ':nth-of-type(' + (slideIndex) + ')').data('hash');
 				}
 			}
+
 			if(typeof newHash === 'undefined' || !(window.location.hash === ('#' + newHash))) {
 				if(typeof newHash === 'undefined') {
 					newHash = options.headerHash;
 				}
 
 				if(!options.keepHistory) {
-					window.location.replace(window.location.href.split('#')[0] + '#' + newHash);
+					window.location.replace(window.location.href.split('#')[0] + '#!' + newHash);
 				} else {
 					window.location.hash = newHash;
 				}

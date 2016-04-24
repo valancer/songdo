@@ -1468,6 +1468,11 @@ The `sprites` mixin generates identical output to the CSS template
       background: #ffef87 url("../images/event/btn_done.png") center center no-repeat;
       box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
 
+.msie11 .copy-contents,
+.msie10 .copy-contents,
+.msie9 .copy-contents {
+  letter-spacing: -0.1em; }
+
 html {
   box-sizing: border-box;
   height: 101%; }
