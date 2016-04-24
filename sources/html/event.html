@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>현대프리미엄아울렛 송도점</title> 
+	<meta name="viewport" content="width=1200, user-scalable=yes">
+	<meta name="format-detection" content="telephone=no">
+	<script src="./assets/scripts/libs/jquery-1.11.1.min.js"></script>
+	<script src="./assets/scripts/libs/icheck.min.js"></script>
+	<script src="./assets/scripts/libs/clipboard.min.js"></script>
+
+	<!-- custom -->
+	<script src="./assets/scripts/event.js"></script>
+	<link rel="stylesheet" href="./assets/styles/songdo.css">
+</head>
+<body class="event">
+
+	<header class="summary">
+		<div class="inner">
+			<h1>내 마음에 쏙~ 든 현대프리미엄아울렛 송도점 소문내자!</h1>
+			<p>페이스북에 공유하고 아이스크림 받아가세요</p>
+			<dl>
+				<dt>경품</dt>
+				<dd>총 300명을 추첨하여 베스킨라빈스 싱글레귤러 기프티콘</dd>
+
+				<dt>참여기간</dt>
+				<dd>4월 27일 - 이벤트 종료시까지</dd>
+
+				<dt>당첨자발표</dt>
+				<dd>이벤트 종료시 개별 연락 에정(6월초 경)</dd>
+			</dl>
+		</div>
+	</header>
+
+
+	<fiedlset class="event-container">
+		<legend>이벤트 참여하기</legend>
+		
+		<div class="step">
+			<fieldset class="step01">
+				<legend><span class="txt">STEP 01. 월리와의 하루 중 <strong>가장 마음에 들었던 장소</strong>를 선택 후 <strong>페이스북에 공유</strong>하세요</span></legend>
+
+				<div class="select-radio">
+					<input type="radio" id="spot01" name="spots" value="">
+					<label for="spot01" class="radio-spot01">
+						즐거운 쇼핑타임! - 럭셔리부터 스포츠까지 핫브랜드
+					</label>
+					
+					<input type="radio" id="spot02" name="spots" value="">
+					<label for="spot02" class="radio-spot02">
+						딜리셔스 타임! - 미각을 자극하는 전국 맛집
+					</label>
+					
+					<input type="radio" id="spot03" name="spots" value="">
+					<label for="spot03" class="radio-spot03">
+						이런 체험 처음이야 - 다이내믹 쇼퍼테이먼트 체험관
+					</label>
+					
+					<input type="radio" id="spot04" name="spots" value="">
+					<label for="spot04" class="radio-spot04">
+						유럽의 정취와 여유! - 밤 11시까지 즐기는 가든테라스
+					</label>
+				</div>
+			</fieldset>
+
+
+			<fieldset class="step02">
+				<legend><span class="txt">STEP 02. 아래 내용을 복사하기 후 페이스북 공유 시 내용에 붙여주세요.</span></legend>
+
+				<p class="mobile-message">모바일에서는 아래 내용을 직접 선택하신 후 복사하세요.</p>
+				<p id="copy-contents" class="copy-contents">
+					현대프리미엄아울렛 송도점이 4월 29일 오픈해요!<br>
+					월리와 친구들의 미각을 자극하는 전국 맛집이 가득한 딜리셔스 타임!<br>
+					#현대프리미엄아울렛송도점 온라인에서 만나보고 오픈이벤트 참여하세요.<br>
+					<a href="http://www.ehyundai.com/songdo/">http://www.ehyundai.com/songdo/</a><br>
+					#이벤트 #송도아울렛 #현대백화점 #월리의하루<br>
+					#현대프리미엄아울렛송도점<br>
+				</p>
+
+				<button type="button" data-clipboard-action="copy" data-clipboard-target="#copy-contents" class="btn-copy"><span class="txt">복사하기</span></button>
+			</fieldset>
+
+		</div>
+		<input type="submit" value="페이스북에 공유하기" class="btn-share">
+
+
+		<div class="step">
+			<fieldset>
+				<legend><strong>기프티콘</strong>을 받으실 <strong>휴대폰번호를 입력</strong>해주세요.</legend>
+
+				<label for="">휴대폰번호</label>
+				<input type="text" placeholder="'-' 없이 입력해주세요">
+				<button type="button">중복확인</button>
+
+				<div class="agreements">
+					<p>이벤트 참여를 위한 개인정보 수집 이용 동의서</p>
+					<ul>
+						<li>수집하는 개인정보 항목 : 휴대폰번호</li>
+						<li>개인정보의 수집 및 이용목적 : 중복참여 필터링, 기프티콘 문자발송</li>
+						<li>개인정보의 보유 및 이용기간 : 행사종료 후 1개월</li>
+					</ul>
+					<p>위의 개인정보 수집 및 이용에 대한 동의를 거부하실 권리가 있으나, 거부시 기프티콘 문자를 받아보실 수 없습니다.</p>
+				</div>
+
+				<input type="checkbox" id="agreement" name="agreement" value="">
+				<label for="agreement">이벤트 참여를 위한 개인정보 수집 및 이용 동의</label>
+
+				<input type="submit" value="참여완료">
+			</fieldset>
+
+		</div>
+	</fiedlset>
+
+
+</body>
+</html>
