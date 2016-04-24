@@ -288,7 +288,7 @@
 
 
 /* event */
-.event { overflow: auto; padding: 0; min-width: 1200px;
+.event { overflow: auto; padding: 0; min-width: 1200px; font-family: '맑은고딕', 'Malgun Gothic', '돋움', 'Dotum';
 	legend { display: block; position: static; height: auto; width: auto; font-size: 1em; text-indent: -9999px; visibility: visible; }
 
 	.summary { min-width: 1200px; background: #2a2847 url('../images/event/bg_summary.jpg') center bottom no-repeat;
@@ -298,7 +298,7 @@
 	}
 
 
-	.event-container { display: block; padding: 58px 60px 0 60px; min-width: 1080px; border-top: 14px solid #413e71; background: url('../images/event/event_bottom_pattern.gif') center top repeat;
+	.event-container { display: block; padding: 58px 60px 150px 60px; min-width: 1080px; border-top: 14px solid #413e71; background: url('../images/event/event_bottom_pattern.gif') center top repeat;
 		> legend { margin: 0 auto; @include sprite($s-event-title); }
 
 		> .step { box-sizing: border-box; margin: 60px auto 0 auto; max-width: 1080px; width: 100%; border: 6px solid #2a2847; border-radius: 6px; background-color: #fff; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
@@ -349,6 +349,44 @@
 		}
 
 		.btn-share { display: block; margin: 80px auto 0 auto; height: 167px; width: 1061px; border: 6px solid #2a2847; border-radius: 64px; text-indent: -9999px; background: #ffef87 url('../images/event/btn_share.png') center center no-repeat; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
+
+
+		/* step03 */
+		.step03 { padding: 0 47px 80px 47px;
+			> legend { margin: 0 -47px; height: 158px; width: 1068px; border-bottom: 6px solid #2a2847; background-color: #fff;
+				&:before { content: ''; display: block; float: left; height: 158px; width: 158px; border-right: 6px solid #2a2847; @include sprite($s-step03); background-color: #ffef87; }
+				.txt { display: block; float: left; margin: 57px 0 0 20px; text-indent: -9999px; @include sprite($s-step03-txt); }
+			}
+
+			.phone { overflow: hidden; margin: 80px 0 0 0;
+				label { display: block; margin-bottom: 30px; text-indent: -9999px; @include sprite($s-event-txt-phone); }
+				input[type=text] { float: left; padding: 0 0 0 30px; height: 112px; width: 602px; font-family: '맑은고딕', 'Malgun Gothic', '돋움', 'Dotum'; font-size: 56px; color: #2a2847; line-height: 112px; border: 6px solid #2a2847; background-color: #fff; }
+				.btn-confirm { display: block; float: right; height: 124px; width: 300px; border-radius: 10px; background-color: #2a2847;
+					.txt { display: block; margin: 0 auto; text-indent: -9999px; @include sprite($s-event-txt-confirm); }
+				}
+
+				::-webkit-input-placeholder { color: #2a2847; }
+				:-moz-placeholder { color: #2a2847; }
+				::-moz-placeholder { color: #2a2847; }
+				:-ms-input-placeholder { color: #2a2847; }
+			}
+			.agreements { margin-top: 60px; padding: 54px 0 53px 33px; border: 6px dashed #2a2847; background-color: #ddd;
+				.txt { height: 300px; width: 897px; text-indent: -9999px; background: url('../images/event/event_txt_agreements.png') left top no-repeat;; }
+			}
+
+			.icheckbox {
+				+ label { cursor: pointer; display: block; margin: 40px 0 0 20px; text-indent: -9999px; background-position: left top; background-repeat: no-repeat;
+					&.check-agreement { height: 69px; width: 933px; background-image: url('../images/event/check_agreement.png'); }
+				}
+
+				&.checked {
+					+ .check-agreement { background-image: url('../images/event/check_agreement_selected.png'); }
+				}
+			}	
+		}		
+
+		.btn-done { display: block; margin: 80px auto 0 auto; height: 167px; width: 821px; border: 6px solid #2a2847; border-radius: 64px; text-indent: -9999px; background: #ffef87 url('../images/event/btn_done.png') center center no-repeat; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
+
 	}
 }
 

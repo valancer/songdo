@@ -8,9 +8,13 @@
 	<script src="./assets/scripts/libs/jquery-1.11.1.min.js"></script>
 	<script src="./assets/scripts/libs/icheck.min.js"></script>
 	<script src="./assets/scripts/libs/clipboard.min.js"></script>
+	<script src="./assets/scripts/libs/ph-image.min.js"></script>
 
 	<!-- custom -->
 	<script src="./assets/scripts/event.js"></script>
+	<!--[if lt IE 9]>
+		<script src="./assets/scripts/libs/html5shiv.min.js"></script>
+	<![endif]-->
 	<link rel="stylesheet" href="./assets/styles/songdo.css">
 </head>
 <body class="event">
@@ -84,31 +88,36 @@
 		<input type="submit" value="페이스북에 공유하기" class="btn-share">
 
 
-		<div class="step">
-			<fieldset>
-				<legend><strong>기프티콘</strong>을 받으실 <strong>휴대폰번호를 입력</strong>해주세요.</legend>
 
-				<label for="">휴대폰번호</label>
-				<input type="text" placeholder="'-' 없이 입력해주세요">
-				<button type="button">중복확인</button>
+		<div class="step">
+			<fieldset class="step03">
+				<legend><span class="txt"><strong>기프티콘</strong>을 받으실 <strong>휴대폰번호를 입력</strong>해주세요.</span></legend>
+
+				<p class="phone">
+					<label for="">휴대폰번호</label>
+					<input type="text" placeholder="'-' 없이 입력해주세요" class="txt-cell-phone" data-ph-image="../assets/images/event/placeholder.png">
+					<button type="button" class="btn-confirm"><span class="txt">중복확인</span></button>
+				</p>
 
 				<div class="agreements">
-					<p>이벤트 참여를 위한 개인정보 수집 이용 동의서</p>
-					<ul>
-						<li>수집하는 개인정보 항목 : 휴대폰번호</li>
-						<li>개인정보의 수집 및 이용목적 : 중복참여 필터링, 기프티콘 문자발송</li>
-						<li>개인정보의 보유 및 이용기간 : 행사종료 후 1개월</li>
-					</ul>
-					<p>위의 개인정보 수집 및 이용에 대한 동의를 거부하실 권리가 있으나, 거부시 기프티콘 문자를 받아보실 수 없습니다.</p>
+					<div class="txt">
+						<p>이벤트 참여를 위한 개인정보 수집 이용 동의서</p>
+						<ul>
+							<li>수집하는 개인정보 항목 : 휴대폰번호</li>
+							<li>개인정보의 수집 및 이용목적 : 중복참여 필터링, 기프티콘 문자발송</li>
+							<li>개인정보의 보유 및 이용기간 : 행사종료 후 1개월</li>
+						</ul>
+						<p>위의 개인정보 수집 및 이용에 대한 동의를 거부하실 권리가 있으나, 거부시 기프티콘 문자를 받아보실 수 없습니다.</p>
+					</div>
 				</div>
 
 				<input type="checkbox" id="agreement" name="agreement" value="">
-				<label for="agreement">이벤트 참여를 위한 개인정보 수집 및 이용 동의</label>
+				<label for="agreement" class="check-agreement">이벤트 참여를 위한 개인정보 수집 및 이용 동의</label>
 
-				<input type="submit" value="참여완료">
 			</fieldset>
-
 		</div>
+		<input type="submit" value="참여완료" class="btn-done">
+
 	</fiedlset>
 
 

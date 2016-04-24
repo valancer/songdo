@@ -1,3 +1,13 @@
+// console 객체가 없을 경우
+if (!window.console) {
+	window.console = {
+		log : function(){},
+		dir : function(){}
+	};
+} else if (!window.console.dir){
+	window.console.dir = function(){};
+}
+
 (function(){
 	$(document).ready(function(){
 		var agents = [/(opr|opera)/gim,/(chrome)/gim,/(firefox)/gim,/(safari)/gim,/(msie[\s]+[\d]+)/gim,/(trident).*rv:(\d+)/gim];
@@ -11,9 +21,12 @@
 	});
 })();
 
+
 $(document).ready(function (e) {
 	$('.step01 input[type=radio]').iCheck();
-
+	$('.step03 input[type=checkbox]').iCheck();
+	$('input.txt-cell-phone').phImage();
+	
     var clipboard = new Clipboard('.btn-copy');
     clipboard.on('success', function(e) {
         console.log(e);
