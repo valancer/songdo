@@ -169,8 +169,15 @@ button:focus { outline: 0; }
 .popup { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("modal"); overflow-y: scroll; box-sizing: border-box; padding: 100px; background-color: #fff;
 	.btn-close { display: block; position: fixed; top: 30px; right: 30px; cursor: pointer !important; text-align: left; text-indent: -9999px; @include sprite($s-btn-close01); }
 
-	p { display: block; max-width: 900px; width: 100%; margin: 0 auto;
+	p { display: block; max-width: 1100px; width: 100%; margin: 0 auto;
 		img { width: 100%; }
 	}
+
+	&.arrived { background: url('../images/popup/bg_arrived.png') left top repeat; }
+	&.brand { background: url('../images/popup/bg_brand.png') left top repeat; }
+	&.launch { background: url('../images/popup/bg_launch.png') left top repeat; }
+	&.market { background: url('../images/popup/bg_market.png') left top repeat; }
+	&.exzone { background: url('../images/popup/bg_exzone.png') left top repeat; }
+	&.garden { background: url('../images/popup/bg_garden.png') left top repeat; }
 }
 

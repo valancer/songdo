@@ -876,6 +876,7 @@ var Popup = (function ($) {
 				var target = $(this).data('target');
 				$(target).hide();
 
+				$popupContainer.attr('class', 'popup');
 				$popupContent.html('');
 				isOpenPopup = false;
 				smartscroll.bindScroll();
@@ -892,6 +893,8 @@ var Popup = (function ($) {
 
 			smartscroll.unbindScroll();
 
+			var hash = $(this).data('hash');
+			$popupContainer.addClass(hash);
 			$popupContent.html('<img src="' + $(this).attr('href') + '" alit=""/>');
 			$popupContainer.toggle();
 		});
