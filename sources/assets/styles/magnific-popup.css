@@ -107,9 +107,9 @@ img.mfp-img { line-height: 0; display: block; box-sizing: border-box; width: aut
 	.mfp-img-mobile .mfp-counter { top: 3px; right: 5px; }
 	.mfp-img-mobile .mfp-close { line-height: 35px; position: fixed; top: 0; right: 0; width: 35px; height: 35px; padding: 0; text-align: center; background: rgba(0, 0, 0, .6); } }
 
-@media all and (max-width: 900px) { .mfp-arrow { -webkit-transform: scale(.75); -ms-transform: scale(.75); transform: scale(.75); }
-	.mfp-arrow-left { -webkit-transform-origin: 0; -ms-transform-origin: 0; transform-origin: 0; }
-	.mfp-arrow-right { -webkit-transform-origin: 100%; -ms-transform-origin: 100%; transform-origin: 100%; }
+@media all and (max-width: 900px) { .mfp-arrow { -webkit-transform: scale(.75); transform: scale(.75); }
+	.mfp-arrow-left { -webkit-transform-origin: 0; transform-origin: 0; }
+	.mfp-arrow-right { -webkit-transform-origin: 100%; transform-origin: 100%; }
 	.mfp-container { padding-right: 6px; padding-left: 6px; } }
 
 .mfp-ie7 .mfp-img { padding: 0; }

@@ -96,34 +96,14 @@ button:focus { outline: 0; }
 						&:before { content: ''; display: block; position: absolute; bottom: -8px; right: -4px; left: -4px; height: 3px; background-color: #000; }
 					}
 
-					&.btn-home { @include sprite($s-btn-nav01);
-						// &:hover { @include sprite($s-btn-nav01-selected); }
-					}
-					&.btn-location { @include sprite($s-btn-nav02);
-						// &:hover { @include sprite($s-btn-nav02-selected); }
-					}
-					&.btn-floor { @include sprite($s-btn-nav03);
-						// &:hover { @include sprite($s-btn-nav03-selected); }
-					}
-					&.btn-membership { @include sprite($s-btn-nav04);
-						// &:hover { @include sprite($s-btn-nav04-selected); }
-					}
-					&.btn-coupon { @include sprite($s-btn-nav05);
-						// &:hover { @include sprite($s-btn-nav05-selected); }
-					}
+					&.btn-home { @include sprite($s-btn-nav01); }
+					&.btn-location { @include sprite($s-btn-nav02); }
+					&.btn-floor { @include sprite($s-btn-nav03); }
+					&.btn-membership { @include sprite($s-btn-nav04); }
+					&.btn-coupon { @include sprite($s-btn-nav05); }
+					&.btn-event { @include sprite($s-btn-nav06); }
 				}
 			}
-/*
-			&.is-hover {
-				a {
-					&.btn-home { @include sprite($s-btn-nav01-disabled); }
-					&.btn-location { @include sprite($s-btn-nav02-disabled); }
-					&.btn-floor { @include sprite($s-btn-nav03-disabled); }
-					&.btn-membership { @include sprite($s-btn-nav04-disabled); }
-					&.btn-coupon { @include sprite($s-btn-nav05-disabled); }
-				}
-			}
-*/
 		}
 
 
@@ -173,7 +153,7 @@ button:focus { outline: 0; }
 		img { width: 100%; }
 	}
 
-	&.arrived { background: url('../images/popup/bg_arrived.png') left top repeat; }
+	// &.arrived { background: url('../images/popup/bg_arrived.png') left top repeat; }
 	&.brand { background: url('../images/popup/bg_brand.png') left top repeat; }
 	&.launch { background: url('../images/popup/bg_launch.png') left top repeat; }
 	&.market { background: url('../images/popup/bg_market.png') left top repeat; }

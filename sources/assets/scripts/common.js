@@ -397,6 +397,7 @@ var Scene = (function ($) {
 
 
 		/* scene : ending */
+/*
 		var endingAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["ending"], onComplete:finishAnimation, onCompleteParams:["ending"]})
 			.from('.scene.ending .title-time', 0.5, {opacity: 0})
 			.from('.scene.ending .people', 0.5, {delay: 1, opacity: 0, x: -30})
@@ -405,12 +406,13 @@ var Scene = (function ($) {
 			.from('.scene.ending .txt03', 1, {delay: 1, opacity: 0});
 
 		var sceneEnding = new ScrollMagic.Scene({
-			triggerElement: ".scene.garden",
+			triggerElement: ".scene.ending",
 			triggerHook: 'onLeave'
 		})
 		.setTween(endingAnimation)
 		.addTo(controller);
 		sceneData[8].animation = endingAnimation;
+*/
 	}
 
 
