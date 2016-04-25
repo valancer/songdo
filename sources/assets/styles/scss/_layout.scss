@@ -166,10 +166,10 @@ button:focus { outline: 0; }
 
 
 /* popup */
-.popup { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("modal"); overflow-y: scroll; box-sizing: border-box; padding: 100px; background-color: #fff;
+.popup { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: z("modal"); overflow-y: scroll; box-sizing: border-box; padding: 0 50px; background-color: #fff;
 	.btn-close { display: block; position: fixed; top: 30px; right: 30px; cursor: pointer !important; text-align: left; text-indent: -9999px; @include sprite($s-btn-close01); }
 
-	p { display: block; max-width: 1100px; width: 100%; margin: 0 auto;
+	p { display: block; max-width: 1100px; width: 100%; margin: 0 auto; padding: 100px 0px;
 		img { width: 100%; }
 	}
 
