@@ -288,7 +288,7 @@
 
 
 /* event */
-.event { overflow: auto; padding: 0; min-width: 1200px; font-family: '맑은고딕', 'Malgun Gothic', '돋움', 'Dotum';
+.event { overflow: auto; padding: 0; min-width: 1200px; font-family: '맑은고딕', 'Malgun Gothic', '돋움', 'Dotum', sans-serif;
 	legend { display: block; position: static; height: auto; width: auto; font-size: 1em; text-indent: -9999px; visibility: visible; }
 
 	.summary { min-width: 1200px; background: #2a2847 url('../images/event/bg_summary.jpg') center bottom no-repeat;
@@ -301,7 +301,7 @@
 	.event-container { display: block; padding: 58px 60px 150px 60px; min-width: 1080px; border-top: 14px solid #413e71; background: url('../images/event/event_bottom_pattern.gif') center top repeat;
 		> legend { margin: 0 auto; @include sprite($s-event-title); }
 
-		> .step { box-sizing: border-box; margin: 60px auto 0 auto; max-width: 1080px; width: 100%; border: 6px solid #2a2847; border-radius: 6px; background-color: #fff; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
+		> .step { position: relative; box-sizing: border-box; margin: 60px auto 247px auto; max-width: 1080px; width: 100%; border: 6px solid #2a2847; border-radius: 6px; background-color: #fff; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
 		
 		/* step01 */
 		.step01 {
@@ -339,16 +339,16 @@
 
 			.mobile-message { display: block; margin: 68px auto 0 auto; text-indent: -9999px; @include sprite($s-event-message01); }
 			
-			.copy-contents { display: block; box-sizing: border-box; margin: 32px 47px 0 47px; padding: 56px 0 0 42px; height: 382px; width: 974px; font-size: 28px; color: #2a2847; line-height: 40px; border: 6px dashed #2a2847; background-color: #fff;
+			.copy-contents { display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 32px 47px 0 47px; padding: 56px 0 0 42px; height: 382px; width: 974px; font-size: 28px; color: #2a2847; line-height: 40px; letter-spacing: -0.1em; border: 6px dashed #2a2847; background-color: #fff;
 				a { color: #2a2847; text-decoration: underline; }
 			}
 
-			.btn-copy { display: block; margin: -61px auto 0 auto; height: 114px; width: 360px; border-radius: 10px; background-color: #2a2847;
+			.btn-copy { display: block; position: relative; z-index: z("default"); margin: -61px auto 0 auto; height: 114px; width: 360px; border-radius: 10px; background-color: #2a2847;
 				.txt { display: block; margin: 0 auto; text-indent: -9999px; @include sprite($s-event-txt-copy); }
 			}
 		}
 
-		.btn-share { display: block; margin: 80px auto 0 auto; height: 167px; width: 1061px; border: 6px solid #2a2847; border-radius: 64px; text-indent: -9999px; background: #ffef87 url('../images/event/btn_share.png') center center no-repeat; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
+		.btn-share { display: block; position: absolute; bottom: -247px; left: 50%; margin-left: -530px; height: 167px; width: 1061px; border: 6px solid #2a2847; border-radius: 64px; text-indent: -9999px; background: #ffef87 url('../images/event/btn_share.png') center center no-repeat; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
 
 
 		/* step03 */
@@ -360,7 +360,7 @@
 
 			.phone { overflow: hidden; margin: 80px 0 0 0;
 				label { display: block; margin-bottom: 30px; text-indent: -9999px; @include sprite($s-event-txt-phone); }
-				input[type=text] { float: left; padding: 0 0 0 30px; height: 112px; width: 602px; font-family: '맑은고딕', 'Malgun Gothic', '돋움', 'Dotum'; font-size: 56px; color: #2a2847; line-height: 112px; border: 6px solid #2a2847; background-color: #fff; }
+				input[type=text] { float: left; padding: 0 0 0 30px; height: 112px; width: 602px; font-family: '맑은고딕', 'Malgun Gothic', '돋움', 'Dotum', sans-serif; font-size: 56px; color: #2a2847; line-height: 112px; border: 6px solid #2a2847; background-color: #fff; }
 				.btn-confirm { display: block; float: right; height: 124px; width: 300px; border-radius: 10px; background-color: #2a2847;
 					.txt { display: block; margin: 0 auto; text-indent: -9999px; @include sprite($s-event-txt-confirm); }
 				}
@@ -385,14 +385,10 @@
 			}	
 		}		
 
-		.btn-done { display: block; margin: 80px auto 0 auto; height: 167px; width: 821px; border: 6px solid #2a2847; border-radius: 64px; text-indent: -9999px; background: #ffef87 url('../images/event/btn_done.png') center center no-repeat; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
+		.btn-done { display: block; position: absolute; bottom: -247px; left: 50%; margin-left: -410px; height: 167px; width: 821px; border: 6px solid #2a2847; border-radius: 64px; text-indent: -9999px; background: #ffef87 url('../images/event/btn_done.png') center center no-repeat; box-shadow: 11px 11px 0 0 rgba(0, 0, 0, 0.15); }
 
 	}
 }
-
-.msie11 .copy-contents,
-.msie10 .copy-contents,
-.msie9 .copy-contents { letter-spacing: -0.1em; }
 
 
 

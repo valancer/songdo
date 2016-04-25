@@ -40,6 +40,7 @@
 	<fiedlset class="event-container">
 		<legend>이벤트 참여하기</legend>
 		
+
 		<div class="step">
 			<fieldset class="step01">
 				<legend><span class="txt">STEP 01. 월리와의 하루 중 <strong>가장 마음에 들었던 장소</strong>를 선택 후 <strong>페이스북에 공유</strong>하세요</span></legend>
@@ -72,20 +73,18 @@
 				<legend><span class="txt">STEP 02. 아래 내용을 복사하기 후 페이스북 공유 시 내용에 붙여주세요.</span></legend>
 
 				<p class="mobile-message">모바일에서는 아래 내용을 직접 선택하신 후 복사하세요.</p>
-				<p id="copy-contents" class="copy-contents">
-					현대프리미엄아울렛 송도점이 4월 29일 오픈해요!<br>
-					월리와 친구들의 미각을 자극하는 전국 맛집이 가득한 딜리셔스 타임!<br>
-					#현대프리미엄아울렛송도점 온라인에서 만나보고 오픈이벤트 참여하세요.<br>
-					<a href="http://www.ehyundai.com/songdo/">http://www.ehyundai.com/songdo/</a><br>
-					#이벤트 #송도아울렛 #현대백화점 #월리의하루<br>
-					#현대프리미엄아울렛송도점<br>
-				</p>
+					<textarea id="copy-contents" class="copy-contents">현대프리미엄아울렛 송도점이 4월 29일 오픈해요!
+월리와 친구들의 미각을 자극하는 전국 맛집이 가득한 딜리셔스 타임!
+#현대프리미엄아울렛송도점 온라인에서 만나보고 오픈이벤트 참여하세요.
+http://www.ehyundai.com/songdo/
+#이벤트 #송도아울렛 #현대백화점 #월리의하루#현대프리미엄아울렛송도점
+</textarea>
 
 				<button type="button" data-clipboard-action="copy" data-clipboard-target="#copy-contents" class="btn-copy"><span class="txt">복사하기</span></button>
 			</fieldset>
 
+			<input type="submit" value="페이스북에 공유하기" class="btn-share">
 		</div>
-		<input type="submit" value="페이스북에 공유하기" class="btn-share">
 
 
 
@@ -115,8 +114,9 @@
 				<label for="agreement" class="check-agreement">이벤트 참여를 위한 개인정보 수집 및 이용 동의</label>
 
 			</fieldset>
+			
+			<input type="submit" value="참여완료" class="btn-done">
 		</div>
-		<input type="submit" value="참여완료" class="btn-done">
 
 	</fiedlset>
 
