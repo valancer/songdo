@@ -41,7 +41,7 @@
 	.moon { display: block; position: absolute; top: 7.87037037037%; left: 50%; margin-left: -$s-scene01-moon-width/2; @include sprite($s-scene01-moon); opacity: 1; }
 	.title { display: block; position: absolute; top: 49.814814814815%; left: 50%; margin-left: -$s-scene01-txt01-width/2; @include sprite($s-scene01-txt01); opacity: 1; }
 	.description { display: block; position: absolute; top: 67.962962962963%; left: 50%; margin-left: -$s-scene01-txt02-width/2; @include sprite($s-scene01-txt02); opacity: 1; }
-	.wally { display: block; position: absolute; top: 12.037037037037%; left: 50%; margin-left: -$s-scene01-wally-width/1.8; @include sprite($s-scene01-wally); opacity: 1; }
+	.wally { display: block; position: absolute; top: 0%; left: 50%; margin-left: -$s-scene01-wally-width/2; @include sprite($s-scene01-wally); opacity: 1; }
 
 	/* scroll start */
 	.btn-start { display: block; position: absolute; bottom: 8.148148148148%; left: 50%; margin-left: -$s-scene01-start-width/2; text-indent: -9999px; @include sprite($s-scene01-start); opacity: 1; }
@@ -272,20 +272,15 @@
 
 
 /* scene9 - ending */
-.scene.ending { overflow: hidden; background: url('../images/scene_ending/bg_last02.jpg') center bottom no-repeat; background-size: cover;
+.scene.ending { overflow: hidden; background: #2a2847 url('../images/scene_ending/bg_last02.jpg') center bottom no-repeat; background-size: cover;
 	.title-time { z-index: z("default"); @include sprite($s-title-2100); }
 
 	.open-event { position: absolute; top: 50%; left: 50%; margin-top: -336px; margin-left: -421px; height: 672px; width: 842px; background: url('../images/scene_ending/event01.png') center top no-repeat;
 		p { display: none; }
 		.btn-event { display: block; position: absolute; bottom: -48px; left: 50%; margin-left: -232px; height: 89px; width: 448px; text-indent: -9999px; background: url('../images/scene_ending/btn_event.png') left top no-repeat; }
 	}
-/*
-	.people { display: block; position: absolute; bottom: 10px; left: 65px; text-indent: -9999px; @include sprite($s-scene09-people); opacity: 1;
-		.txt01 { display: block; position: absolute; top: -90px; left: 300px; text-indent: -9999px; @include sprite($s-scene09-txt01); opacity: 1; }
-		.txt02 { display: block; position: absolute; top: -67px; left: 100px; text-indent: -9999px; @include sprite($s-scene09-txt02); opacity: 1; }
-		.txt03 { display: block; position: absolute; top: -130px; left: 706px; text-indent: -9999px; @include sprite($s-scene09-txt03); opacity: 1; }
-	}
-*/
+
+	.mouth { display: block; position: absolute; top: 3.888888888889%; left: 50%; margin-left: 394px; @include sprite($s-scene09-mouth); }
 }
 
 
