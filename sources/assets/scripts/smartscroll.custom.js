@@ -304,13 +304,15 @@
 						e.stopPropagation();
 						if (scrollAction) {
 							if (scrollAction === "up") {
-								if(options.toptotop) {
-									scrollToPixel(sections[sectionIndexAtWindowMiddle - 2] + 1, options.animationSpeed);
-								} else {
-									scrollToPixel(sections[sectionIndexAtWindowMiddle - 1] - $(window).height(), options.animationSpeed);
-								}
 								if(options.eventEmitter) {
-									options.eventEmitter.emitEvent("scrollStart", [sectionIndexAtWindowMiddle - 1]);	
+									options.eventEmitter.emitEvent("scrollUpBefore", [sectionIndexAtWindowMiddle - 1, function (isBeforeAnimating) {
+										if( isBeforeAnimating ) return;
+										scrollToPixel(sections[sectionIndexAtWindowMiddle - 1] - $(window).height(), options.animationSpeed);
+									}]);
+								}
+
+								if(options.eventEmitter) {
+									options.eventEmitter.emitEvent("scrollStart", [sectionIndexAtWindowMiddle - 1]);
 								}
 							}
 							else if(scrollAction === "down") {
@@ -321,7 +323,7 @@
 								}
 
 								if(options.eventEmitter) {
-									options.eventEmitter.emitEvent("scrollStart", [sectionIndexAtWindowMiddle + 1]);	
+									options.eventEmitter.emitEvent("scrollStart", [sectionIndexAtWindowMiddle + 1]);
 								}
 							}
 						}
@@ -388,11 +390,11 @@
 			}
 
 			// Scroll to hash
-		
 			if(options.initialScroll && currentHash.length > 0) {
 				// Remove the '#' from the hash and use jQuery to check
 				// if an element exists with that hash in the 'data-hash' attribute
-				var matchedObject = $('[data-hash="' + currentHash.substr(1) + '"]');
+				var targetHash = currentHash.substr(2);
+				var matchedObject = $('[data-hash="' + targetHash + '"]');
 				// If there is a matched element, scroll to the first element at time 0 (immediately)
 				if(matchedObject.length > 0) {
 					scrollToPixel(matchedObject[0].offsetTop + sectionWrapperTop, 0);
@@ -497,11 +499,20 @@
 							case 38:
 								e.preventDefault();
 								e.stopPropagation();
+/*
 								if(options.toptotop) {
 									scrollToPixel(sections[sectionIndexAtWindowMiddle - 2] + 1, options.animationSpeed);
 								} else {
 									scrollToPixel(sections[sectionIndexAtWindowMiddle - 1] - $(window).height(), options.animationSpeed);
 								}
+*/
+								if(options.eventEmitter) {
+									options.eventEmitter.emitEvent("scrollUpBefore", [sectionIndexAtWindowMiddle - 1, function (isBeforeAnimating) {
+										if( isBeforeAnimating ) return;
+										scrollToPixel(sections[sectionIndexAtWindowMiddle - 1] - $(window).height(), options.animationSpeed);
+									}]);
+								}
+								
 								if(options.eventEmitter) {
 									options.eventEmitter.emitEvent("scrollStart", [sectionIndexAtWindowMiddle - 1]);	
 								}

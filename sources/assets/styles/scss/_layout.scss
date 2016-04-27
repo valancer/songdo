@@ -153,7 +153,7 @@ button:focus { outline: 0; }
 		img { width: 100%; }
 	}
 
-	// &.arrived { background: url('../images/popup/bg_arrived.png') left top repeat; }
+	&.arrived { background: url('../images/popup/bg_arrived.png') left top repeat; }
 	&.brand { background: url('../images/popup/bg_brand.png') left top repeat; }
 	&.launch { background: url('../images/popup/bg_launch.png') left top repeat; }
 	&.market { background: url('../images/popup/bg_market.png') left top repeat; }

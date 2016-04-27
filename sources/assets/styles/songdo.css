@@ -205,6 +205,21 @@ The `sprites` mixin generates identical output to the CSS template
     text-indent: -9999px;
     opacity: 1; }
 
+@-webkit-keyframes upanddown {
+  from {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px); }
+  to {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px); } }
+
+@keyframes upanddown {
+  from {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px); }
+  to {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px); } }
 /* scene - home */
 .scene.home {
   background: #2a2847 url("../images/scene_home/bg_last.png") center center no-repeat;
@@ -264,7 +279,15 @@ The `sprites` mixin generates identical output to the CSS template
     background-position: 0px -2026px;
     width: 531px;
     height: 449px;
-    opacity: 1; }
+    opacity: 1;
+    -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+    -webkit-animation-name: upanddown;
+            animation-name: upanddown;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+            animation-direction: alternate; }
   .scene.home .btn-start {
     display: block;
     position: absolute;
@@ -1852,6 +1875,8 @@ button:focus {
     padding: 100px 0px; }
     .popup p img {
       width: 100%; }
+  .popup.arrived {
+    background: url("../images/popup/bg_arrived.png") left top repeat; }
   .popup.brand {
     background: url("../images/popup/bg_brand.png") left top repeat; }
   .popup.launch {

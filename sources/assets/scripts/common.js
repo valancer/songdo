@@ -268,10 +268,10 @@ var Scene = (function ($) {
 			.from('.scene.home .moon', 0.5, {delay: 1, opacity: 0, y: -30})
 			.from('.scene.home .title', 0.5, {opacity: 0, y: 30})
 			.from('.scene.home .description', 0.5, {opacity: 0, y: 30})
-			.from('.scene.home .wally', 0.5, {opacity: 0, y: 30})
+			.from('.scene.home .wally', 0.5, {opacity: 0})
 			.add([
-				TweenMax.from('.scene.home .wally', 1, {y: 10, ease: Quad.easeInOut, repeat: -1, yoyo: true}),
-				TweenMax.from('.scene.home .btn-start', 0.5, {opacity: 0, y: -30, onComplete:finishAnimation, onCompleteParams:["home"]})
+				TweenMax.from('.scene.home .btn-start', 0.5, {opacity: 0, y: -30, onComplete:finishAnimation, onCompleteParams:["home"]}),
+				// TweenMax.fromTo('.scene.home .wally', 1, {y: 30}, {y: 10, ease: Quad.easeInOut, repeat: -1, yoyo: true})
 			]);
 		var sceneHome = new ScrollMagic.Scene({
 			triggerElement: ".scene.home",
@@ -399,8 +399,10 @@ var Scene = (function ($) {
 		/* scene : ending */
 		var endingAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["ending"], onComplete:finishAnimation, onCompleteParams:["ending"]})
 			.from('.scene.ending .title-time', 0.5, {opacity: 0})
-			.from('.scene.ending .mouth', 0.5, {delay: 1, opacity: 0, y: -30})
-			.from('.scene.ending .open-event', 0.5, {delay: 1, opacity: 0, y: 100});
+			.add([
+				TweenMax.from('.scene.ending .mouth', 0.5, {delay: 1, opacity: 0, y: -30}),
+				TweenMax.from('.scene.ending .open-event', 0.5, {delay: 1, opacity: 0, y: 100})
+			]);
 
 		var sceneEnding = new ScrollMagic.Scene({
 			triggerElement: ".scene.ending",
@@ -432,6 +434,7 @@ var Scene = (function ($) {
 			dynamicHeight: false
 		};
 
+		ee.addListener('scrollUpBefore', scrollUpBeforeListener);
 		ee.addListener('scrollDonwBefore', scrollDownBeforeListener);
 		ee.addListener('scrollStart', scrollStartListener);
 		ee.addListener('scrollEnd', scrollEndListener);
@@ -472,6 +475,14 @@ var Scene = (function ($) {
 	}
 
 
+	function scrollUpBeforeListener(slideNumber, callback) {
+		console.log("[scrollUpBeforeListener] isBeforeAnimating : " + isBeforeAnimating);
+		if( isBeforeAnimating ) {
+			callback(isBeforeAnimating);
+			return;
+		}
+		callback(isBeforeAnimating);
+	}
 
 	function scrollDownBeforeListener(slideNumber, callback) {
 		if( isBeforeAnimating ) return;
@@ -552,8 +563,7 @@ var Scene = (function ($) {
 				TweenMax.to('.time01 .now', 0.1, {opacity: 0}),
 				TweenMax.to('.time01 .now-txt', 0.1, {opacity: 0})
 			])
-			.set('.time-layer', {css: {zIndex:-1}});
-
+			.set('.time-layer', {css: {zIndex:-1}})
 			sceneData[1].animation = afterHomeAnimation;
 	}
 
@@ -584,7 +594,7 @@ var Scene = (function ($) {
 
 
 	function startAnimation(fromValue) {
-		console.log("startAnimation");
+		console.log("startAnimation : " + fromValue);
 		if( fromValue == "market" ) {
 			RollingBG.stopMarket();
 		}
@@ -594,7 +604,7 @@ var Scene = (function ($) {
 	}
 
 	function finishAnimation(fromValue) {
-		console.log("finishAnimation");
+		console.log("finishAnimation : " + fromValue);
 
 		if( fromValue == "brand" ) {
 			Brand.init();
