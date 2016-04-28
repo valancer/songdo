@@ -218,6 +218,7 @@ var Navigation = (function ($) {
 		$selected.closest('li').addClass("is-selected");
 
 		_lastSelected = target;
+		isBeforeAnimating = false;
 	}
 
 	return {
@@ -269,10 +270,7 @@ var Scene = (function ($) {
 			.from('.scene.home .title', 0.5, {opacity: 0, y: 30})
 			.from('.scene.home .description', 0.5, {opacity: 0, y: 30})
 			.from('.scene.home .wally', 0.5, {opacity: 0})
-			.add([
-				TweenMax.from('.scene.home .btn-start', 0.5, {opacity: 0, y: -30, onComplete:finishAnimation, onCompleteParams:["home"]}),
-				// TweenMax.fromTo('.scene.home .wally', 1, {y: 30}, {y: 10, ease: Quad.easeInOut, repeat: -1, yoyo: true})
-			]);
+			.from('.scene.home .btn-start', 0.5, {opacity: 0, y: -30, onComplete:finishAnimation, onCompleteParams:["home"]});
 		var sceneHome = new ScrollMagic.Scene({
 			triggerElement: ".scene.home",
 			triggerHook: 'onLeave'
@@ -519,6 +517,11 @@ var Scene = (function ($) {
 		Navigation.updateAnchor(smartscroll.getHash());
 
 		if( smartscroll.getHash() != "#!home" ) {
+			TweenMax.set('.scene.home .moon', {opacity: 0});
+			TweenMax.set('.scene.home .title', {opacity: 0});
+			TweenMax.set('.scene.home .description', {opacity: 0});
+			TweenMax.set('.scene.home .wally', {opacity: 0});
+			TweenMax.set('.scene.home .btn-start', {opacity: 0});
 			sceneData[0].animation.pause(0, true);
 		}
 
