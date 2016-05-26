@@ -397,10 +397,10 @@ var Scene = (function ($) {
 		/* scene : ending */
 		var endingAnimation = new TimelineMax({onStart:startAnimation, onStartParams:["ending"], onComplete:finishAnimation, onCompleteParams:["ending"]})
 			.from('.scene.ending .title-time', 0.5, {opacity: 0})
-			.add([
-				TweenMax.from('.scene.ending .mouth', 0.5, {delay: 1, opacity: 0, y: -30}),
-				TweenMax.from('.scene.ending .open-event', 0.5, {delay: 1, opacity: 0, y: 100})
-			]);
+			.from('.scene.ending .people', 0.5, {delay: 1, opacity: 0, x: -30})
+			.from('.scene.ending .txt01', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.ending .txt02', 0.5, {delay: 1, opacity: 0})
+			.from('.scene.ending .txt03', 1, {delay: 1, opacity: 0});
 
 		var sceneEnding = new ScrollMagic.Scene({
 			triggerElement: ".scene.ending",
